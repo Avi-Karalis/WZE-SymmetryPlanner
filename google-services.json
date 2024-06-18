@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "598809085474",
+    "project_id": "wze-symmetry-planner",
+    "storage_bucket": "wze-symmetry-planner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598809085474:android:1165aaa68778370988ac7b",
+        "android_client_info": {
+          "package_name": "com.rn.wze_symmetry_planner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8qe0ekt1DVRJ1RlwqFqkbvWPyvkPe--g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

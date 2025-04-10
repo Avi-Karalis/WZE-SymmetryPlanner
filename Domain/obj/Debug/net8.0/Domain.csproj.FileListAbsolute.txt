@@ -1,0 +1,13 @@
+D:\repos\WZE-SymmetryPlanner\Domain\bin\Debug\net8.0\Domain.deps.json
+D:\repos\WZE-SymmetryPlanner\Domain\bin\Debug\net8.0\Domain.dll
+D:\repos\WZE-SymmetryPlanner\Domain\bin\Debug\net8.0\Domain.pdb
+D:\repos\WZE-SymmetryPlanner\Domain\obj\Debug\net8.0\Domain.csproj.AssemblyReference.cache
+D:\repos\WZE-SymmetryPlanner\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\repos\WZE-SymmetryPlanner\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
+D:\repos\WZE-SymmetryPlanner\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
+D:\repos\WZE-SymmetryPlanner\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+D:\repos\WZE-SymmetryPlanner\Domain\obj\Debug\net8.0\Domain.sourcelink.json
+D:\repos\WZE-SymmetryPlanner\Domain\obj\Debug\net8.0\Domain.dll
+D:\repos\WZE-SymmetryPlanner\Domain\obj\Debug\net8.0\refint\Domain.dll
+D:\repos\WZE-SymmetryPlanner\Domain\obj\Debug\net8.0\Domain.pdb
+D:\repos\WZE-SymmetryPlanner\Domain\obj\Debug\net8.0\ref\Domain.dll

@@ -1,0 +1,12 @@
+C:\repos\WZE-SymmetryPlanner\Application\bin\Debug\net8.0\Application.deps.json
+C:\repos\WZE-SymmetryPlanner\Application\bin\Debug\net8.0\Application.dll
+C:\repos\WZE-SymmetryPlanner\Application\bin\Debug\net8.0\Application.pdb
+C:\repos\WZE-SymmetryPlanner\Application\obj\Debug\net8.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\repos\WZE-SymmetryPlanner\Application\obj\Debug\net8.0\Application.AssemblyInfoInputs.cache
+C:\repos\WZE-SymmetryPlanner\Application\obj\Debug\net8.0\Application.AssemblyInfo.cs
+C:\repos\WZE-SymmetryPlanner\Application\obj\Debug\net8.0\Application.csproj.CoreCompileInputs.cache
+C:\repos\WZE-SymmetryPlanner\Application\obj\Debug\net8.0\Application.sourcelink.json
+C:\repos\WZE-SymmetryPlanner\Application\obj\Debug\net8.0\Application.dll
+C:\repos\WZE-SymmetryPlanner\Application\obj\Debug\net8.0\refint\Application.dll
+C:\repos\WZE-SymmetryPlanner\Application\obj\Debug\net8.0\Application.pdb
+C:\repos\WZE-SymmetryPlanner\Application\obj\Debug\net8.0\ref\Application.dll

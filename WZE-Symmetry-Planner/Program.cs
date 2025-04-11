@@ -1,7 +1,6 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.Data;
-using Infrastructure.Data.DependencyInjection;
+using Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 Env.Load();

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "f+J67U9Z9As=",
+  "dgSpecHash": "vYH0GBfgMUw=",
   "success": true,
-  "projectFilePath": "C:\\repos\\WZE-SymmetryPlanner\\WZE-Symmetry-Planner\\WZE-Symmetry-Planner\\WZE-Symmetry-Planner.csproj",
+  "projectFilePath": "C:\\repos\\WZE-SymmetryPlanner\\WZE-Symmetry-Planner\\WZE-Symmetry-Planner.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\averkios.karalis\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\averkios.karalis\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

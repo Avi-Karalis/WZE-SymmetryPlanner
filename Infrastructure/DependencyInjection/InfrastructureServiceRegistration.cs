@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
 
-namespace Infrastructure.Data.DependencyInjection {
+namespace Infrastructure.DependencyInjection {
     public static class InfrastructureServiceRegistration {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) {
             services.AddDbContext<ApplicationDbContext>(options =>

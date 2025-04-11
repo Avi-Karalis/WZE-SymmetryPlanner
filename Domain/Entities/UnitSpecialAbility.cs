@@ -6,8 +6,8 @@ namespace Domain.Entities {
     [Table("UnitSpecialAbilities")]
     public class UnitSpecialAbility : BaseEntity {
         public required string Name { get; set; }
-        public string? NumericValueX { get; set; }
-        public string? NumericValueY { get; set; }
+        public string? ValueX { get; set; }
+        public string? ValueY { get; set; }
         public required string Description { get; set; }
     }
 }

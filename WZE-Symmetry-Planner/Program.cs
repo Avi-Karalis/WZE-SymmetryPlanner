@@ -1,10 +1,14 @@
-using DotNetEnv;
+﻿using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 Env.Load();
 // Add services to the container.
+string? password = Environment.GetEnvironmentVariable("POSTGRESPSW");
+string? connectionString = $"Host=localhost;Port=5432;Database=WZE-Symmetry-Planner;Username=postgres;Password={password}";
+Console.WriteLine($"📡 Connection string: {connectionString}");
+builder.Configuration["ConnectionStrings:DefaultConnection"] = connectionString;
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddRepositories();
 builder.Services.AddControllers();

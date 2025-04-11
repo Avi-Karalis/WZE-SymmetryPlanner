@@ -28,12 +28,17 @@ namespace Infrastructure.Data
             WeaponSpecialAbility concussive = new() { Name = "Concussive", Description = "All Units in the Threat Zone created when this weapon performs a Shoot Action receive a Pinned Counter after the action, regardless of the Success of the Shoot Action." };
             WeaponSpecialAbility continuous = new() { Name = "Continuous", Description = "If a Unit Fails an Armor Test against this Weapon, it immediately takes another hit nusing the Weapon’s DAM Rating (ignoring Aim or other bonuses). A Failed Armor Test against this second hit will not trigger the Continuous Weapon Special Ability." };
             WeaponSpecialAbility divine = new() { Name = "Explosive", ValueX = "1", Description = "This Weapon is subject to the Explosive Area of Effect Weapon rules and has a nThreat Zone {X} inches in radius." };
+            WeaponSpecialAbility explosive1 = new() { Name = "Explosive", ValueX = "1", Description = "This Weapon is subject to the Explosive Area of Effect Weapon rules and has a Threat Zone {X} inches in radius." };
+            WeaponSpecialAbility explosive2 = new() { Name = "Explosive", ValueX = "2", Description = "This Weapon is subject to the Explosive Area of Effect Weapon rules and has a Threat Zone {X} inches in radius." };
+            WeaponSpecialAbility explosive3 = new() { Name = "Explosive", ValueX = "3", Description = "This Weapon is subject to the Explosive Area of Effect Weapon rules and has a Threat Zone {X} inches in radius." };
             WeaponSpecialAbility indirect = new() { Name = "Indirect", Description = "This Weapon may perform Indirect Fire Shoot Actions." };
             WeaponSpecialAbility multiStrike1 = new() { Name = "Multi-strike", ValueX = "1", Description = "For each Strike Action with this Weapon, a Strike Action Test may be assigned nto up to {X} Enemy Units." };
             WeaponSpecialAbility multiStrike2 = new() { Name = "Multi-strike", ValueX = "2", Description = "For each Strike Action with this Weapon, a Strike Action Test may be assigned nto up to {X} Enemy Units." };
             WeaponSpecialAbility multiStrike3 = new() { Name = "Multi-strike", ValueX = "3", Description = "For each Strike Action with this Weapon, a Strike Action Test may be assigned nto up to {X} Enemy Units." };
             WeaponSpecialAbility projected = new() { Name = "Projected", Description = "This Weapon is subject to the Projected Area of Effect Weapon rules." };
-            WeaponSpecialAbility reach = new() { Name = "Reach", ValueX = "1", Description = "Units armed with this Weapon may perform Strike Actions against Enemy Units in Clear or Obstructed LOS up to {X} inches away, including as part of a Charge Action, even though nthe Units are not Engaged." };
+            WeaponSpecialAbility reach1 = new() { Name = "Reach", ValueX = "1", Description = "Units armed with this Weapon may perform Strike Actions against Enemy Units in Clear or Obstructed LOS up to {X} inches away, including as part of a Charge Action, even though nthe Units are not Engaged." };
+            WeaponSpecialAbility reach2 = new() { Name = "Reach", ValueX = "2", Description = "Units armed with this Weapon may perform Strike Actions against Enemy Units in Clear or Obstructed LOS up to {X} inches away, including as part of a Charge Action, even though nthe Units are not Engaged." };
+            WeaponSpecialAbility reach3 = new() { Name = "Reach", ValueX = "3", Description = "Units armed with this Weapon may perform Strike Actions against Enemy Units in Clear or Obstructed LOS up to {X} inches away, including as part of a Charge Action, even though nthe Units are not Engaged." };
             WeaponSpecialAbility recoil1 = new() { Name = "Recoil", ValueX = "1", Description = "The TN for any Shoot or Strike Actions performed with this Weapon suffer a -{X} npenalty." };
             WeaponSpecialAbility recoil2 = new() { Name = "Recoil", ValueX = "2", Description = "The TN for any Shoot or Strike Actions performed with this Weapon suffer a -{X} npenalty." };
             WeaponSpecialAbility recoil3 = new() { Name = "Recoil", ValueX = "3", Description = "The TN for any Shoot or Strike Actions performed with this Weapon suffer a -{X} npenalty." };
@@ -50,7 +55,7 @@ namespace Infrastructure.Data
             WeaponSpecialAbility thrust5 = new() { Name = "Thrust", ValueX = "5", Description = "When performing a Strike Action as part of a Charge Action, increase the DAM of this Weapon by {X}." };
             WeaponSpecialAbility vicious = new() { Name = "Vicious", Description = "This Weapon’s DAM increases by +2 per Wound Counter on an Enemy Unit targeted by a Strike or Shoot Action using this Weapon. Strike Actions additionally receive +2 to the Unit’s CC Rating per Wound Counter." };
 
-            List<WeaponSpecialAbility> weaponSpecialAbilities = [accurate1, accurate2, accurate3, accurate4, burst1, burst2, burst3, burst4, cloud1, cloud2, cloud3, concussive, continuous, divine, indirect, multiStrike1, multiStrike3, multiStrike2, projected, reach, recoil1, recoil2, recoil3, recoil4, silenced, smoke, suppressive, symmetry, terrifying, thrust1, thrust2, thrust3, thrust4, thrust5, vicious];
+            List<WeaponSpecialAbility> weaponSpecialAbilities = [accurate1, accurate2, accurate3, accurate4, burst1, burst2, burst3, burst4, cloud1, cloud2, cloud3, concussive, continuous, divine, explosive1, explosive2, explosive3 ,indirect, multiStrike1, multiStrike3, multiStrike2, projected, reach1, reach2, reach3, recoil1, recoil2, recoil3, recoil4, silenced, smoke, suppressive, symmetry, terrifying, thrust1, thrust2, thrust3, thrust4, thrust5, vicious];
             context.WeaponSpecialAbilities.AddRange(weaponSpecialAbilities);
             context.SaveChanges();
 
@@ -147,7 +152,48 @@ namespace Infrastructure.Data
                 controller3, controller6, controller9, controller12, determination, dodge, driven, duelist1, duelist2, duelist3, dutiful, entrenched, evasive2, executioner1, executioner2, executioner4, executioner5, faith1, faith2, fearless, fierceCharge, firingStance, firstAid8, firstAid10, firstAid11, firstAid12, firstAid13, firstStrike, flight, focusedFire, group2, group3, guerilla5, gymnastic, honorbound, impact2, inspire, nervesOfSteel, networked, packHunterPS, preciseSenses, rebreather0, rebreather2, rebreather5, recruit, relentless, scoutAhead, shadowed, shakeItOff, shift, tactical, trailblaze, trainingC1VR, volatileEnd18, zombie];
             context.UnitSpecialAbilities.AddRange(unitSpecialAbilities);
 
-
+            Weapon punisherShortSword = new() {Name= "Punisher Shortsword", CCMod = 1, CCDam = 7, CritFail = 20 ,WeaponSpecialAbilities = [reach1, vicious] };
+            Weapon mp105HG = new() {Name= "MP-105 Handgun", CCMod = 1, CCDam = 12, ShortRange = 6, ShortRangeDam = 12, ShortRangeMod = 1, LongRange = 18, LongRangeDam = 12, LongRangeMod = -12, CritFail = 20 ,WeaponSpecialAbilities = [] };
+            Weapon punisherHandgun = new() {Name= "Punisher Handgun", CCMod = -2, CCDam = 12, ShortRange = 6, ShortRangeDam = 13, ShortRangeMod = 0, LongRange = 18, LongRangeDam = 12, LongRangeMod = -2, CritFail = 20 ,WeaponSpecialAbilities = [] };
+            Weapon mp103SMG = new() {Name= "MP-103 SMG", ShortRange = 6, ShortRangeDam = 12, ShortRangeMod = 0, LongRange = 18, LongRangeDam = 11, LongRangeMod = -1, CritFail = 19 ,WeaponSpecialAbilities = [burst2] };
+            Weapon hg14SG = new() {Name= "HG-13 Shotgun", ShortRange = 6, ShortRangeDam = 13, ShortRangeMod = 1, LongRange = 18, LongRangeDam = 11, LongRangeMod = -1, CritFail = 20, DamageMultiplier = 2 ,WeaponSpecialAbilities = [] };
+            Weapon ag17AR = new() {Name= "AG-17 Assault Rifle", ShortRange = 12, ShortRangeDam = 12, ShortRangeMod = 0, LongRange = 36, LongRangeDam = 12, LongRangeMod = -1, CritFail = 20 ,WeaponSpecialAbilities = [] };
+            Weapon psg99SR = new() {Name= "PSG-99 Sniper Rifle", ShortRange = 24, ShortRangeMod = 1, ShortRangeDam = 14, LongRange = 48, LongRangeDam = 13, LongRangeMod = 1, CritFail = 20 ,WeaponSpecialAbilities = [accurate3] };
+            Weapon mg80HMG = new() {Name= "MG-80 HGM", ShortRange = 24, ShortRangeMod = 0, ShortRangeDam = 14, LongRange = 48, LongRangeDam = 13, LongRangeMod = 1, CritFail = 19 ,WeaponSpecialAbilities = [burst3, recoil4] };
+            Weapon gehennaPuker = new() { Name = "Gehenna Puker", ShortRange = 10, ShortRangeMod = 3, ShortRangeDam = 13, CritFail = 17, WeaponSpecialAbilities = [continuous, projected] };
+            Weapon frags = new() { Name = "Frag Grenades", LongRange = 4, LongRangeDam = 11, LongRangeMod = -1, CritFail = 20, WeaponSpecialAbilities = [explosive2, indirect] };
+            Weapon smokes = new() { Name = "Smoke Grenades", LongRange = 4, LongRangeMod = 0, CritFail = 20, WeaponSpecialAbilities = [cloud2, indirect, smoke] };
+            Weapon mg40LMG = new() { Name = "MG-40 LMG", ShortRange = 12, ShortRangeMod = 0, ShortRangeDam = 13, LongRange = 36, LongRangeDam = -1, LongRangeMod = 13, CritFail = 19, WeaponSpecialAbilities = [burst2, recoil3] };
+            Weapon ceremonialBlades= new() { Name = "Ceremonial Blades", CCMod = 2, CCDam = 8, CritFail = 20, WeaponSpecialAbilities = [reach1] };
+            Weapon m13HG = new() { Name = "M13 Handgun", CCMod = 1, CCDam = 12, ShortRange = 6, ShortRangeMod = 0, ShortRangeDam = 12, LongRange = 18, LongRangeDam = 11, LongRangeMod = -2, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon car24SMG = new() { Name = "CAR-24 SMG", ShortRange = 6, ShortRangeMod = 0, ShortRangeDam = 12, LongRange = 18, LongRangeDam = 11, LongRangeMod = -1, CritFail = 19, WeaponSpecialAbilities = [burst2] };
+            Weapon m516SSG = new() { Name = "M516 Shotgun", ShortRange = 6, ShortRangeMod = 1, ShortRangeDam = 13, LongRange = 18,  LongRangeMod = -3, LongRangeDam = 11, CritFail = 20, DamageMultiplier = 2, WeaponSpecialAbilities = [] };
+            Weapon m50AR = new() { Name = "M-50 Assault Rifle", ShortRange = 12, ShortRangeMod = 0, ShortRangeDam = 13, LongRange = 36,  LongRangeMod = -2, LongRangeDam = 13, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon dpat9RL = new() { Name = "DPAT-9 Rocket Launcher",ShortRange = 24, ShortRangeMod = -1, ShortRangeDam = 12, LongRange = 48,  LongRangeMod = -3, LongRangeDam = 12, CritFail = 18, WeaponSpecialAbilities = [explosive2, suppressive] };
+            Weapon underslungGL = new() { Name = "Underslung Grenade Launcher", ShortRange = 12, ShortRangeMod = 0, ShortRangeDam = 11, LongRange = 36,  LongRangeMod = -1, LongRangeDam = 11, CritFail = 18, WeaponSpecialAbilities = [explosive2, indirect] };
+            Weapon chainripper = new() { Name = "Chainripper", CCMod = -1, CCDam = 13, DamageMultiplier=2, CritFail = 19, WeaponSpecialAbilities = [continuous, reach1] };
+            Weapon bootknife = new() { Name = "Boot Knife", CCMod = 0, CCDam = 4, WeaponSpecialAbilities = [] };
+            Weapon M606LMG = new() { Name = "M606 LMG", ShortRange = 12, ShortRangeMod = 0, ShortRangeDam = 13, LongRange = 24,  LongRangeMod = -1, LongRangeDam = 13, CritFail = 19, WeaponSpecialAbilities = [burst2,recoil3] };
+            Weapon csa404Sword = new() { Name = "CSA-404 Sword", CCMod = 1, CCDam = 6, CritFail = 20, WeaponSpecialAbilities = [reach1, vicious] };
+            Weapon p1000HG= new() { Name = "P1000 Handgun", CCMod = 0, CCDam = 12, ShortRange = 6, ShortRangeMod = 1, ShortRangeDam = 12, LongRange = 18,  LongRangeMod = -1, LongRangeDam = 12, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon sasG72001Shotgun = new() { Name = "SA-SG72001 Shotgun", ShortRange = 6, ShortRangeMod = 1, ShortRangeDam = 13, LongRange = 18,  LongRangeMod = -2, LongRangeDam = 12, CritFail = 20, DamageMultiplier =2, WeaponSpecialAbilities = [] };
+            Weapon ar3000 = new() { Name = "AR-3000 Assault Rifle", ShortRange = 12, ShortRangeMod = 0, ShortRangeDam = 13, LongRange = 36,  LongRangeMod = -1, LongRangeDam = 13, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon sSW4200PHMG = new() { Name = "SSW4200P HMG", ShortRange = 24, ShortRangeMod = 1, ShortRangeDam = 13, LongRange = 48,  LongRangeMod = -2, LongRangeDam = 13, CritFail = 20, WeaponSpecialAbilities = [burst3, recoil4] };
+            Weapon flashGrenades = new() { Name = "Flash Grenades", LongRange = 4,  LongRangeMod = 0, CritFail = 20, WeaponSpecialAbilities = [concussive,explosive3, indirect] };
+            //imperial
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
+            Weapon rmpl = new() { Name = "", CCMod = 0, CCDam = 0, ShortRange = 0, ShortRangeMod = 0, ShortRangeDam = 0, LongRange = 0,  LongRangeMod = 0, LongRangeDam = 0, CritFail = 20, WeaponSpecialAbilities = [] };
             
             List<Weapon> weapons = new() { };
 

@@ -6,17 +6,18 @@ namespace Domain.Entities {
     public class Weapon : BaseEntity {
         public required string Name { get; set; }
         public required ICollection<WeaponSpecialAbility> WeaponSpecialAbilities { get; set; }
-        public required sbyte CCMod { get; set; }
-        public required sbyte CCDam { get; set; }
+        public sbyte? CCMod { get; set; } 
+        public sbyte? CCDam { get; set; } 
 
-        public required sbyte ShortRange { get; set; }
-        public required sbyte ShortRangeMod { get; set; }
-        public required sbyte ShortRangeDam { get; set; }
+        public sbyte? ShortRange { get; set; } 
+        public sbyte? ShortRangeMod { get; set; }
+        public sbyte? ShortRangeDam { get; set; }
 
-        public required sbyte LongRange { get; set; }
-        public required sbyte LongRangeMod { get; set; }
-        public required sbyte LongRangeDam { get; set; }
+        public sbyte? LongRange { get; set; }
+        public sbyte? LongRangeMod { get; set; }
+        public sbyte? LongRangeDam { get; set; }
 
+        public sbyte DamageMultiplier { get; set; } = 1;
         public sbyte CritFail {  get; set; } = 20;
 
         public ICollection<UnitWeapon> UnitWeapon { get; set; } = new List<UnitWeapon>();

@@ -8,7 +8,7 @@ namespace Domain.Entities {
         public required string Faction { get; set; }
         public required string UnitType { get; set; }
         public required IEnumerable<string> Designation { get; set; }
-        public IEnumerable<UnitSpecialAbility>? UnitSpecialAbilities { get; set; }
+        public ICollection<UnitSpecialAbility>? UnitSpecialAbilities { get; set; }
         public required sbyte DPCost { get; set; }
         public required sbyte SPCost { get; set; }
         public required sbyte MV {  get; set; }
@@ -20,9 +20,10 @@ namespace Domain.Entities {
         public required sbyte W { get; set; }
         public required sbyte PW { get; set; }
         public required sbyte LD { get; set; }
-        public IEnumerable<string>? FactionAvailabilities { get; set; }
+        public ICollection<string>? FactionAvailabilities { get; set; }
         public required sbyte Base { get; set; }
 
-        public required IEnumerable<UnitWeapon> Weapons { get; set; }
+        public ICollection<UnitWeapon> UnitWeapon { get; set; } = new List<UnitWeapon>();
+
     }
 }

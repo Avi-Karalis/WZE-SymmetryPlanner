@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options) {
+        public DbSet<UnitWeapon> UnitWeapons { get; set; }
         public DbSet<WeaponSpecialAbility> WeaponSpecialAbilities => Set<WeaponSpecialAbility>();
         public DbSet<UnitSpecialAbility> UnitSpecialAbilities => Set<UnitSpecialAbility>();
         public DbSet<Unit> Units => Set<Unit>();
@@ -14,9 +15,8 @@ namespace Infrastructure.Data {
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            modelBuilder.Entity<Unit>().HasMany(u => u.Weapons).WithOne().OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Unit>().HasMany(u => u.UnitSpecialAbilities).WithOne().OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Weapon>().HasMany(w => w.WeaponSpecialAbilities).WithOne().OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<UnitWeapon>().HasOne(uw => uw.Unit).WithMany(u => u.Weapons).HasForeignKey(uw=>uw.UnitId);
+            modelBuilder.Entity<UnitWeapon>().HasOne(uw => uw.Weapon).WithMany(u => u.UnitWeapon).HasForeignKey(uw=>uw.WeaponId);
 
             // Soft delete filter (optional)
             //modelBuilder.Entity<SpecialAbility>().HasQueryFilter(w => w.DeletedAt == null);

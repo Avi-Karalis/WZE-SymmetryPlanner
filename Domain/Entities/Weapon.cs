@@ -5,7 +5,7 @@ namespace Domain.Entities {
     [Table("Weapons")]
     public class Weapon : BaseEntity {
         public required string Name { get; set; }
-        public required List<WeaponSpecialAbility> WeaponSpecialAbilities { get; set; }
+        public required IEnumerable<WeaponSpecialAbility> WeaponSpecialAbilities { get; set; }
         public required sbyte CCMod { get; set; }
         public required sbyte CCDam { get; set; }
 
@@ -18,5 +18,7 @@ namespace Domain.Entities {
         public required sbyte LongRangeDam { get; set; }
 
         public sbyte CritFail {  get; set; } = 20;
+
+        public IEnumerable<UnitWeapon> UnitWeapon { get; set; }
     }
 }

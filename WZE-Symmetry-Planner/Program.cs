@@ -1,6 +1,7 @@
 ﻿using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.DependencyInjection;
+using Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 Env.Load();
@@ -18,6 +19,12 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+
+using (var scope = app.Services.CreateScope()) {
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    SeedData.Seed(context);
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

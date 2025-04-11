@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate2 : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,6 +19,8 @@ namespace Infrastructure.Migrations
                     Faction = table.Column<string>(type: "text", nullable: false),
                     UnitType = table.Column<string>(type: "text", nullable: false),
                     Designation = table.Column<string[]>(type: "text[]", nullable: false),
+                    DesignationTypeLimit = table.Column<string>(type: "text", nullable: true),
+                    DesignationLimitValue = table.Column<short>(type: "smallint", nullable: false),
                     DPCost = table.Column<short>(type: "smallint", nullable: false),
                     SPCost = table.Column<short>(type: "smallint", nullable: false),
                     MV = table.Column<short>(type: "smallint", nullable: false),
@@ -71,7 +73,8 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    NumericValue = table.Column<short>(type: "smallint", nullable: true),
+                    ValueX = table.Column<string>(type: "text", nullable: true),
+                    ValueY = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: false),
                     UnitId = table.Column<Guid>(type: "uuid", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -118,7 +121,8 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    NumericValue = table.Column<short>(type: "smallint", nullable: true),
+                    ValueX = table.Column<string>(type: "text", nullable: true),
+                    ValueY = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: false),
                     WeaponId = table.Column<Guid>(type: "uuid", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),

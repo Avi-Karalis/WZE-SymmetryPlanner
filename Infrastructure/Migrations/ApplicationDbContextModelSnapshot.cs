@@ -53,6 +53,12 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text[]");
 
+                    b.Property<short>("DesignationLimitValue")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("DesignationTypeLimit")
+                        .HasColumnType("text");
+
                     b.Property<string>("Faction")
                         .IsRequired()
                         .HasColumnType("text");
@@ -113,14 +119,17 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<short?>("NumericValue")
-                        .HasColumnType("smallint");
-
                     b.Property<Guid?>("UnitId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ValueX")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ValueY")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -215,11 +224,14 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<short?>("NumericValue")
-                        .HasColumnType("smallint");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ValueX")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ValueY")
+                        .HasColumnType("text");
 
                     b.Property<Guid?>("WeaponId")
                         .HasColumnType("uuid");

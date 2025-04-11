@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
+using Infrastructure.Interfaces;
+using Infrastructure.Repositories;
 
 namespace Infrastructure.DependencyInjection {
     public static class InfrastructureServiceRegistration {
@@ -9,7 +11,12 @@ namespace Infrastructure.DependencyInjection {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );
+            
+            return services;
+        }
 
+        public static IServiceCollection AddRepositories(this IServiceCollection services) {
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository <>));
             return services;
         }
     }

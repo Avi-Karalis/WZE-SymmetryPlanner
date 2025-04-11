@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities {
+
+    [Table("Weapons")]
     public class Weapon : BaseEntity {
-        public string Name { get; set; }
-        public List<SpecialAbility> SpecialAbility { get; set; }
-        public sbyte CCMod { get; set; }
-        public sbyte CCDam { get; set; }
+        public required string Name { get; set; }
+        public required List<WeaponSpecialAbility> WeaponSpecialAbilities { get; set; }
+        public required sbyte CCMod { get; set; }
+        public required sbyte CCDam { get; set; }
 
-        public sbyte ShortRange { get; set; }
-        public sbyte ShortRangeMod { get; set; }
-        public sbyte ShortRangeDam { get; set; }
+        public required sbyte ShortRange { get; set; }
+        public required sbyte ShortRangeMod { get; set; }
+        public required sbyte ShortRangeDam { get; set; }
 
-        public sbyte LongRange { get; set; }
-        public sbyte LongRangeMod { get; set; }
-        public sbyte LongRangeDam { get; set; }
+        public required sbyte LongRange { get; set; }
+        public required sbyte LongRangeMod { get; set; }
+        public required sbyte LongRangeDam { get; set; }
 
-        public sbyte CritFail {  get; set; }
+        public sbyte CritFail {  get; set; } = 20;
     }
 }

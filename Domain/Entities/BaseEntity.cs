@@ -1,6 +1,8 @@
 ﻿
+using Domain.Interfaces;
+
 namespace Domain.Entities {
-    public abstract class BaseEntity {
+    public abstract class BaseEntity : IEntity {
         public Guid Id { get; set; }
         public DateTime? DeletedAt { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Domain.Entities {
+
+    [Table("Units")]
     public class Unit : BaseEntity {
         public required string Faction { get; set; }
         public required string UnitType { get; set; }
-        public List<string> Designation { get; set; }
-        public List<SpecialAbility> SpecialAbility { get; set; }
+        public required List<string> Designation { get; set; }
+        public List<UnitSpecialAbility>? UnitSpecialAbilities { get; set; }
         public required sbyte DPCost { get; set; }
         public required sbyte SPCost { get; set; }
         public required sbyte MV {  get; set; }

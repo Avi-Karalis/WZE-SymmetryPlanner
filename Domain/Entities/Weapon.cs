@@ -17,8 +17,11 @@ namespace Domain.Entities {
         public sbyte? LongRangeMod { get; set; }
         public sbyte? LongRangeDam { get; set; }
 
-        public sbyte DamageMultiplier { get; set; } = 1;
+        public sbyte CCDamageMultiplier { get; set; } = 1;
+        public sbyte SRDamageMultiplier { get; set; } = 1;
+        public sbyte LRDamageMultiplier { get; set; } = 1;
         public sbyte CritFail {  get; set; } = 20;
+        public bool DynamicDAM {  get; set; } = false;
 
         public ICollection<UnitWeapon> UnitWeapon { get; set; } = new List<UnitWeapon>();
 

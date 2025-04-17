@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "sgaPF2ev78I=",
+  "dgSpecHash": "xJYzjlsZiOw=",
   "success": true,
-  "projectFilePath": "D:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\averkios.karalis\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.15\\microsoft.windowsdesktop.app.ref.8.0.15.nupkg.sha512",
+    "C:\\Users\\averkios.karalis\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.15\\microsoft.netcore.app.ref.8.0.15.nupkg.sha512",
+    "C:\\Users\\averkios.karalis\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.15\\microsoft.aspnetcore.app.ref.8.0.15.nupkg.sha512"
+  ],
   "logs": []
 }

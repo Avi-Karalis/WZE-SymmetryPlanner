@@ -5,7 +5,7 @@ namespace Domain.Entities {
     [Table("Weapons")]
     public class Weapon : BaseEntity {
         public required string Name { get; set; }
-        public required ICollection<WeaponSpecialAbility> WeaponSpecialAbilities { get; set; }
+        public required ICollection<WeaponWeaponSpecialAbility> WeaponWeaponSpecialAbility { get; set; }
         public sbyte? CCMod { get; set; } 
         public sbyte? CCDam { get; set; } 
 

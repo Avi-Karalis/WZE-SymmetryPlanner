@@ -10,9 +10,9 @@ namespace Infrastructure.Data
         public static void Seed(ApplicationDbContext context) {
 
             // Check if any data already exists to avoid seeding again
-            if (context.Units.Any() || context.Weapons.Any() || context.WeaponSpecialAbilities.Any() || context.UnitSpecialAbilities.Any()) {
-                return; 
-            }
+            //if (context.Units.Any() || context.Weapons.Any() || context.WeaponSpecialAbilities.Any() || context.UnitSpecialAbilities.Any()) {
+            //    return; 
+            //}
             WeaponSpecialAbility accurate1 = new() { Name = "Accurate", ValueX = "1", Description = "Shoot Actions performed with this Weapon score Critical Successes on a natural roll of {X} or lower, instead of only on a natural roll of “1.”" };
             WeaponSpecialAbility accurate2 = new() { Name = "Accurate", ValueX = "2", Description = "Shoot Actions performed with this Weapon score Critical Successes on a natural roll of {X} or lower, instead of only on a natural roll of “1.”" };
             WeaponSpecialAbility accurate3 = new() { Name = "Accurate", ValueX = "3", Description = "Shoot Actions performed with this Weapon score Critical Successes on a natural roll of {X} or lower, instead of only on a natural roll of “1.”" };
@@ -57,7 +57,7 @@ namespace Infrastructure.Data
             WeaponSpecialAbility flurry2 = new() { Name = "Flurry", ValueX = "2", Description = "Strike Actions with this Weapon may perform up to {X} Strike Action Tests assigned to any combination of Engaged Targets." };
             List<WeaponSpecialAbility> weaponSpecialAbilities = [flurry2, gruesome3, accurate1, accurate2, accurate3, accurate4, burst1, burst2, burst3, burst4, cloud1, cloud2, cloud3, concussive, continuous, divine, explosive1, explosive2, explosive3, indirect, multiStrike1, multiStrike3, multiStrike2, projected, reach1, reach2, reach3, recoil1, recoil2, recoil3, recoil4, silenced, smoke, suppressive, symmetry, terrifying, thrust1, thrust2, thrust3, thrust4, thrust5, vicious];
             context.WeaponSpecialAbilities.AddRange(weaponSpecialAbilities);
-            context.SaveChanges();
+
 
             UnitSpecialAbility aggressive = new() { Name = "Aggresive", Description = "After this Unit completes a Shoot Action it may be moved 2” toward any Enemy Unit to which it has non-Blocked LOS." };
             UnitSpecialAbility art2 = new() { Name = "Art", ValueX = "2", Description = "This Unit chooses {X} different Art Disciplines from its available choices during Game Setup." };
@@ -239,7 +239,7 @@ namespace Infrastructure.Data
 
             context.Weapons.AddRange(weapons);
 
-            context.SaveChanges();
+
             List<Unit> units = new() { };
             // Seed data for BH Units
             Unit venusianRangerTrooper = new("Bauhaus", "Venusian Ranger", ["Trooper"], 4, 0, 4, 14, 12, 6, 0, 22, 2, 12, 12, 30, null, 0, new List<UnitSpecialAbility> { camouflage1, determination }, ["Bauhaus"]);

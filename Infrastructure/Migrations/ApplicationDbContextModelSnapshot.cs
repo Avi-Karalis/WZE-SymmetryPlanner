@@ -159,10 +159,13 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<short>("CCDam")
+                    b.Property<short?>("CCDam")
                         .HasColumnType("smallint");
 
-                    b.Property<short>("CCMod")
+                    b.Property<short>("CCDamageMultiplier")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("CCMod")
                         .HasColumnType("smallint");
 
                     b.Property<DateTime>("CreatedAt")
@@ -174,26 +177,35 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<short>("LongRange")
+                    b.Property<bool>("DynamicDAM")
+                        .HasColumnType("boolean");
+
+                    b.Property<short>("LRDamageMultiplier")
                         .HasColumnType("smallint");
 
-                    b.Property<short>("LongRangeDam")
+                    b.Property<short?>("LongRange")
                         .HasColumnType("smallint");
 
-                    b.Property<short>("LongRangeMod")
+                    b.Property<short?>("LongRangeDam")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("LongRangeMod")
                         .HasColumnType("smallint");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<short>("ShortRange")
+                    b.Property<short>("SRDamageMultiplier")
                         .HasColumnType("smallint");
 
-                    b.Property<short>("ShortRangeDam")
+                    b.Property<short?>("ShortRange")
                         .HasColumnType("smallint");
 
-                    b.Property<short>("ShortRangeMod")
+                    b.Property<short?>("ShortRangeDam")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("ShortRangeMod")
                         .HasColumnType("smallint");
 
                     b.Property<DateTime?>("UpdatedAt")

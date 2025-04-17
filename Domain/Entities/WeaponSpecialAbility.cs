@@ -9,5 +9,6 @@ namespace Domain.Entities {
         public string? ValueX { get; set; }
         public string? ValueY { get; set; }
         public required string Description { get; set; }
+        public required ICollection<WeaponWeaponSpecialAbility> WeaponWeaponSpecialAbility { get; set; }
     }
 }

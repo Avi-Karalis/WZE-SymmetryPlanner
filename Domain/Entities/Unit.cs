@@ -10,7 +10,7 @@ namespace Domain.Entities {
         public IEnumerable<string> Designation { get; set; }
         public string? DesignationTypeLimit { get; set; }
         public sbyte DesignationLimitValue { get; set; } = 0;
-        public ICollection<UnitSpecialAbility>? UnitSpecialAbilities { get; set; }
+        public ICollection<UnitUnitSpecialAbility>? UnitUnitSpecialAbility { get; set; }
         public sbyte DPCost { get; set; }
         public sbyte SPCost { get; set; }
         public sbyte MV {  get; set; }
@@ -26,7 +26,7 @@ namespace Domain.Entities {
         public sbyte Base { get; set; }
 
         public ICollection<UnitWeapon>? UnitWeapon { get; set; }
-
+        public Unit() { }
         public Unit(
             string faction,
             string unitType,
@@ -67,7 +67,6 @@ namespace Domain.Entities {
                 Base = @base;
                 DesignationTypeLimit = designationTypeLimit;
                 DesignationLimitValue = designationLimitValue;
-                UnitSpecialAbilities = unitSpecialAbilities ?? new List<UnitSpecialAbility>();
                 FactionAvailabilities = factionAvailabilities ?? new List<string>();
                 UnitWeapon = unitWeapon ?? new List<UnitWeapon>();
             } else if (designation.Contains("Leader")) {
@@ -88,7 +87,6 @@ namespace Domain.Entities {
                 Base = @base;
                 DesignationTypeLimit = designationTypeLimit;
                 DesignationLimitValue = designationLimitValue;
-                UnitSpecialAbilities = unitSpecialAbilities ?? new List<UnitSpecialAbility>();
                 FactionAvailabilities = factionAvailabilities ?? new List<string>();
                 UnitWeapon = unitWeapon ?? new List<UnitWeapon>();
             }
@@ -105,6 +103,17 @@ namespace Domain.Entities {
             UnitWeapon.Add(new UnitWeapon {
                 Unit = this,
                 Weapon = weapon
+            });
+        }
+
+        public void AddUnitSpecialAbility(IEnumerable<UnitSpecialAbility> specialAbilities) {
+            specialAbilities.ToList().ForEach(sa => UnitUnitSpecialAbility.Add(new UnitUnitSpecialAbility { Unit = this, UnitSpecialAbility = sa }));
+        }
+
+        public void AddUnitSpecialAbility(UnitSpecialAbility specialAbility) {
+            UnitUnitSpecialAbility.Add(new UnitUnitSpecialAbility {
+                Unit = this,
+                UnitSpecialAbility = specialAbility
             });
         }
     }

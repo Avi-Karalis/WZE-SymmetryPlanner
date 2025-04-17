@@ -25,8 +25,32 @@ namespace Infrastructure.Data {
                 .WithMany(w => w.UnitWeapon)  // Weapon has many UnitWeapons
                 .HasForeignKey(uw => uw.WeaponId)  // Foreign key for Weapon
                 .OnDelete(DeleteBehavior.Cascade);  // Handle cascading delete if needed
+            modelBuilder.Entity<UnitUnitSpecialAbility>()
+       .HasKey(usa => new { usa.UnitId, usa.UnitSpecialAbilityId });
 
+            modelBuilder.Entity<UnitUnitSpecialAbility>()
+                .HasOne(usa => usa.Unit)
+                .WithMany(u => u.UnitUnitSpecialAbility)
+                .HasForeignKey(usa => usa.UnitId);
+
+            modelBuilder.Entity<UnitUnitSpecialAbility>()
+                .HasOne(usa => usa.UnitSpecialAbility)
+                .WithMany(us => us.UnitUnitSpecialAbility)
+                .HasForeignKey(usa => usa.UnitSpecialAbilityId);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+            modelBuilder.Entity<WeaponWeaponSpecialAbility>()
+    .HasOne(wsa => wsa.Weapon)
+    .WithMany(w => w.WeaponWeaponSpecialAbility)
+    .HasForeignKey(wsa => wsa.WeaponId);
+
+            modelBuilder.Entity<WeaponWeaponSpecialAbility>()
+                .HasOne(wsa => wsa.WeaponSpecialAbility)
+                .WithMany(ws => ws.WeaponWeaponSpecialAbility)
+                .HasForeignKey(wsa => wsa.WeaponSpecialAbilityId);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+
 
             // Soft delete filter (optional)
             //modelBuilder.Entity<SpecialAbility>().HasQueryFilter(w => w.DeletedAt == null);

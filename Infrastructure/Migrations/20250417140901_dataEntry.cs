@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class dataEntry : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,15 +49,19 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CCMod = table.Column<short>(type: "smallint", nullable: false),
-                    CCDam = table.Column<short>(type: "smallint", nullable: false),
-                    ShortRange = table.Column<short>(type: "smallint", nullable: false),
-                    ShortRangeMod = table.Column<short>(type: "smallint", nullable: false),
-                    ShortRangeDam = table.Column<short>(type: "smallint", nullable: false),
-                    LongRange = table.Column<short>(type: "smallint", nullable: false),
-                    LongRangeMod = table.Column<short>(type: "smallint", nullable: false),
-                    LongRangeDam = table.Column<short>(type: "smallint", nullable: false),
+                    CCMod = table.Column<short>(type: "smallint", nullable: true),
+                    CCDam = table.Column<short>(type: "smallint", nullable: true),
+                    ShortRange = table.Column<short>(type: "smallint", nullable: true),
+                    ShortRangeMod = table.Column<short>(type: "smallint", nullable: true),
+                    ShortRangeDam = table.Column<short>(type: "smallint", nullable: true),
+                    LongRange = table.Column<short>(type: "smallint", nullable: true),
+                    LongRangeMod = table.Column<short>(type: "smallint", nullable: true),
+                    LongRangeDam = table.Column<short>(type: "smallint", nullable: true),
+                    CCDamageMultiplier = table.Column<short>(type: "smallint", nullable: false),
+                    SRDamageMultiplier = table.Column<short>(type: "smallint", nullable: false),
+                    LRDamageMultiplier = table.Column<short>(type: "smallint", nullable: false),
                     CritFail = table.Column<short>(type: "smallint", nullable: false),
+                    DynamicDAM = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)

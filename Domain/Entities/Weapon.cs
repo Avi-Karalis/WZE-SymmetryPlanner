@@ -5,7 +5,7 @@ namespace Domain.Entities {
     [Table("Weapons")]
     public class Weapon : BaseEntity {
         public required string Name { get; set; }
-        public required ICollection<WeaponWeaponSpecialAbility> WeaponWeaponSpecialAbility { get; set; }
+        public ICollection<WeaponWeaponSpecialAbility>? WeaponWeaponSpecialAbility { get; set; }
         public sbyte? CCMod { get; set; } 
         public sbyte? CCDam { get; set; } 
 
@@ -26,4 +26,8 @@ namespace Domain.Entities {
         public ICollection<UnitWeapon> UnitWeapon { get; set; } = new List<UnitWeapon>();
 
     }
-}
+
+      public static List<WeaponWeaponSpecialAbility> CreateAbilities(params WeaponSpecialAbility[] abilities) {
+            return abilities.Select(a => new WeaponWeaponSpecialAbility { WeaponSpecialAbility = a }).ToList();
+        }
+    }

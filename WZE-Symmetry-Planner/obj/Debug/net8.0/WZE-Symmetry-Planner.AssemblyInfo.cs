@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WZE-Symmetry-Planner")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6899275a3c78112ed0df1348db524fe893610bcb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b3030476612c8c92732e2a14435406e0d465183")]
 [assembly: System.Reflection.AssemblyProductAttribute("WZE-Symmetry-Planner")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WZE-Symmetry-Planner")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

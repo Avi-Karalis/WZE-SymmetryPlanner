@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities {
+    [Table("UnitUnitSpecialAbilities")]
     public class UnitUnitSpecialAbility {
         public Guid UnitId { get; set; }
         public Unit Unit { get; set; }

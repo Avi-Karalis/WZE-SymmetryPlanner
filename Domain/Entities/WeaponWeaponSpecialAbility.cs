@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace Domain.Entities {
+    [Table("WeaponWeaponSpecialAbilities")]
     public class WeaponWeaponSpecialAbility {
-        public int WeaponId { get; set; }
+        public Guid WeaponId { get; set; }
         public Weapon Weapon { get; set; }
 
-        public int WeaponSpecialAbilityId { get; set; }
+        public Guid WeaponSpecialAbilityId { get; set; }
         public WeaponSpecialAbility WeaponSpecialAbility { get; set; }
     }
 }

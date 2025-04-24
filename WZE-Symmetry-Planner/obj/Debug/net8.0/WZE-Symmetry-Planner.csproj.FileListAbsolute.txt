@@ -461,4 +461,3 @@ D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\WZE-Symm.8A87
 D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\WZE-Symmetry-Planner.genruntimeconfig.cache
 D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\ref\WZE-Symmetry-Planner.dll
 D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
-C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

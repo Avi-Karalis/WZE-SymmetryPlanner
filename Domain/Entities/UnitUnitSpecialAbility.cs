@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities {
     public class UnitUnitSpecialAbility {
-        public int UnitId { get; set; }
+        public Guid UnitId { get; set; }
         public Unit Unit { get; set; }
 
-        public int UnitSpecialAbilityId { get; set; }
+        public Guid UnitSpecialAbilityId { get; set; }
         public UnitSpecialAbility UnitSpecialAbility { get; set; }
     }
 }

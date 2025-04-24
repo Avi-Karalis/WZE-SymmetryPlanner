@@ -14,6 +14,7 @@ namespace Infrastructure.Data {
         public DbSet<Weapon> Weapons { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<UnitWeapon>()
                .HasOne(uw => uw.Unit)
                .WithMany(u => u.UnitWeapon)  // Unit has many UnitWeapons
@@ -22,9 +23,10 @@ namespace Infrastructure.Data {
 
             modelBuilder.Entity<UnitWeapon>()
                 .HasOne(uw => uw.Weapon)
-                .WithMany(w => w.UnitWeapon)  // Weapon has many UnitWeapons
-                .HasForeignKey(uw => uw.WeaponId)  // Foreign key for Weapon
-                .OnDelete(DeleteBehavior.Cascade);  // Handle cascading delete if needed
+                .WithMany(w => w.UnitWeapon)  
+                .HasForeignKey(uw => uw.WeaponId) 
+                .OnDelete(DeleteBehavior.Cascade);  
+
             modelBuilder.Entity<UnitUnitSpecialAbility>()
        .HasKey(usa => new { usa.UnitId, usa.UnitSpecialAbilityId });
 
@@ -37,12 +39,14 @@ namespace Infrastructure.Data {
                 .HasOne(usa => usa.UnitSpecialAbility)
                 .WithMany(us => us.UnitUnitSpecialAbility)
                 .HasForeignKey(usa => usa.UnitSpecialAbilityId);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
             modelBuilder.Entity<WeaponWeaponSpecialAbility>()
-    .HasOne(wsa => wsa.Weapon)
-    .WithMany(w => w.WeaponWeaponSpecialAbility)
-    .HasForeignKey(wsa => wsa.WeaponId);
+                .HasKey(wsa => new { wsa.WeaponId, wsa.WeaponSpecialAbilityId });
+
+            modelBuilder.Entity<WeaponWeaponSpecialAbility>()
+                .HasOne(wsa => wsa.Weapon)
+                .WithMany(w => w.WeaponWeaponSpecialAbility)
+                .HasForeignKey(wsa => wsa.WeaponId);
 
             modelBuilder.Entity<WeaponWeaponSpecialAbility>()
                 .HasOne(wsa => wsa.WeaponSpecialAbility)

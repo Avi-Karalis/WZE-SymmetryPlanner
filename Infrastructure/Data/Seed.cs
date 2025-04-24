@@ -263,7 +263,7 @@ namespace Infrastructure.Data
             blitzerSupport.AddWeapon([gehennaPuker, mp105HG]);
             Unit blitzerSpecialist = new("Bauhaus", "Blitzer", ["Operator","Specialist"], 4, 0, 4, 13, 13, 5, -1, 21, 2, 11, 12, 30, "Blitzer", 1, new List<UnitSpecialAbility> { blitz, trailblaze, tactical }, ["Bauhaus"]);
             blitzerSpecialist.AddWeapon([mp103SMG,mp105HG,frags,smokes]);
-            Unit blitzerLeader = new("Bauhaus", "Blitzer", ["Operator", "Specialist"], 5, 2, 4, 13, 13, 5, -1, 21, 2, 11, 12, 30, "Blitzer", 1, new List<UnitSpecialAbility> { blitz, trailblaze, inspire,commandBL }, ["Bauhaus"]);
+            Unit blitzerLeader = new("Bauhaus", "Blitzer", ["Leader"], 5, 2, 4, 13, 13, 5, -1, 21, 2, 11, 12, 30, "Blitzer", 1, new List<UnitSpecialAbility> { blitz, trailblaze, inspire,commandBL }, ["Bauhaus"]);
             blitzerLeader.AddWeapon([mp103SMG, hg14SG]);
             units.AddRange([blitzerTrooper, blitzerSupport, blitzerSpecialist, blitzerLeader]);
 

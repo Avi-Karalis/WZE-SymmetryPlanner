@@ -460,7 +460,12 @@ namespace Infrastructure.Data
                 "Undead Legionnaire, Necromutant", 4,
                 new List<UnitSpecialAbility> {awareness, commandAA, controller12, inspire, nervesOfSteel, shakeItOff }, ["Dark Legion - Algeroth"]);
             nepharite.AddWeapon([azogar, devouringDarkness]);
-            units.AddRange([undeadLeagionnarie, necromutantTrooper, necromutantSupport, necromutantLeader, centurion, stalkers, razideHMG1, razideHMG2, razideHellblaster, nepharite]);
+
+            Unit cartelAgent = new ("Cartel", "Cartel Agent", ["Trooper", "Advisor"],
+                7,0,5,13,13,5,-1,21,3,13,13,30,null,0,
+                new List<UnitSpecialAbility> { nervesOfSteel, scoutAhead, tactical }, ["Bauhaus","Capitol","Cybetronic","Brotherhood","Imperial","Mishima","Cartel"]);
+            cartelAgent.AddWeapon([punisherHandgun,frags,smokes]);
+            units.AddRange([cartelAgent,undeadLeagionnarie, necromutantTrooper, necromutantSupport, necromutantLeader, centurion, stalkers, razideHMG1, razideHMG2, razideHellblaster, nepharite]);
 
 
             context.Units.AddRange(units);

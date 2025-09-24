@@ -145,7 +145,11 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UnitSpecialAbilityId");
 
+<<<<<<< HEAD
                     b.ToTable("UnitUnitSpecialAbility");
+=======
+                    b.ToTable("UnitUnitSpecialAbilities");
+>>>>>>> ca96e688c4614a489759ce1fb5a24fc6d13f3beb
                 });
 
             modelBuilder.Entity("Domain.Entities.UnitWeapon", b =>
@@ -272,7 +276,11 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("WeaponSpecialAbilityId");
 
+<<<<<<< HEAD
                     b.ToTable("WeaponWeaponSpecialAbility");
+=======
+                    b.ToTable("WeaponWeaponSpecialAbilities");
+>>>>>>> ca96e688c4614a489759ce1fb5a24fc6d13f3beb
                 });
 
             modelBuilder.Entity("Domain.Entities.UnitUnitSpecialAbility", b =>

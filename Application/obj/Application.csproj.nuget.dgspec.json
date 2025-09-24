@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj": {}
+    "C:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj": {}
   },
   "projects": {
-    "D:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj": {
+    "C:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "D:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Avi\\.nuget\\packages\\",
-        "outputPath": "D:\\repos\\WZE-SymmetryPlanner\\Application\\obj\\",
+        "projectPath": "C:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\averkios.karalis\\.nuget\\packages\\",
+        "outputPath": "C:\\repos\\WZE-SymmetryPlanner\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Avi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\averkios.karalis\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,11 +45,21 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
+<<<<<<< HEAD
         "SdkAnalysisLevel": "9.0.300"
+=======
+        "SdkAnalysisLevel": "9.0.100"
+>>>>>>> ca96e688c4614a489759ce1fb5a24fc6d13f3beb
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -61,12 +71,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.15, 8.0.15]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.15, 8.0.15]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.15, 8.0.15]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.105/PortableRuntimeIdentifierGraph.json"
+>>>>>>> ca96e688c4614a489759ce1fb5a24fc6d13f3beb
         }
       }
     }

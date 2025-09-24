@@ -455,9 +455,20 @@ D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\WZE-Symm.8A87
 D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\WZE-Symmetry-Planner.genruntimeconfig.cache
 D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\ref\WZE-Symmetry-Planner.dll
 C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+<<<<<<< HEAD
 D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\rpswa.dswa.cache.json
 D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\rjimswa.dswa.cache.json
 D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
 D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\staticwebassets.build.json.cache
 D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+=======
+C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\AutoMapper.dll
+C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\Google.Apis.dll
+C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\Google.Apis.Auth.dll
+C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\Google.Apis.Core.dll
+C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
+C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\System.Management.dll
+C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll
+>>>>>>> ca96e688c4614a489759ce1fb5a24fc6d13f3beb

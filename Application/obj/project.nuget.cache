@@ -1,8 +1,17 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "IdRQ4E4iuAY=",
+=======
+  "dgSpecHash": "Viuc0xDEfEs=",
+>>>>>>> ca96e688c4614a489759ce1fb5a24fc6d13f3beb
   "success": true,
-  "projectFilePath": "D:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\averkios.karalis\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.4\\microsoft.extensions.dependencyinjection.abstractions.9.0.4.nupkg.sha512",
+    "C:\\Users\\averkios.karalis\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.15\\microsoft.windowsdesktop.app.ref.8.0.15.nupkg.sha512",
+    "C:\\Users\\averkios.karalis\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.15\\microsoft.netcore.app.ref.8.0.15.nupkg.sha512",
+    "C:\\Users\\averkios.karalis\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.15\\microsoft.aspnetcore.app.ref.8.0.15.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -69,6 +69,15 @@ namespace Domain.Entities {
                 DesignationLimitValue = designationLimitValue;
                 FactionAvailabilities = factionAvailabilities ?? new List<string>();
                 UnitWeapon = unitWeapon ?? new List<UnitWeapon>();
+                UnitUnitSpecialAbility = new List<UnitUnitSpecialAbility>();
+                if (unitSpecialAbilities != null) {
+                    foreach (var ability in unitSpecialAbilities) {
+                        UnitUnitSpecialAbility.Add(new UnitUnitSpecialAbility {
+                            Unit = this,
+                            UnitSpecialAbility = ability
+                        });
+                    }
+                }
             } else if (designation.Contains("Leader")) {
                 Faction = faction;
                 UnitType = unitType;
@@ -89,6 +98,15 @@ namespace Domain.Entities {
                 DesignationLimitValue = designationLimitValue;
                 FactionAvailabilities = factionAvailabilities ?? new List<string>();
                 UnitWeapon = unitWeapon ?? new List<UnitWeapon>();
+                UnitUnitSpecialAbility = new List<UnitUnitSpecialAbility>();
+                if (unitSpecialAbilities != null) {
+                    foreach (var ability in unitSpecialAbilities) {
+                        UnitUnitSpecialAbility.Add(new UnitUnitSpecialAbility {
+                            Unit = this,
+                            UnitSpecialAbility = ability
+                        });
+                    }
+                }
             }
         }
 

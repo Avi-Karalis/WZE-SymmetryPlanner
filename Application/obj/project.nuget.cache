@@ -1,17 +1,20 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "IdRQ4E4iuAY=",
-=======
-  "dgSpecHash": "Viuc0xDEfEs=",
->>>>>>> ca96e688c4614a489759ce1fb5a24fc6d13f3beb
+  "dgSpecHash": "Mx2+fny8gcg=",
   "success": true,
-  "projectFilePath": "C:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
+  "projectFilePath": "D:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\averkios.karalis\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.4\\microsoft.extensions.dependencyinjection.abstractions.9.0.4.nupkg.sha512",
-    "C:\\Users\\averkios.karalis\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.15\\microsoft.windowsdesktop.app.ref.8.0.15.nupkg.sha512",
-    "C:\\Users\\averkios.karalis\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.15\\microsoft.netcore.app.ref.8.0.15.nupkg.sha512",
-    "C:\\Users\\averkios.karalis\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.15\\microsoft.aspnetcore.app.ref.8.0.15.nupkg.sha512"
+    "C:\\Users\\Avi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.4\\microsoft.extensions.dependencyinjection.abstractions.9.0.4.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "message": "Problem reading the cache file D:\\repos\\WZE-SymmetryPlanner\\Application\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
+      "projectPath": "D:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

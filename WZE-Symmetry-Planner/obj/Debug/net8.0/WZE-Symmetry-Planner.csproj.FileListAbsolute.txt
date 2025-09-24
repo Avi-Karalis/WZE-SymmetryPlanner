@@ -472,3 +472,11 @@ C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\Newtonsoft.Js
 C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\System.Management.dll
 C:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll
 >>>>>>> ca96e688c4614a489759ce1fb5a24fc6d13f3beb
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\AutoMapper.dll
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\Google.Apis.dll
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\Google.Apis.Auth.dll
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\Google.Apis.Core.dll
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\System.Management.dll
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll

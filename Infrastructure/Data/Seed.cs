@@ -55,7 +55,7 @@ namespace Infrastructure.Data
             WeaponSpecialAbility thrust5 = new() { Name = "Thrust", ValueX = "5", Description = "When performing a Strike Action as part of a Charge Action, increase the DAM of this Weapon by {X}." };
             WeaponSpecialAbility vicious = new() { Name = "Vicious", Description = "This Weapon’s DAM increases by +2 per Wound Counter on an Enemy Unit targeted by a Strike or Shoot Action using this Weapon. Strike Actions additionally receive +2 to the Unit’s CC Rating per Wound Counter." };
             WeaponSpecialAbility flurry2 = new() { Name = "Flurry", ValueX = "2", Description = "Strike Actions with this Weapon may perform up to {X} Strike Action Tests assigned to any combination of Engaged Targets." };
-<<<<<<< HEAD
+
             List<WeaponSpecialAbility> weaponSpecialAbilities = new()
             {
                  flurry2, gruesome3, accurate1, accurate2, accurate3, accurate4,
@@ -67,12 +67,6 @@ namespace Infrastructure.Data
                  silenced, smoke, suppressive, symmetry, terrifying,
                  thrust1, thrust2, thrust3, thrust4, thrust5, vicious
             };
-=======
-            List<WeaponSpecialAbility> weaponSpecialAbilities = new (){ flurry2, gruesome3, accurate1, accurate2, accurate3, accurate4, burst1, burst2, burst3, burst4, cloud1, cloud2, cloud3, concussive, continuous, divine, explosive1, explosive2, explosive3, indirect, multiStrike1, multiStrike3, multiStrike2, projected, reach1, reach2, reach3, recoil1, recoil2, recoil3, recoil4, silenced, smoke, suppressive, symmetry, terrifying, thrust1, thrust2, thrust3, thrust4, thrust5, vicious };
-            context.WeaponSpecialAbilities.AddRange(weaponSpecialAbilities);
-            context.SaveChanges();
-            List<WeaponWeaponSpecialAbility> weaponWeaponSpecialAbility = Weapon.CreateAbilities(weaponSpecialAbilities.ToArray());
->>>>>>> ca96e688c4614a489759ce1fb5a24fc6d13f3beb
 
             context.WeaponSpecialAbilities.AddRange(weaponSpecialAbilities);
 

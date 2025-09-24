@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities {
     public class WeaponWeaponSpecialAbility {
-        public int WeaponId { get; set; }
+        public Guid WeaponId { get; set; }
         public Weapon Weapon { get; set; }
 
-        public int WeaponSpecialAbilityId { get; set; }
+        public Guid WeaponSpecialAbilityId { get; set; }
         public WeaponSpecialAbility WeaponSpecialAbility { get; set; }
     }
 }

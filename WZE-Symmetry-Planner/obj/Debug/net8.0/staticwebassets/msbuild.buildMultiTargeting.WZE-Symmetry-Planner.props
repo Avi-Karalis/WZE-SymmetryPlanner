@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\WZE-Symmetry-Planner.props" />
-</Project>

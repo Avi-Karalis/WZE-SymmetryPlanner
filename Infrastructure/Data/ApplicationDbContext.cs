@@ -40,14 +40,17 @@ namespace Infrastructure.Data {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
             modelBuilder.Entity<WeaponWeaponSpecialAbility>()
-    .HasOne(wsa => wsa.Weapon)
-    .WithMany(w => w.WeaponWeaponSpecialAbility)
-    .HasForeignKey(wsa => wsa.WeaponId);
+                .HasKey(wwsa => new { wwsa.WeaponId, wwsa.WeaponSpecialAbilityId });
 
             modelBuilder.Entity<WeaponWeaponSpecialAbility>()
-                .HasOne(wsa => wsa.WeaponSpecialAbility)
+                .HasOne(wwsa => wwsa.Weapon)
+                .WithMany(w => w.WeaponWeaponSpecialAbility)
+                .HasForeignKey(wwsa => wwsa.WeaponId);
+
+            modelBuilder.Entity<WeaponWeaponSpecialAbility>()
+                .HasOne(wwsa => wwsa.WeaponSpecialAbility)
                 .WithMany(ws => ws.WeaponWeaponSpecialAbility)
-                .HasForeignKey(wsa => wsa.WeaponSpecialAbilityId);
+                .HasForeignKey(wwsa => wwsa.WeaponSpecialAbilityId);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
 

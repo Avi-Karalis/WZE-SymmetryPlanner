@@ -6,10 +6,10 @@ namespace Domain.Entities {
     public class Weapon : BaseEntity {
         public required string Name { get; set; }
         public ICollection<WeaponWeaponSpecialAbility>? WeaponWeaponSpecialAbility { get; set; }
-        public sbyte? CCMod { get; set; } 
-        public sbyte? CCDam { get; set; } 
+        public sbyte? CCMod { get; set; }
+        public sbyte? CCDam { get; set; }
 
-        public sbyte? ShortRange { get; set; } 
+        public sbyte? ShortRange { get; set; }
         public sbyte? ShortRangeMod { get; set; }
         public sbyte? ShortRangeDam { get; set; }
 
@@ -20,14 +20,14 @@ namespace Domain.Entities {
         public sbyte CCDamageMultiplier { get; set; } = 1;
         public sbyte SRDamageMultiplier { get; set; } = 1;
         public sbyte LRDamageMultiplier { get; set; } = 1;
-        public sbyte CritFail {  get; set; } = 20;
-        public bool DynamicDAM {  get; set; } = false;
+        public sbyte CritFail { get; set; } = 20;
+        public bool DynamicDAM { get; set; } = false;
 
         public ICollection<UnitWeapon> UnitWeapon { get; set; } = new List<UnitWeapon>();
 
-    }
-
+    
       public static List<WeaponWeaponSpecialAbility> CreateAbilities(params WeaponSpecialAbility[] abilities) {
             return abilities.Select(a => new WeaponWeaponSpecialAbility { WeaponSpecialAbility = a }).ToList();
         }
     }
+}

@@ -6,15 +6,5 @@
   "expectedPackageFiles": [
     "C:\\Users\\Avi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.4\\microsoft.extensions.dependencyinjection.abstractions.9.0.4.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "message": "Problem reading the cache file D:\\repos\\WZE-SymmetryPlanner\\Application\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
-      "projectPath": "D:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
-      "warningLevel": 1,
-      "filePath": "D:\\repos\\WZE-SymmetryPlanner\\Application\\Application.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }

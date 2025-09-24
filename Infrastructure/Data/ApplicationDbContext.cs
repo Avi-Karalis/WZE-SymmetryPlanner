@@ -1,5 +1,4 @@
-﻿
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data {
@@ -12,65 +11,82 @@ namespace Infrastructure.Data {
         public DbSet<UnitWeapon> UnitWeapons { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
+            // -------------------
+            // Units & Weapons
+            // -------------------
             modelBuilder.Entity<UnitWeapon>()
-               .HasOne(uw => uw.Unit)
-               .WithMany(u => u.UnitWeapon)  // Unit has many UnitWeapons
-               .HasForeignKey(uw => uw.UnitId)  // Foreign key for Unit
-               .OnDelete(DeleteBehavior.Cascade);  // Handle cascading delete if needed
+                .HasKey(uw => new { uw.UnitId, uw.WeaponId });
+
+            modelBuilder.Entity<UnitWeapon>()
+                .HasOne(uw => uw.Unit)
+                .WithMany(u => u.UnitWeapon)
+                .HasForeignKey(uw => uw.UnitId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<UnitWeapon>()
                 .HasOne(uw => uw.Weapon)
-                .WithMany(w => w.UnitWeapon)  
-                .HasForeignKey(uw => uw.WeaponId) 
-                .OnDelete(DeleteBehavior.Cascade);  
+                .WithMany(w => w.UnitWeapon)
+                .HasForeignKey(uw => uw.WeaponId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<UnitUnitSpecialAbility>()
-       .HasKey(usa => new { usa.UnitId, usa.UnitSpecialAbilityId });
+            // -------------------
+            // UnitSpecialAbility join table
+            // -------------------
+            modelBuilder.Entity<UnitUnitSpecialAbility>(entity => {
+                entity.ToTable("unitunitspecialabilities"); // lowercase
+                entity.HasKey(e => new { e.UnitId, e.UnitSpecialAbilityId });
 
-            modelBuilder.Entity<UnitUnitSpecialAbility>()
-                .HasOne(usa => usa.Unit)
-                .WithMany(u => u.UnitUnitSpecialAbility)
-                .HasForeignKey(usa => usa.UnitId);
+                entity.HasOne(e => e.Unit)
+                      .WithMany(u => u.UnitUnitSpecialAbility)
+                      .HasForeignKey(e => e.UnitId)
+                      .HasConstraintName("FK_unitunitspecialabilities_units_unitid");
 
-            modelBuilder.Entity<UnitUnitSpecialAbility>()
-                .HasOne(usa => usa.UnitSpecialAbility)
-                .WithMany(us => us.UnitUnitSpecialAbility)
-                .HasForeignKey(usa => usa.UnitSpecialAbilityId);
+                entity.HasOne(e => e.UnitSpecialAbility)
+                      .WithMany(us => us.UnitUnitSpecialAbility)
+                      .HasForeignKey(e => e.UnitSpecialAbilityId)
+                      .HasConstraintName("FK_unitunitspecialabilities_unitspecialabilities_unitspecialabilityid");
+            });
 
-            modelBuilder.Entity<WeaponWeaponSpecialAbility>()
-<<<<<<< HEAD
-                .HasKey(wwsa => new { wwsa.WeaponId, wwsa.WeaponSpecialAbilityId });
-=======
-                .HasKey(wsa => new { wsa.WeaponId, wsa.WeaponSpecialAbilityId });
+            // -------------------
+            // WeaponSpecialAbility join table
+            // -------------------
+            modelBuilder.Entity<WeaponWeaponSpecialAbility>(entity => {
+                entity.ToTable("weaponweaponspecialabilities"); // lowercase
+                entity.HasKey(e => new { e.WeaponId, e.WeaponSpecialAbilityId });
 
-            modelBuilder.Entity<WeaponWeaponSpecialAbility>()
-                .HasOne(wsa => wsa.Weapon)
-                .WithMany(w => w.WeaponWeaponSpecialAbility)
-                .HasForeignKey(wsa => wsa.WeaponId);
->>>>>>> ca96e688c4614a489759ce1fb5a24fc6d13f3beb
+                entity.HasOne(e => e.Weapon)
+                      .WithMany(w => w.WeaponWeaponSpecialAbility)
+                      .HasForeignKey(e => e.WeaponId);
 
-            modelBuilder.Entity<WeaponWeaponSpecialAbility>()
-                .HasOne(wwsa => wwsa.Weapon)
-                .WithMany(w => w.WeaponWeaponSpecialAbility)
-                .HasForeignKey(wwsa => wwsa.WeaponId);
+                entity.HasOne(e => e.WeaponSpecialAbility)
+                      .WithMany(ws => ws.WeaponWeaponSpecialAbility)
+                      .HasForeignKey(e => e.WeaponSpecialAbilityId);
+            });
 
-            modelBuilder.Entity<WeaponWeaponSpecialAbility>()
-                .HasOne(wwsa => wwsa.WeaponSpecialAbility)
-                .WithMany(ws => ws.WeaponWeaponSpecialAbility)
-                .HasForeignKey(wwsa => wwsa.WeaponSpecialAbilityId);
+            // -------------------
+            // SpecialAbilities tables
+            // -------------------
+            modelBuilder.Entity<UnitSpecialAbility>(entity => {
+                entity.ToTable("unitspecialabilities"); // lowercase
+                entity.HasKey(e => e.Id);
+            });
+
+            modelBuilder.Entity<WeaponSpecialAbility>(entity => {
+                entity.ToTable("weaponspecialabilities"); // lowercase
+                entity.HasKey(e => e.Id);
+            });
+
+            // Apply any additional configurations
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-
-
-            // Soft delete filter (optional)
-            //modelBuilder.Entity<SpecialAbility>().HasQueryFilter(w => w.DeletedAt == null);
-            //modelBuilder.Entity<Unit>().HasQueryFilter(u => u.DeletedAt == null);
-            //modelBuilder.Entity<Weapon>().HasQueryFilter(w => w.DeletedAt == null);
-
+            // Optional: soft delete filters
+            // modelBuilder.Entity<SpecialAbility>().HasQueryFilter(w => w.DeletedAt == null);
+            // modelBuilder.Entity<Unit>().HasQueryFilter(u => u.DeletedAt == null);
+            // modelBuilder.Entity<Weapon>().HasQueryFilter(w => w.DeletedAt == null);
         }
-
     }
 }

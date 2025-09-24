@@ -1,12 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "iCfYSpNYP0SzeMwjQbwiFVxP8sjyBEQ5Dh4pQyGM9r4=",
-  "Source": "WZE-Symmetry-Planner",
-  "BasePath": "_content/WZE-Symmetry-Planner",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
-}
+{"Version":1,"Hash":"iCfYSpNYP0SzeMwjQbwiFVxP8sjyBEQ5Dh4pQyGM9r4=","Source":"WZE-Symmetry-Planner","BasePath":"_content/WZE-Symmetry-Planner","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

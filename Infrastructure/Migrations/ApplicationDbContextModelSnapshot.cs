@@ -130,7 +130,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UnitSpecialAbilities");
+                    b.ToTable("unitspecialabilities", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UnitUnitSpecialAbility", b =>
@@ -145,11 +145,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UnitSpecialAbilityId");
 
-<<<<<<< HEAD
-                    b.ToTable("UnitUnitSpecialAbility");
-=======
-                    b.ToTable("UnitUnitSpecialAbilities");
->>>>>>> ca96e688c4614a489759ce1fb5a24fc6d13f3beb
+                    b.ToTable("unitunitspecialabilities", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UnitWeapon", b =>
@@ -261,7 +257,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WeaponSpecialAbilities");
+                    b.ToTable("weaponspecialabilities", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.WeaponWeaponSpecialAbility", b =>
@@ -276,11 +272,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("WeaponSpecialAbilityId");
 
-<<<<<<< HEAD
-                    b.ToTable("WeaponWeaponSpecialAbility");
-=======
-                    b.ToTable("WeaponWeaponSpecialAbilities");
->>>>>>> ca96e688c4614a489759ce1fb5a24fc6d13f3beb
+                    b.ToTable("weaponweaponspecialabilities", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UnitUnitSpecialAbility", b =>
@@ -289,13 +281,15 @@ namespace Infrastructure.Migrations
                         .WithMany("UnitUnitSpecialAbility")
                         .HasForeignKey("UnitId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_unitunitspecialabilities_units_unitid");
 
                     b.HasOne("Domain.Entities.UnitSpecialAbility", "UnitSpecialAbility")
                         .WithMany("UnitUnitSpecialAbility")
                         .HasForeignKey("UnitSpecialAbilityId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_unitunitspecialabilities_unitspecialabilities_unitspecialabilityid");
 
                     b.Navigation("Unit");
 

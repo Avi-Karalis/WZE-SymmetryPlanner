@@ -169,15 +169,5 @@
     "C:\\Users\\Avi\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Avi\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "message": "Problem reading the cache file D:\\repos\\WZE-SymmetryPlanner\\WZE-Symmetry-Planner\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
-      "projectPath": "D:\\repos\\WZE-SymmetryPlanner\\WZE-Symmetry-Planner\\WZE-Symmetry-Planner.csproj",
-      "warningLevel": 1,
-      "filePath": "D:\\repos\\WZE-SymmetryPlanner\\WZE-Symmetry-Planner\\WZE-Symmetry-Planner.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,7 +44,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "unitspecialabilities",
+                name: "UnitSpecialAbilities",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -58,7 +58,7 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_unitspecialabilities", x => x.Id);
+                    table.PrimaryKey("PK_UnitSpecialAbilities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -90,7 +90,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "weaponspecialabilities",
+                name: "WeaponSpecialAbilities",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -104,11 +104,11 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_weaponspecialabilities", x => x.Id);
+                    table.PrimaryKey("PK_WeaponSpecialAbilities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "unitunitspecialabilities",
+                name: "UnitUnitSpecialAbilities",
                 columns: table => new
                 {
                     UnitId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -116,17 +116,17 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_unitunitspecialabilities", x => new { x.UnitId, x.UnitSpecialAbilityId });
+                    table.PrimaryKey("PK_UnitUnitSpecialAbilities", x => new { x.UnitId, x.UnitSpecialAbilityId });
                     table.ForeignKey(
-                        name: "FK_unitunitspecialabilities_units_unitid",
-                        column: x => x.UnitId,
-                        principalTable: "Units",
+                        name: "FK_UnitUnitSpecialAbilities_UnitSpecialAbilities_UnitSpecialAbilityId",
+                        column: x => x.UnitSpecialAbilityId,
+                        principalTable: "UnitSpecialAbilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_unitunitspecialabilities_unitspecialabilities_unitspecialabilityid",
-                        column: x => x.UnitSpecialAbilityId,
-                        principalTable: "unitspecialabilities",
+                        name: "FK_UnitUnitSpecialAbilities_Units_UnitId",
+                        column: x => x.UnitId,
+                        principalTable: "Units",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -156,7 +156,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "weaponweaponspecialabilities",
+                name: "WeaponWeaponSpecialAbilities",
                 columns: table => new
                 {
                     WeaponId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -164,24 +164,24 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_weaponweaponspecialabilities", x => new { x.WeaponId, x.WeaponSpecialAbilityId });
+                    table.PrimaryKey("PK_WeaponWeaponSpecialAbilities", x => new { x.WeaponId, x.WeaponSpecialAbilityId });
                     table.ForeignKey(
-                        name: "FK_weaponweaponspecialabilities_Weapons_WeaponId",
-                        column: x => x.WeaponId,
-                        principalTable: "Weapons",
+                        name: "FK_WeaponWeaponSpecialAbilities_WeaponSpecialAbilities_WeaponS~",
+                        column: x => x.WeaponSpecialAbilityId,
+                        principalTable: "WeaponSpecialAbilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_weaponweaponspecialabilities_weaponspecialabilities_WeaponS~",
-                        column: x => x.WeaponSpecialAbilityId,
-                        principalTable: "weaponspecialabilities",
+                        name: "FK_WeaponWeaponSpecialAbilities_Weapons_WeaponId",
+                        column: x => x.WeaponId,
+                        principalTable: "Weapons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_unitunitspecialabilities_UnitSpecialAbilityId",
-                table: "unitunitspecialabilities",
+                name: "IX_UnitUnitSpecialAbilities_UnitSpecialAbilityId",
+                table: "UnitUnitSpecialAbilities",
                 column: "UnitSpecialAbilityId");
 
             migrationBuilder.CreateIndex(
@@ -190,8 +190,8 @@ namespace Infrastructure.Migrations
                 column: "WeaponId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_weaponweaponspecialabilities_WeaponSpecialAbilityId",
-                table: "weaponweaponspecialabilities",
+                name: "IX_WeaponWeaponSpecialAbilities_WeaponSpecialAbilityId",
+                table: "WeaponWeaponSpecialAbilities",
                 column: "WeaponSpecialAbilityId");
         }
 
@@ -199,25 +199,25 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "unitunitspecialabilities");
+                name: "UnitUnitSpecialAbilities");
 
             migrationBuilder.DropTable(
                 name: "UnitWeapons");
 
             migrationBuilder.DropTable(
-                name: "weaponweaponspecialabilities");
+                name: "WeaponWeaponSpecialAbilities");
 
             migrationBuilder.DropTable(
-                name: "unitspecialabilities");
+                name: "UnitSpecialAbilities");
 
             migrationBuilder.DropTable(
                 name: "Units");
 
             migrationBuilder.DropTable(
-                name: "Weapons");
+                name: "WeaponSpecialAbilities");
 
             migrationBuilder.DropTable(
-                name: "weaponspecialabilities");
+                name: "Weapons");
         }
     }
 }

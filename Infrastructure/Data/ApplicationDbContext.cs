@@ -37,25 +37,25 @@ namespace Infrastructure.Data {
             // UnitSpecialAbility join table
             // -------------------
             modelBuilder.Entity<UnitUnitSpecialAbility>(entity => {
-                entity.ToTable("unitunitspecialabilities"); // lowercase
+                entity.ToTable("UnitUnitSpecialAbilities"); // lowercase
                 entity.HasKey(e => new { e.UnitId, e.UnitSpecialAbilityId });
 
                 entity.HasOne(e => e.Unit)
                       .WithMany(u => u.UnitUnitSpecialAbility)
                       .HasForeignKey(e => e.UnitId)
-                      .HasConstraintName("FK_unitunitspecialabilities_units_unitid");
+                      .HasConstraintName("FK_UnitUnitSpecialAbilities_Units_UnitId");
 
                 entity.HasOne(e => e.UnitSpecialAbility)
                       .WithMany(us => us.UnitUnitSpecialAbility)
                       .HasForeignKey(e => e.UnitSpecialAbilityId)
-                      .HasConstraintName("FK_unitunitspecialabilities_unitspecialabilities_unitspecialabilityid");
+                      .HasConstraintName("FK_UnitUnitSpecialAbilities_UnitSpecialAbilities_UnitSpecialAbilityId");
             });
 
             // -------------------
             // WeaponSpecialAbility join table
             // -------------------
             modelBuilder.Entity<WeaponWeaponSpecialAbility>(entity => {
-                entity.ToTable("weaponweaponspecialabilities"); // lowercase
+                entity.ToTable("WeaponWeaponSpecialAbilities"); // lowercase
                 entity.HasKey(e => new { e.WeaponId, e.WeaponSpecialAbilityId });
 
                 entity.HasOne(e => e.Weapon)
@@ -71,12 +71,12 @@ namespace Infrastructure.Data {
             // SpecialAbilities tables
             // -------------------
             modelBuilder.Entity<UnitSpecialAbility>(entity => {
-                entity.ToTable("unitspecialabilities"); // lowercase
+                entity.ToTable("UnitSpecialAbilities"); // lowercase
                 entity.HasKey(e => e.Id);
             });
 
             modelBuilder.Entity<WeaponSpecialAbility>(entity => {
-                entity.ToTable("weaponspecialabilities"); // lowercase
+                entity.ToTable("WeaponSpecialAbilities"); // lowercase
                 entity.HasKey(e => e.Id);
             });
 

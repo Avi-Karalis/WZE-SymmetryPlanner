@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250924215343_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250925072240_initialCreate")]
+    partial class initialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,7 +133,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("unitspecialabilities", (string)null);
+                    b.ToTable("UnitSpecialAbilities", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UnitUnitSpecialAbility", b =>
@@ -148,7 +148,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UnitSpecialAbilityId");
 
-                    b.ToTable("unitunitspecialabilities", (string)null);
+                    b.ToTable("UnitUnitSpecialAbilities", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UnitWeapon", b =>
@@ -260,7 +260,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("weaponspecialabilities", (string)null);
+                    b.ToTable("WeaponSpecialAbilities", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.WeaponWeaponSpecialAbility", b =>
@@ -275,7 +275,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("WeaponSpecialAbilityId");
 
-                    b.ToTable("weaponweaponspecialabilities", (string)null);
+                    b.ToTable("WeaponWeaponSpecialAbilities", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UnitUnitSpecialAbility", b =>
@@ -285,14 +285,14 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK_unitunitspecialabilities_units_unitid");
+                        .HasConstraintName("FK_UnitUnitSpecialAbilities_Units_UnitId");
 
                     b.HasOne("Domain.Entities.UnitSpecialAbility", "UnitSpecialAbility")
                         .WithMany("UnitUnitSpecialAbility")
                         .HasForeignKey("UnitSpecialAbilityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK_unitunitspecialabilities_unitspecialabilities_unitspecialabilityid");
+                        .HasConstraintName("FK_UnitUnitSpecialAbilities_UnitSpecialAbilities_UnitSpecialAbilityId");
 
                     b.Navigation("Unit");
 

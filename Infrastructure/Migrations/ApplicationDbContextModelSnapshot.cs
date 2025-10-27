@@ -22,6 +22,44 @@ namespace Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.ForceList", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Allegiance")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Faction")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("MaxDp")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MaxSp")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ForceLists", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Unit", b =>
                 {
                     b.Property<Guid>("Id")
@@ -66,6 +104,9 @@ namespace Infrastructure.Migrations
                     b.PrimitiveCollection<string[]>("FactionAvailabilities")
                         .HasColumnType("text[]");
 
+                    b.Property<Guid?>("ForceListId")
+                        .HasColumnType("uuid");
+
                     b.Property<short>("LD")
                         .HasColumnType("smallint");
 
@@ -95,6 +136,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ForceListId");
 
                     b.ToTable("Units");
                 });
@@ -275,6 +318,13 @@ namespace Infrastructure.Migrations
                     b.ToTable("WeaponWeaponSpecialAbilities", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Unit", b =>
+                {
+                    b.HasOne("Domain.Entities.ForceList", null)
+                        .WithMany("Units")
+                        .HasForeignKey("ForceListId");
+                });
+
             modelBuilder.Entity("Domain.Entities.UnitUnitSpecialAbility", b =>
                 {
                     b.HasOne("Domain.Entities.Unit", "Unit")
@@ -332,6 +382,11 @@ namespace Infrastructure.Migrations
                     b.Navigation("Weapon");
 
                     b.Navigation("WeaponSpecialAbility");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ForceList", b =>
+                {
+                    b.Navigation("Units");
                 });
 
             modelBuilder.Entity("Domain.Entities.Unit", b =>

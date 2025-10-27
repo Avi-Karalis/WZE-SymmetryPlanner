@@ -80,6 +80,10 @@ namespace Infrastructure.Data {
                 entity.HasKey(e => e.Id);
             });
 
+            modelBuilder.Entity<ForceList>(entity => {
+                entity.ToTable("ForceLists");
+                entity.HasKey(e => e.Id);
+            });
             // Apply any additional configurations
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 

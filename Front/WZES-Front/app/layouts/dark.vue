@@ -1,5 +1,5 @@
 <template>
-  <div class="light-theme">
+  <div class="dark-theme">
     <Switch />
     <main>
       <slot />

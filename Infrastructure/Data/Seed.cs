@@ -398,7 +398,7 @@ namespace Infrastructure.Data
             mortificatorTrooper.AddWeapons([silencedNemesisHG, mortisBlade, smokes]);
             Unit mortificatorTrooperUnique = new("Brotherhood", "Redemtion Assassin", ["Trooper", "Unique", "Seconding"], 7, 0, 6, 15, 17, 6, -2, 20, 2, 13, 15, 30, null, 0, new List<UnitSpecialAbility> {advancedDeploy ,camouflage2, dodge, executioner2, firstStrike, gymnastic, shadowed }, ["Brotherhood", "Seconding"]);
             mortificatorTrooperUnique.AddWeapons([avalanceHG, mortisBlade, smokes]);
-            Unit mortificatorLeader = new("Mishima", "Mortificator", ["Leader", "Seconding"], 7, 2, 6, 14, 16, 6, -2, 20, 2, 13, 13, 30, "Mortificator", 1, new List<UnitSpecialAbility> { camouflage2, dodge, executioner2, firstStrike, gymnastic, shadowed, inspire, commandMT }, ["Brotherhood", "Seconding"]);
+            Unit mortificatorLeader = new("Brotherhood", "Mortificator", ["Leader", "Seconding"], 7, 2, 6, 14, 16, 6, -2, 20, 2, 13, 13, 30, "Mortificator", 1, new List<UnitSpecialAbility> { camouflage2, dodge, executioner2, firstStrike, gymnastic, shadowed, inspire, commandMT }, ["Brotherhood", "Seconding"]);
             mortificatorLeader.AddWeapons([silencedNemesisHG, mortisBlade, smokes]);
 
             Unit sacredWarriorTrooper = new("Brotherhood", "Sacred Warrior", ["Trooper"], 4, 0, 4, 12, 14, 5, -1, 23, 2, 13, 13, 30, null, 0, new List<UnitSpecialAbility> { faith1, fearless, duelist2}, ["Brotherhood"]);

@@ -4,7 +4,7 @@ using Infrastructure.DependencyInjection;
 using Infrastructure.Data;
 using Application.DependencyInjection;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 Env.Load();
 // Add services to the container.
 string? password = Environment.GetEnvironmentVariable("POSTGRESPSW");
@@ -29,11 +29,11 @@ builder.Services.AddCors(options => {
               .AllowAnyMethod();
     });
 });
-var app = builder.Build();
+WebApplication app = builder.Build();
 app.UseCors("AllowLocalhost");
 
 // until here
-using (var scope = app.Services.CreateScope()) {
+using (IServiceScope scope = app.Services.CreateScope()) {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
     if (!context.Units.Any()) {

@@ -80,10 +80,8 @@ namespace Infrastructure.Data {
                 entity.HasKey(e => e.Id);
             });
 
-            modelBuilder.Entity<ForceList>(entity => {
-                entity.ToTable("ForceLists");
-                entity.HasKey(e => e.Id);
-            });
+            modelBuilder.Entity<ForceList>()
+                   .HasMany(f => f.Units).WithMany();
             // Apply any additional configurations
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 

@@ -1,15 +1,11 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities;
 using Infrastructure.Data;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.Repositories {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity {
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<T> _dbSet;
         public GenericRepository(ApplicationDbContext context) {
@@ -22,36 +18,66 @@ namespace Infrastructure.Repositories {
             return entity;
         }
 
-        public Task DeleteAsync(Guid id) {
-            throw new NotImplementedException();
+        public async Task<bool> DeleteAsync(Guid id) {
+            T entity = await _dbSet.FirstOrDefaultAsync(e => e.Id == id) ??
+                throw new KeyNotFoundException($"Entity with ID {id} not found.");
+            entity.DeletedAt = DateTime.UtcNow;
+            entity.UpdatedAt = DateTime.UtcNow;
+            var result = _dbSet.Update(entity);
+            if (result != null) {
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            await _context.SaveChangesAsync();
+            return false;
         }
 
-        public Task<IEnumerable<T>> GetAllAndDeletedAsync() {
-            throw new NotImplementedException();
+        public async Task<IEnumerable<T>> GetAllAndDeletedAsync() =>
+            await _dbSet.ToListAsync();
+
+        public async Task<IEnumerable<T>> GetAllAsync() =>
+            await _dbSet.Where(e=> e.DeletedAt == null).ToListAsync();
+
+        public async Task<T> GetByIdAndDeleted(Guid id) {
+            T entity = await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
+            return entity ?? throw new KeyNotFoundException($"Entity with ID {id} not found or is deleted.");
         }
 
-        public Task<IEnumerable<T>> GetAllAsync() {
-            throw new NotImplementedException();
+        public async Task<T> GetByIdAsync(Guid id) {
+            T entity = await _dbSet.FirstOrDefaultAsync(e => e.Id == id && e.DeletedAt == null);
+            return entity ?? throw new KeyNotFoundException($"Entity with ID {id} not found or is deleted.");
         }
 
-        public Task<T> GetByIdAndDeleted(Guid id) {
-            throw new NotImplementedException();
+        public async Task<bool> HardDelete(Guid id) {
+            var entity = await _dbSet.FirstOrDefaultAsync(e => e.Id == id) ??
+                throw new KeyNotFoundException($"Entity with ID {id} not found.");
+            var result = _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
+            return true;
+
         }
 
-        public Task<T> GetByIdAsync(Guid id) {
-            throw new NotImplementedException();
+        public async Task<T> RestoreAsync(Guid id) {
+            T entity = await _dbSet.FirstOrDefaultAsync(e => e.Id == id) ??
+                throw new KeyNotFoundException($"Entity with ID {id} not found.");
+            entity.DeletedAt = null;
+            entity.UpdatedAt = DateTime.UtcNow;
+            var result = _dbSet.Update(entity);
+            if (result != null) {
+                await _context.SaveChangesAsync();
+                return entity;
+            }
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
-        public Task HardDelete(Guid id) {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> RestoreAsync(Guid id) {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> UpdateAsync(T entity) {
-            throw new NotImplementedException();
+        public async Task<T> UpdateAsync(T entity) {
+            var existing = await _dbSet.FirstOrDefaultAsync(e => e.Id == entity.Id) ??
+                throw new KeyNotFoundException($"Entity with ID {entity.Id} not found.");
+            entity.UpdatedAt = DateTime.UtcNow;
+            _context.Entry(existing).CurrentValues.SetValues(entity);
+            await _context.SaveChangesAsync();
+            return existing;
         }
     }
 }

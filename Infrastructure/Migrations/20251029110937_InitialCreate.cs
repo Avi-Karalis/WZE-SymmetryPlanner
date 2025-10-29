@@ -6,11 +6,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class initialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ForceList",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Faction = table.Column<string>(type: "text", nullable: false),
+                    Allegiance = table.Column<string>(type: "text", nullable: false),
+                    MaxDp = table.Column<int>(type: "integer", nullable: false),
+                    MaxSp = table.Column<int>(type: "integer", nullable: false),
+                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForceList", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Units",
                 columns: table => new
@@ -108,6 +127,30 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ForceListUnit",
+                columns: table => new
+                {
+                    ForceListId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UnitsId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForceListUnit", x => new { x.ForceListId, x.UnitsId });
+                    table.ForeignKey(
+                        name: "FK_ForceListUnit_ForceList_ForceListId",
+                        column: x => x.ForceListId,
+                        principalTable: "ForceList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ForceListUnit_Units_UnitsId",
+                        column: x => x.UnitsId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UnitUnitSpecialAbilities",
                 columns: table => new
                 {
@@ -180,6 +223,11 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ForceListUnit_UnitsId",
+                table: "ForceListUnit",
+                column: "UnitsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UnitUnitSpecialAbilities_UnitSpecialAbilityId",
                 table: "UnitUnitSpecialAbilities",
                 column: "UnitSpecialAbilityId");
@@ -199,6 +247,9 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ForceListUnit");
+
+            migrationBuilder.DropTable(
                 name: "UnitUnitSpecialAbilities");
 
             migrationBuilder.DropTable(
@@ -206,6 +257,9 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "WeaponWeaponSpecialAbilities");
+
+            migrationBuilder.DropTable(
+                name: "ForceList");
 
             migrationBuilder.DropTable(
                 name: "UnitSpecialAbilities");

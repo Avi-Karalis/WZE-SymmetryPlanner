@@ -57,7 +57,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ForceLists", (string)null);
+                    b.ToTable("ForceList");
                 });
 
             modelBuilder.Entity("Domain.Entities.Unit", b =>
@@ -104,9 +104,6 @@ namespace Infrastructure.Migrations
                     b.PrimitiveCollection<string[]>("FactionAvailabilities")
                         .HasColumnType("text[]");
 
-                    b.Property<Guid?>("ForceListId")
-                        .HasColumnType("uuid");
-
                     b.Property<short>("LD")
                         .HasColumnType("smallint");
 
@@ -136,8 +133,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ForceListId");
 
                     b.ToTable("Units");
                 });
@@ -318,11 +313,19 @@ namespace Infrastructure.Migrations
                     b.ToTable("WeaponWeaponSpecialAbilities", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Unit", b =>
+            modelBuilder.Entity("ForceListUnit", b =>
                 {
-                    b.HasOne("Domain.Entities.ForceList", null)
-                        .WithMany("Units")
-                        .HasForeignKey("ForceListId");
+                    b.Property<Guid>("ForceListId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UnitsId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ForceListId", "UnitsId");
+
+                    b.HasIndex("UnitsId");
+
+                    b.ToTable("ForceListUnit");
                 });
 
             modelBuilder.Entity("Domain.Entities.UnitUnitSpecialAbility", b =>
@@ -384,9 +387,19 @@ namespace Infrastructure.Migrations
                     b.Navigation("WeaponSpecialAbility");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ForceList", b =>
+            modelBuilder.Entity("ForceListUnit", b =>
                 {
-                    b.Navigation("Units");
+                    b.HasOne("Domain.Entities.ForceList", null)
+                        .WithMany()
+                        .HasForeignKey("ForceListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Unit", null)
+                        .WithMany()
+                        .HasForeignKey("UnitsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Unit", b =>

@@ -4,7 +4,7 @@ namespace Domain.Entities {
         public string Name { get; set; }
         public string Faction { get; set; }
         public string Allegiance { get; set; }
-        public List<Unit> Units { get; set; } = new();
+        public ICollection<Unit> Units { get; set; } = new List<Unit>();
         public int MaxDp { get; set; }
         public int MaxSp { get; set; }
         public int CurrentDp => Units.Sum(u => u.DPCost);

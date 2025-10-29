@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
-using System.Threading.Tasks;
+using Application.Interfaces;
 
 namespace WZE_Symmetry_Planner.Controllers {
     [ApiController]
     [Route("api/[controller]")]
     public class TestController : ControllerBase {
         private readonly ApplicationDbContext _context;
+        private readonly IUnitService _unitsService;
 
-        public TestController(ApplicationDbContext context) {
+        public TestController(ApplicationDbContext context, IUnitService unitsService) {
             _context = context;
+            _unitsService = unitsService;
         }
 
         [HttpGet("test-connection")]
@@ -26,6 +27,12 @@ namespace WZE_Symmetry_Planner.Controllers {
             } catch (Exception ex) {
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
+        }
+
+        [HttpGet("Units")]
+        public async Task<IActionResult> GetAll() {
+            var units = await _unitsService.GetAllAsync();
+            return Ok(units);
         }
     }
 }

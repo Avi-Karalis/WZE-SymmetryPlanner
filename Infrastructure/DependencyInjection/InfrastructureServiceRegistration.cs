@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
 using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
+using Domain.Entities;
 
 namespace Infrastructure.DependencyInjection {
     public static class InfrastructureServiceRegistration {
@@ -17,6 +18,7 @@ namespace Infrastructure.DependencyInjection {
 
         public static IServiceCollection AddRepositories(this IServiceCollection services) {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository <>));
+            services.AddScoped(typeof(IUnitRepository), typeof(UnitRepository));
             return services;
         }
     }

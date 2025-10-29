@@ -110,7 +110,7 @@ namespace Domain.Entities {
             }
         }
 
-        public void AddWeapon(IEnumerable<Weapon> weapons) {
+        public void AddWeapons(IEnumerable<Weapon> weapons) {
             weapons.ToList().ForEach(weapon => UnitWeapon.Add(new UnitWeapon {
                 Unit = this,
                 Weapon = weapon

@@ -254,162 +254,162 @@ namespace Infrastructure.Data
             List<Unit> units = new() { };
             // Seed data for BH Units
             Unit venusianRangerTrooper = new("Bauhaus", "Venusian Ranger", ["Trooper"], 4, 0, 4, 14, 12, 6, 0, 22, 2, 12, 12, 30, null, 0, new List<UnitSpecialAbility> { camouflage1, determination }, ["Bauhaus"]);
-            venusianRangerTrooper.AddWeapon([ag17AR, mp105HG]);
+            venusianRangerTrooper.AddWeapons([ag17AR, mp105HG]);
             units.Add(venusianRangerTrooper);
             Unit venusianRangerMedic = new("Bauhaus", "Venusian Ranger", ["Medic","Specialist"], 4, 0, 4, 14, 12, 6, 0, 22, 2, 12, 12, 30, "Venusian Ranger", 1, new List<UnitSpecialAbility> { camouflage1, determination, firstAid12 }, ["Bauhaus"]);
-            venusianRangerMedic.AddWeapon([ag17AR, mp105HG]);
+            venusianRangerMedic.AddWeapons([ag17AR, mp105HG]);
             units.Add(venusianRangerMedic);
             Unit venusianRangerSupport = new("Bauhaus", "Venusian Ranger", ["Support"], 4, -3, 4, 14, 12, 6, 0, 22, 2, 12, 12, 30, null, 0, new List<UnitSpecialAbility> { camouflage1, determination }, ["Bauhaus"]);
-            venusianRangerSupport.AddWeapon([mg80HMG, mp105HG]);
+            venusianRangerSupport.AddWeapons([mg80HMG, mp105HG]);
             units.Add(venusianRangerSupport);
             Unit venusianRangerLeader = new("Bauhaus", "Venusian Ranger", ["Leader"], 5, 3, 4, 14, 12, 6, 0, 22, 2, 12, 12, 30, "Venusian Ranger", 1, new List<UnitSpecialAbility> { camouflage1, determination, commandVR, inspire }, ["Bauhaus"]);
-            venusianRangerLeader.AddWeapon([hg14SG, mp105HG]);
+            venusianRangerLeader.AddWeapons([hg14SG, mp105HG]);
             units.Add(venusianRangerLeader);
 
             Unit blitzerTrooper = new("Bauhaus", "Blitzer", ["Trooper"], 4, 0, 4, 13, 13, 5, -1, 21, 2, 11, 12, 30, null, 0, new List<UnitSpecialAbility> { blitz, trailblaze }, ["Bauhaus"]);
-            blitzerTrooper.AddWeapon([mp103SMG, mp105HG]);
+            blitzerTrooper.AddWeapons([mp103SMG, mp105HG]);
             Unit blitzerSupport = new("Bauhaus", "Blitzer", ["Support"], 4, -1, 4, 13, 13, 5, -1, 21, 2, 11, 12, 30, null, 0, new List<UnitSpecialAbility> { blitz, trailblaze }, ["Bauhaus"]);
-            blitzerSupport.AddWeapon([gehennaPuker, mp105HG]);
+            blitzerSupport.AddWeapons([gehennaPuker, mp105HG]);
             Unit blitzerSpecialist = new("Bauhaus", "Blitzer", ["Operator","Specialist"], 4, 0, 4, 13, 13, 5, -1, 21, 2, 11, 12, 30, "Blitzer", 1, new List<UnitSpecialAbility> { blitz, trailblaze, tactical }, ["Bauhaus"]);
-            blitzerSpecialist.AddWeapon([mp103SMG,mp105HG,frags,smokes]);
+            blitzerSpecialist.AddWeapons([mp103SMG,mp105HG,frags,smokes]);
             Unit blitzerLeader = new("Bauhaus", "Blitzer", ["Leader"], 5, 2, 4, 13, 13, 5, -1, 21, 2, 11, 12, 30, "Blitzer", 1, new List<UnitSpecialAbility> { blitz, trailblaze, inspire,commandBL }, ["Bauhaus"]);
-            blitzerLeader.AddWeapon([mp103SMG, hg14SG]);
+            blitzerLeader.AddWeapons([mp103SMG, hg14SG]);
             units.AddRange([blitzerTrooper, blitzerSupport, blitzerSpecialist, blitzerLeader]);
 
 
             Unit etoilesMortantTrooper = new("Bauhaus", "Etoiles Mortant", ["Trooper"], 4, 0, 5, 12, 15, 6, -2, 20, 2, 13, 13, 30, null, 0, new List<UnitSpecialAbility> { awareness, dodge, evasive2}, ["Bauhaus"]);
-            etoilesMortantTrooper.AddWeapon([punisherHandgun, punisherShortSword]);
+            etoilesMortantTrooper.AddWeapons([punisherHandgun, punisherShortSword]);
             Unit etoilesMortantSupport = new("Bauhaus", "Etoiles Mortant", ["Support"], 4, -2, 5, 12, 15, 6, -2, 20, 2, 13, 13, 30, null, 0, new List<UnitSpecialAbility> { awareness, dodge, evasive2 }, ["Bauhaus"]);
-            etoilesMortantSupport.AddWeapon([punisherHandgun, psg99SR]);
+            etoilesMortantSupport.AddWeapons([punisherHandgun, psg99SR]);
             Unit etoilesMortantLeader = new("Bauhaus", "Etoiles Mortant", ["Leader"], 5, 2, 5, 12, 15, 6, -2, 20, 2, 13, 13, 30, null, 0, new List<UnitSpecialAbility> { awareness, dodge, evasive2, commandEM, inspire }, ["Bauhaus"]);
-            etoilesMortantLeader.AddWeapon([punisherHandgun, punisherShortSword]);
+            etoilesMortantLeader.AddWeapons([punisherHandgun, punisherShortSword]);
             units.AddRange([etoilesMortantTrooper, etoilesMortantSupport, etoilesMortantLeader]);
 
             // Seed data for CL Units
             Unit freeMarineTrooper = new("Capitol", "Free Marine", ["Trooper"], 4, 0, 4, 13, 13, 6, 0, 21, 2, 11, 12, 30, null, 0, new List<UnitSpecialAbility> { camouflage2, guerilla5}, ["Capitol"]);
-            freeMarineTrooper.AddWeapon([m50AR, punisherShortSword]);
+            freeMarineTrooper.AddWeapons([m50AR, punisherShortSword]);
             Unit freeMarineSpecialist = new("Capitol", "Free Marine", ["Medic", "Specialist"], 4, 0, 4, 13, 13, 6, 0, 21, 2, 11, 12, 30, "Free Marine", 1, new List<UnitSpecialAbility> { camouflage2, guerilla5, firstAid11 }, ["Capitol"]);
-            freeMarineSpecialist.AddWeapon([m50AR, punisherShortSword]);
+            freeMarineSpecialist.AddWeapons([m50AR, punisherShortSword]);
             Unit freeMarineSupport = new("Capitol", "Free Marine", ["Support"], 4, -2, 4, 13, 13, 6, 0, 21, 2, 11, 12, 30, "Free Marine", 1, new List<UnitSpecialAbility> { camouflage2, guerilla5 }, ["Capitol"]);
-            freeMarineSupport.AddWeapon([dpat9RL, punisherShortSword]);
+            freeMarineSupport.AddWeapons([dpat9RL, punisherShortSword]);
             Unit freeMarineLeader = new("Capitol", "Free Marine", ["Leader"], 5, 3, 4, 13, 13, 6, 0, 21, 2, 11, 12, 30, "Free Marine", 1, new List<UnitSpecialAbility> { camouflage2, guerilla5, inspire, commandFM }, ["Capitol"]);
-            freeMarineLeader.AddWeapon([m50AR, punisherShortSword]);
+            freeMarineLeader.AddWeapons([m50AR, punisherShortSword]);
             units.AddRange([freeMarineTrooper, freeMarineSpecialist, freeMarineSupport, freeMarineLeader]);
 
            Unit sunsetStrikerTrooper = new("Capitol", "Sunset Striker", ["Trooper"], 4, 0, 4, 12, 15, 5, -1, 21, 2, 12, 13, 30, null, 0, new List<UnitSpecialAbility> { duelist2, fierceCharge}, ["Capitol"]);
-            sunsetStrikerTrooper.AddWeapon([m50AR, ceremonialBlades]);
+            sunsetStrikerTrooper.AddWeapons([m50AR, ceremonialBlades]);
             Unit sunsetStrikerSupport = new("Capitol", "Sunset Striker", ["Support"], 4, -1, 4, 12, 15, 5, -1, 21, 2, 12, 13, 30, null, 0, new List<UnitSpecialAbility> { duelist2, fierceCharge }, ["Capitol"]);
-            sunsetStrikerSupport.AddWeapon([gehennaPuker, ceremonialBlades]);
+            sunsetStrikerSupport.AddWeapons([gehennaPuker, ceremonialBlades]);
             Unit sunsetStrikerSpecialist = new("Capitol", "Sunset Striker", ["Operator","Specialist"], 4, 0, 4, 12, 15, 5, -1, 21, 2, 12, 13, 30, "Sunset Striker", 1, new List<UnitSpecialAbility> { duelist2, fierceCharge, tactical }, ["Capitol"]);
-            sunsetStrikerSpecialist.AddWeapon([m50AR, ceremonialBlades, frags, smokes]);
+            sunsetStrikerSpecialist.AddWeapons([m50AR, ceremonialBlades, frags, smokes]);
             Unit sunsetStrikerLeader = new("Capitol", "Sunset Striker", ["Leader"], 5, 3, 4, 12, 15, 5, -1, 21, 2, 12, 13, 30, "Sunset Striker", 1, new List<UnitSpecialAbility> { duelist2, fierceCharge, inspire, commandSS }, ["Capitol"]);
-            sunsetStrikerLeader.AddWeapon([m516SSG, ceremonialBlades]);
+            sunsetStrikerLeader.AddWeapons([m516SSG, ceremonialBlades]);
             units.AddRange([sunsetStrikerTrooper, sunsetStrikerSupport, sunsetStrikerSpecialist, sunsetStrikerLeader]);
 
             Unit martianBansheeTrooper = new("Capitol", "Martian Banshee", ["Trooper"], 5, 0, 4, 12, 12, 6, 0, 23, 2, 12, 14, 30, null, 0, new List<UnitSpecialAbility> { flight, impact2, nervesOfSteel}, ["Capitol"]);
-            martianBansheeTrooper.AddWeapon([car24SMG, m13HG, frags]);
+            martianBansheeTrooper.AddWeapons([car24SMG, m13HG, frags]);
             Unit martianBansheeSupport = new("Capitol", "Martian Banshee", ["Support"], 5, -1, 4, 12, 12, 6, 0, 23, 2, 12, 14, 30, null, 0, new List<UnitSpecialAbility> { flight, impact2, nervesOfSteel }, ["Capitol"]);
-            martianBansheeSupport.AddWeapon([gehennaPuker, m13HG, frags]);
+            martianBansheeSupport.AddWeapons([gehennaPuker, m13HG, frags]);
             Unit martianBansheeLeader = new("Capitol", "Martian Banshee", ["Leader"], 6, 2, 4, 12, 12, 6, 0, 23, 2, 12, 14, 30, "Martian Banshee", 1, new List<UnitSpecialAbility> { flight, impact2, nervesOfSteel }, ["Capitol"]);
-            martianBansheeLeader.AddWeapon([car24SMG, m13HG, frags]);
+            martianBansheeLeader.AddWeapons([car24SMG, m13HG, frags]);
             units.AddRange([martianBansheeTrooper, martianBansheeSupport, martianBansheeLeader]);
 
             // Seed data for CT Units
             Unit chasseurTrooper = new("Cybertronic", "Chasseur", ["Trooper"], 4, 0, 4, 13, 13, 9, 1, 24, 2, 10, 11, 30, null, 0, new List<UnitSpecialAbility> { networked}, ["Cybertronic"]);
-            chasseurTrooper.AddWeapon([ar3000]);
+            chasseurTrooper.AddWeapons([ar3000]);
             Unit chasseurSupport = new("Cybertronic", "Chasseur", ["Support"], 4, -3, 4, 13, 13, 9, 1, 24, 2, 10, 11, 30, null, 0, new List<UnitSpecialAbility> { networked }, ["Cybertronic"]);
-            chasseurSupport.AddWeapon([sSW4200PHMG]);
+            chasseurSupport.AddWeapons([sSW4200PHMG]);
             Unit chasseurSpecialist = new("Cybertronic", "Chasseur", ["Operator","Specialist"], 4, 0, 4, 13, 13, 9, 1, 24, 2, 10, 11, 30, "Chasseur", 1, new List<UnitSpecialAbility> { networked, tactical }, ["Cybertronic"]);
-            chasseurSpecialist.AddWeapon([ar3000]);
+            chasseurSpecialist.AddWeapons([ar3000]);
             Unit chasseurLeader = new("Cybertronic", "Chasseur", ["Leader"], 5, 4, 4, 13, 13, 9, 1, 24, 2, 10, 11, 30, "Chasseur", 1, new List<UnitSpecialAbility> { networked, inspire, commandCS }, ["Cybertronic"]);
-            chasseurLeader.AddWeapon([ar3000]);
+            chasseurLeader.AddWeapons([ar3000]);
             units.AddRange([chasseurTrooper, chasseurSupport, chasseurSpecialist, chasseurLeader]);
 
             Unit mirrormanTrooper = new("Cybertronic", "Mirrorman", ["Trooper"], 4, 0, 5, 12, 15, 8, -1, 21, 2, 10, 11, 30, null, 0, new List<UnitSpecialAbility> { blur2, camouflage2,networked }, ["Cybertronic"]);
-            mirrormanTrooper.AddWeapon([csa404Sword, p1000HG]);
+            mirrormanTrooper.AddWeapons([csa404Sword, p1000HG]);
             Unit mirrormanLeader = new("Cybertronic", "Mirrorman", ["Leader"], 5, 3, 5, 12, 15, 8, -1, 21, 2, 10, 11, 30, "Mirrorman", 1, new List<UnitSpecialAbility> { blur2, camouflage2, networked, commandMM, inspire }, ["Cybertronic"]);
-            mirrormanLeader.AddWeapon([csa404Sword, sasG72001Shotgun, flashGrenades]);
+            mirrormanLeader.AddWeapons([csa404Sword, sasG72001Shotgun, flashGrenades]);
             units.AddRange([mirrormanTrooper, mirrormanLeader]);
 
             Unit attillaTrooper = new("Cybertronic", "Attilla Mk III Cuirassier", ["Trooper"], 8, 0, 3, 13, 12, 12, 1, 25, 3, 10, 10, 40, null, 0, new List<UnitSpecialAbility> {aggressive, firingStance, nervesOfSteel ,networked }, ["Cybertronic"]);
-            attillaTrooper.AddWeapon([ar3000]);
+            attillaTrooper.AddWeapons([ar3000]);
             Unit attillaSupportHMG = new("Cybertronic", "Attilla Mk III Cuirassier", ["Support"], 8, -3, 3, 13, 12, 12, 1, 25, 3, 10, 10, 40, null, 0, new List<UnitSpecialAbility> { aggressive, firingStance, nervesOfSteel, networked }, ["Cybertronic"]);
-            attillaSupportHMG.AddWeapon([sSW4200PHMG]);
+            attillaSupportHMG.AddWeapons([sSW4200PHMG]);
             Unit attillaSupportFT = new("Cybertronic", "Attilla Mk III Cuirassier", ["Support"], 8, -1, 3, 13, 12, 12, 1, 25, 3, 10, 10, 40, null, 0, new List<UnitSpecialAbility> { aggressive, firingStance, nervesOfSteel, networked }, ["Cybertronic"]);
-            attillaSupportHMG.AddWeapon([gehennaPuker]);
+            attillaSupportHMG.AddWeapons([gehennaPuker]);
             units.AddRange([attillaTrooper, attillaSupportHMG, attillaSupportFT]);
 
             // Seed data for IM Units
             Unit bloodBerretTrooper = new("Imperial", "Blood Beret", ["Trooper"], 4, 0, 4, 13, 13, 6, -1, 22, 2, 10, 12, 30, null, 0, new List<UnitSpecialAbility> { camouflage1, shakeItOff, rebreather3}, ["Imperial"]);
-            bloodBerretTrooper.AddWeapon([aggressorHG, bladeBayonet, invaderAR]);
+            bloodBerretTrooper.AddWeapons([aggressorHG, bladeBayonet, invaderAR]);
             Unit bloodBerretSpecialist = new("Imperial", "Blood Beret", ["Medic","Specialist"], 4, 0, 4, 13, 13, 6, -1, 22, 2, 10, 12, 30, "Blood Beret", 1, new List<UnitSpecialAbility> { camouflage1, shakeItOff, rebreather3, firstAid11 }, ["Imperial"]);
-            bloodBerretSpecialist.AddWeapon([aggressorHG, bladeBayonet, invaderAR]);
+            bloodBerretSpecialist.AddWeapons([aggressorHG, bladeBayonet, invaderAR]);
             Unit bloodBerretSupport = new("Imperial", "Blood Beret", ["Support"], 4, -2, 4, 13, 13, 6, -1, 22, 2, 10, 12, 30, null, 0, new List<UnitSpecialAbility> { camouflage1, shakeItOff, rebreather3 }, ["Imperial"]);
-            bloodBerretSupport.AddWeapon([aggressorHG, southpawRPG]);
+            bloodBerretSupport.AddWeapons([aggressorHG, southpawRPG]);
             Unit bloodBerretLeader = new("Imperial", "Blood Beret", ["Leader"], 5, 3, 4, 13, 13, 6, -1, 22, 2, 10, 12, 30, "Blood Beret", 1, new List<UnitSpecialAbility> { camouflage1, shakeItOff, rebreather3, inspire, commandBB }, ["Imperial"]);
-            bloodBerretLeader.AddWeapon([aggressorHG, bladeBayonet, invaderAR]);
+            bloodBerretLeader.AddWeapons([aggressorHG, bladeBayonet, invaderAR]);
             units.AddRange([bloodBerretTrooper, bloodBerretSpecialist, bloodBerretSupport, bloodBerretLeader,]);
 
             Unit goldenLionTrooper = new("Imperial", "Golden Lion", ["Trooper"], 4, 0, 4, 14, 12, 6, 0, 22, 2, 11, 13, 30, null, 0, new List<UnitSpecialAbility> { focusedFire, rebreather3 }, ["Imperial"]);
-            goldenLionTrooper.AddWeapon([aggressorHG, interceptorSMG]);
+            goldenLionTrooper.AddWeapons([aggressorHG, interceptorSMG]);
             Unit goldenLionSpecialist = new("Imperial", "Golden Lion", ["Operator", "Specialist"], 4, 0, 4, 14, 12, 6, 0, 22, 2, 11, 13, 30, "Golden Lion", 1, new List<UnitSpecialAbility> { focusedFire, rebreather3, tactical }, ["Imperial"]);
-            goldenLionSpecialist.AddWeapon([aggressorHG, plasmaCB, plasmaGrenade, smokes]);
+            goldenLionSpecialist.AddWeapons([aggressorHG, plasmaCB, plasmaGrenade, smokes]);
             Unit goldenLionSupport = new("Imperial", "Golden Lion", ["Support"], 4, -3, 4, 14, 12, 6, 0, 22, 2, 11, 13, 30, null, 0, new List<UnitSpecialAbility> { focusedFire, rebreather3 }, ["Imperial"]);
-            goldenLionSupport.AddWeapon([aggressorHG, destroyerLMG]);
+            goldenLionSupport.AddWeapons([aggressorHG, destroyerLMG]);
             Unit goldenLionLeader = new("Imperial", "Golden Lion", ["Leader"], 5, 3, 4, 14, 12, 6, 0, 22, 2, 11, 13, 30, "Golden Lion", 1, new List<UnitSpecialAbility> { focusedFire, rebreather3, inspire, commandGL }, ["Imperial"]);
-            goldenLionLeader.AddWeapon([chainripper, plasmaCB]);
+            goldenLionLeader.AddWeapons([chainripper, plasmaCB]);
             units.AddRange([goldenLionTrooper, goldenLionSpecialist, goldenLionSupport, goldenLionLeader]);
 
             Unit trencherTrooper = new("Imperial", "Trencher", ["Trooper"], 3, 0, 4, 11, 10, 4, 0, 21, 2, 10, 11, 30, null, 0, new List<UnitSpecialAbility> { rebreather2, entrenched, group2, recruit}, ["Imperial"]);
-            trencherTrooper.AddWeapon([aggressorHG, bladeBayonet, invaderAR]);
+            trencherTrooper.AddWeapons([aggressorHG, bladeBayonet, invaderAR]);
             Unit trencherSupport = new("Imperial", "Trencher", ["Support"], 3, -3, 4, 11, 10, 4, 0, 21, 2, 10, 11, 30, null, 0, new List<UnitSpecialAbility> { rebreather2, entrenched, group2, recruit }, ["Imperial"]);
-            trencherSupport.AddWeapon([aggressorHG, chargerHMG]);
+            trencherSupport.AddWeapons([aggressorHG, chargerHMG]);
             Unit trencherLeader = new("Imperial", "Trencher", ["Leader"], 4, 3, 4, 11, 10, 4, 0, 21, 2, 10, 11, 30, null, 0, new List<UnitSpecialAbility> { rebreather2, entrenched, group2, recruit, inspire, commandTR }, ["Imperial"]);
-            trencherLeader.AddWeapon([aggressorHG, bladeBayonet, invaderAR]);
+            trencherLeader.AddWeapons([aggressorHG, bladeBayonet, invaderAR]);
             units.AddRange([trencherTrooper, trencherSupport, trencherLeader]);
 
             // Seed data for MI Units
             Unit hatamotoTrooper = new("Mishima", "Hatamoto", ["Trooper"], 4, 0, 4, 13, 16, 6, 0, 23, 2, 11, 13, 30, null, 0, new List<UnitSpecialAbility> { duelist3, executioner2, fearless, honorbound}, ["Mishima"]);
-            hatamotoTrooper.AddWeapon([ceremonialBlades, shogunAR]);
+            hatamotoTrooper.AddWeapons([ceremonialBlades, shogunAR]);
             Unit hatamotoSupport = new("Mishima", "Hatamoto", ["Support"], 4, -3, 4, 13, 16, 6, 0, 23, 2, 11, 13, 30, null, 0, new List<UnitSpecialAbility> { duelist3, executioner2, fearless, honorbound }, ["Mishima"]);
-            hatamotoSupport.AddWeapon([ceremonialBlades, dragonfireHMG]);
+            hatamotoSupport.AddWeapons([ceremonialBlades, dragonfireHMG]);
             Unit hatamotoSpecialist = new("Mishima", "Hatamoto", ["Operator","Specialist"],  4, 0, 4, 13, 16, 6, 0, 23, 2, 11, 13, 30, "Hatamoto", 1, new List<UnitSpecialAbility> { duelist3, executioner2, fearless, honorbound, tactical }, ["Mishima"]);
-            hatamotoSpecialist.AddWeapon([ceremonialBlades, shogunAR, smokes, frags]);
+            hatamotoSpecialist.AddWeapons([ceremonialBlades, shogunAR, smokes, frags]);
             Unit hatamotoLeader = new("Mishima", "Hatamoto", ["Leader"], 5, 3, 4, 13, 16, 6, 0, 23, 2, 11, 13, 30, "Hatamoto", 1, new List<UnitSpecialAbility> { duelist3, executioner2, fearless, honorbound, inspire, commandHM }, ["Mishima"]);
-            hatamotoLeader.AddWeapon([ceremonialBlades, airbrushSG]);
+            hatamotoLeader.AddWeapons([ceremonialBlades, airbrushSG]);
             units.AddRange([hatamotoTrooper, hatamotoSupport, hatamotoSpecialist, hatamotoLeader]);
 
             Unit shinobiTrooper = new("Mishima", "Shinobi", ["Trooper"], 4, 0, 5, 13, 14, 5, -1, 21, 2, 12, 11, 30, null, 0, new List<UnitSpecialAbility> { duelist1, shift}, ["Mishima"]);
-            shinobiTrooper.AddWeapon([ceremonialBlades, windriderSMG]);
+            shinobiTrooper.AddWeapons([ceremonialBlades, windriderSMG]);
             Unit shinobiSupport = new("Mishima", "Shinobi", ["Support"], 4, 0, 5, 13, 14, 5, -1, 21, 2, 12, 11, 30, null, 0, new List<UnitSpecialAbility> { duelist1, shift, firstAid10}, ["Mishima"]);
-            shinobiSupport.AddWeapon([ceremonialBlades, archerSR]);
+            shinobiSupport.AddWeapons([ceremonialBlades, archerSR]);
             Unit shinobiSpecialist = new("Mishima", "Shinobi", ["Medic", "Specialist"], 4, 0, 5, 13, 14, 5, -1, 21, 2, 12, 11, 30, "Shinobi", 1, new List<UnitSpecialAbility> { duelist1, shift }, ["Mishima"]);
-            shinobiSpecialist.AddWeapon([ceremonialBlades, windriderSMG, smokes, frags]);
+            shinobiSpecialist.AddWeapons([ceremonialBlades, windriderSMG, smokes, frags]);
             Unit shinobiLeader = new("Mishima", "Shinobi", ["Leader"], 5, 0, 5, 13, 14, 5, -1, 21, 2, 12, 11, 30, "Shinobi", 1, new List<UnitSpecialAbility> { duelist1, shift, inspire, commandSB }, ["Mishima"]);
-            shinobiLeader.AddWeapon([ceremonialBlades, airbrushSG]);
+            shinobiLeader.AddWeapons([ceremonialBlades, airbrushSG]);
             units.AddRange([shinobiTrooper, shinobiSupport, shinobiSpecialist, shinobiLeader]);
 
             Unit shadowWalker = new("Mishima", "Shadow Walker", ["Trooper"], 5, 0, 6, 12, 15, 6, -2, 20, 2, 12, 13, 30, null, 0, new List<UnitSpecialAbility> { blur2, camouflage2, fearless, firstStrike, volatileEnd18, tactical}, ["Mishima"]);
-            shadowWalker.AddWeapon([poisonedPunisherShortSword, silencedPunisherHandgun, smokes]);
+            shadowWalker.AddWeapons([poisonedPunisherShortSword, silencedPunisherHandgun, smokes]);
             units.AddRange([shadowWalker]);
 
             // Seed data for BH Units
             Unit mortificatorTrooper = new("Brotherhood", "Mortificator", ["Trooper", "Seconding"], 6, 0, 6, 14, 16, 6, -2, 20, 2, 13, 13, 30, null, 0, new List<UnitSpecialAbility> { camouflage2, dodge, executioner2, firstStrike, gymnastic, shadowed }, ["Brotherhood", "Seconding"]);
-            mortificatorTrooper.AddWeapon([silencedNemesisHG, mortisBlade, smokes]);
+            mortificatorTrooper.AddWeapons([silencedNemesisHG, mortisBlade, smokes]);
             Unit mortificatorTrooperUnique = new("Brotherhood", "Redemtion Assassin", ["Trooper", "Unique", "Seconding"], 7, 0, 6, 15, 17, 6, -2, 20, 2, 13, 15, 30, null, 0, new List<UnitSpecialAbility> {advancedDeploy ,camouflage2, dodge, executioner2, firstStrike, gymnastic, shadowed }, ["Brotherhood", "Seconding"]);
-            mortificatorTrooperUnique.AddWeapon([avalanceHG, mortisBlade, smokes]);
+            mortificatorTrooperUnique.AddWeapons([avalanceHG, mortisBlade, smokes]);
             Unit mortificatorLeader = new("Mishima", "Mortificator", ["Leader", "Seconding"], 7, 2, 6, 14, 16, 6, -2, 20, 2, 13, 13, 30, "Mortificator", 1, new List<UnitSpecialAbility> { camouflage2, dodge, executioner2, firstStrike, gymnastic, shadowed, inspire, commandMT }, ["Brotherhood", "Seconding"]);
-            mortificatorLeader.AddWeapon([silencedNemesisHG, mortisBlade, smokes]);
+            mortificatorLeader.AddWeapons([silencedNemesisHG, mortisBlade, smokes]);
 
             Unit sacredWarriorTrooper = new("Brotherhood", "Sacred Warrior", ["Trooper"], 4, 0, 4, 12, 14, 5, -1, 23, 2, 13, 13, 30, null, 0, new List<UnitSpecialAbility> { faith1, fearless, duelist2}, ["Brotherhood"]);
-            sacredWarriorTrooper.AddWeapon([avengerSword, r75RetributorCB]);
+            sacredWarriorTrooper.AddWeapons([avengerSword, r75RetributorCB]);
             Unit sacredWarriorSupport = new("Brotherhood", "Sacred Warrior", ["Support"], 4, -2, 4, 12, 14, 5, -1, 23, 2, 13, 13, 30, null, 0, new List<UnitSpecialAbility> { faith1, fearless, duelist2 }, ["Brotherhood"]);
-            sacredWarriorSupport.AddWeapon([avengerSword, eruptorFT, eruptorLMG]);
+            sacredWarriorSupport.AddWeapons([avengerSword, eruptorFT, eruptorLMG]);
 
             Unit furyEliteTrooper = new("Brotherhood", "Fury Elite Guard", ["Trooper"], 6, 0, 4, 13, 16, 5, -1, 23, 3, 14, 16, 30, null, 0, new List<UnitSpecialAbility> { faith1, fierceCharge }, ["Brotherhood"]);
-            furyEliteTrooper.AddWeapon([delivererBattleBlade, punisherHandgun]);
+            furyEliteTrooper.AddWeapons([delivererBattleBlade, punisherHandgun]);
             Unit furyEliteLeader = new("Brotherhood", "Fury Elite Guard", ["Leader"], 6, 3, 4, 12, 15, 5, -1, 23, 3, 14, 14, 30, "Any", 1, new List<UnitSpecialAbility> { faith1, fierceCharge, inspire, commandAB }, ["Brotherhood"]);
-            furyEliteLeader.AddWeapon([delivererBattleBlade, punisherHandgun]);
+            furyEliteLeader.AddWeapons([delivererBattleBlade, punisherHandgun]);
             units.AddRange([mortificatorTrooper, mortificatorTrooperUnique, mortificatorLeader, sacredWarriorTrooper, sacredWarriorSupport, furyEliteTrooper, furyEliteLeader]);
 
             // Seed data for DLA Units
@@ -417,63 +417,63 @@ namespace Infrastructure.Data
                 2, 0, 4, 10, 10, 5, 1, 18, 2, 11, 8, 30,
                 null, 0, 
                 new List<UnitSpecialAbility> { group3, relentless, zombie }, ["Dark Legion - Algeroth", "Dark Cult"]);
-            undeadLeagionnarie.AddWeapon([bladeBayonet, kratachAR]);
+            undeadLeagionnarie.AddWeapons([bladeBayonet, kratachAR]);
 
             Unit necromutantTrooper = new("Dark Legion - Algeroth", "Necromutant", ["Trooper", "Dark Cult"],
                 4, 0, 4, 12, 12, 6, 0, 22, 2, 12, 11, 30,
                 null, 0,
                 new List<UnitSpecialAbility> { controller6, fearless }, ["Dark Legion - Algeroth", "Dark Cult"]);
-            necromutantTrooper.AddWeapon([sectionerBayonet, belzarachAR]);
+            necromutantTrooper.AddWeapons([sectionerBayonet, belzarachAR]);
             Unit necromutantSupport = new("Dark Legion - Algeroth", "Necromutant", ["Support"],
                4, -1, 4, 12, 12, 6, 0, 22, 2, 12, 11, 30,
                null, 0,
                new List<UnitSpecialAbility> { fearless }, ["Dark Legion - Algeroth"]);
-            necromutantSupport.AddWeapon([sectionerBayonet, tormetorFT, gasGrenade]);
+            necromutantSupport.AddWeapons([sectionerBayonet, tormetorFT, gasGrenade]);
 
             Unit necromutantLeader = new("Dark Legion - Algeroth", "Necromutant", ["Leader"],
                 4, 1, 4, 11, 11, 6, 0, 22, 2, 12, 9, 30,
                 null, 0,
                 new List<UnitSpecialAbility> { controller6, fearless , commandUL, inspire}, ["Dark Legion - Algeroth"]);
-            necromutantLeader.AddWeapon([sectionerBayonet, belzarachAR]);
+            necromutantLeader.AddWeapons([sectionerBayonet, belzarachAR]);
 
             Unit centurion = new("Dark Legion - Algeroth", "Centurion", ["Leader"],
                 6, 4, 5, 12, 14, 7, -1, 22, 3, 12, 13, 30,
                 "Undead Legionnaire, Necromutant", 1,
                 new List<UnitSpecialAbility> { controller9, commandULNM1, fierceCharge, inspire }, ["Dark Legion - Algeroth"]);
-            centurion.AddWeapon([skalakSword, voricheHG, smokes]);
+            centurion.AddWeapons([skalakSword, voricheHG, smokes]);
 
             Unit stalkers = new("Dark Legion - Algeroth", "Pretorian Stalker", ["Support"],
                 10, -2, 5, 14, 14, 7, -1, 23, 3, 13, 14, 40,
                 null, 0,
                 new List<UnitSpecialAbility> { aggressive, camouflage1, packHunterPS,preciseSenses }, ["Dark Legion - Algeroth"]);
-            stalkers.AddWeapon([sectionerBayonet, carcassGrenadeLauncher, incinerator, scytheOfSemai]);
+            stalkers.AddWeapons([sectionerBayonet, carcassGrenadeLauncher, incinerator, scytheOfSemai]);
 
             Unit razideHMG1 = new("Dark Legion - Algeroth", "Razide", ["Support"],
                 12, -3, 4, 12, 14, 10, 2, 25, 4, 13, 14, 50,
                 null, 0,
                 new List<UnitSpecialAbility> { driven, firingStance, shakeItOff }, ["Dark Legion - Algeroth"]);
-            razideHMG1.AddWeapon([nazgarothHMG]);
+            razideHMG1.AddWeapons([nazgarothHMG]);
             Unit razideHMG2 = new("Dark Legion - Algeroth", "Razide", ["Support"],
                 12, -3, 4, 12, 14, 10, 2, 25, 4, 13, 14, 50,
                 null, 0,
                 new List<UnitSpecialAbility> { driven, firingStance, shakeItOff }, ["Dark Legion - Algeroth"]);
-            razideHMG2.AddWeapon([ashnazgarothHMG]);
+            razideHMG2.AddWeapons([ashnazgarothHMG]);
             Unit razideHellblaster = new("Dark Legion - Algeroth", "Razide", ["Support"],
                 12, -2, 4, 12, 14, 10, 2, 25, 4, 13, 14, 50,
                 null, 0,
                 new List<UnitSpecialAbility> { driven, firingStance, shakeItOff }, ["Dark Legion - Algeroth"]);
-            razideHellblaster.AddWeapon([hellblasterLauncher]);
+            razideHellblaster.AddWeapons([hellblasterLauncher]);
 
             Unit nepharite= new("Dark Legion - Algeroth", "Nepharite", ["Leader"],
                 13, 2, 5, 12, 15, 10, 0, 24, 4, 15, 16, 50,
                 "Undead Legionnaire, Necromutant", 4,
                 new List<UnitSpecialAbility> {awareness, commandAA, controller12, inspire, nervesOfSteel, shakeItOff }, ["Dark Legion - Algeroth"]);
-            nepharite.AddWeapon([azogar, devouringDarkness]);
+            nepharite.AddWeapons([azogar, devouringDarkness]);
 
             Unit cartelAgent = new ("Cartel", "Cartel Agent", ["Trooper", "Advisor"],
                 7,0,5,13,13,5,-1,21,3,13,13,30,null,0,
                 new List<UnitSpecialAbility> { nervesOfSteel, scoutAhead, tactical }, ["Bauhaus","Capitol","Cybetronic","Brotherhood","Imperial","Mishima","Cartel"]);
-            cartelAgent.AddWeapon([punisherHandgun,frags,smokes]);
+            cartelAgent.AddWeapons([punisherHandgun,frags,smokes]);
             units.AddRange([cartelAgent,undeadLeagionnarie, necromutantTrooper, necromutantSupport, necromutantLeader, centurion, stalkers, razideHMG1, razideHMG2, razideHellblaster, nepharite]);
 
 

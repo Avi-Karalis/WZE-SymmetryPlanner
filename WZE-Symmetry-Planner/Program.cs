@@ -1,9 +1,10 @@
 ﻿using DotNetEnv;
-using Microsoft.EntityFrameworkCore;
 using Infrastructure.DependencyInjection;
 using Infrastructure.Data;
 using Application.DependencyInjection;
-
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
+using static WZE_Symmetry_Planner.Utilities.CommandHelper;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 Env.Load();
 // Add services to the container.
@@ -36,8 +37,28 @@ app.UseCors("AllowLocalhost");
 using (IServiceScope scope = app.Services.CreateScope()) {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
-    if (!context.Units.Any()) {
-        SeedData.Seed(context);
+    try
+    {
+        bool hasTables = context.Database.GetService<IRelationalDatabaseCreator>()
+            .Exists();
+        if (!hasTables){
+            Console.WriteLine("🧱 No tables detected. Ensuring database and migrations...");
+            string migrationsFolder = Path.Combine(Directory.GetCurrentDirectory(), "../Infrastructure/Migrations");
+
+            if (!Directory.Exists(migrationsFolder) || Directory.GetFiles(migrationsFolder, "*.cs").Length == 0){
+                Console.WriteLine("📦 No migrations found — creating initial migration...");
+
+                RunCommand("dotnet", "ef migrations add InitialCreate --project ../Infrastructure --startup-project .");
+            }
+
+            Console.WriteLine("⚙️ Applying migrations...");
+            RunCommand("dotnet", "ef database update --project ../Infrastructure --startup-project .");
+        }
+        if (!context.Units.Any()){
+            SeedData.Seed(context);
+        }
+    } catch (Exception ex){
+        Console.WriteLine($"An error occurred while migrating or initializing the database: {ex.Message}");
     }
 }
 // Configure the HTTP request pipeline.

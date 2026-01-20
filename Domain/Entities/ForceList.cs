@@ -1,4 +1,6 @@
 ﻿
+using System.Linq;
+
 namespace Domain.Entities {
     public class ForceList : BaseEntity {
         public string Name { get; set; }
@@ -61,8 +63,13 @@ namespace Domain.Entities {
 
             // 6️⃣ Ally rule — up to 20% of DP may be spent on Allies
             int totalDP = Units.Sum(u => u.DPCost);
+
+            // Define the designations that count as Allies
+            var allyDesignations = new[] {"Seconding", "Dark Cult", "Advisor" };
+
             int allyDP = Units
-                .Where(u => u.Designation.Contains("Ally", StringComparer.OrdinalIgnoreCase))
+                .Where(u => u.Designation.Any(d => allyDesignations.Any(a =>
+                    string.Equals(d, a, StringComparison.OrdinalIgnoreCase))))
                 .Sum(u => u.DPCost);
 
             if (totalDP > 0 && allyDP > totalDP * 0.2) {

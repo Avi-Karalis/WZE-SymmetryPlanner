@@ -11,10 +11,11 @@ namespace Domain.Entities {
         public int MaxSp { get; set; }
         public int CurrentDp => Units.Sum(u => u.DPCost);
         public int CurrentSp => Units.Sum(u => u.SPCost);
-
+        public Guid UserId { get; set; }
+        public User User { get; set; }
 
         public bool Validate(out List<string> errors) {
-            errors = new List<string>();
+            errors = [];
 
             if (!Units.Any(u => u.Designation.Any(d => d.Equals("Leader", StringComparison.OrdinalIgnoreCase)))) {
                 errors.Add("Force must include at least one Leader.");
@@ -29,7 +30,7 @@ namespace Domain.Entities {
                         errors.Add($"{leader.UnitType} Leader requires {leader.DesignationLimitValue} {leader.DesignationTypeLimit} Troopers, but only {trooperCount} present.");
                     }
                 }
-                           }
+           }
 
             foreach (Unit specialist in Units.Where(u => u.Designation.Contains("Specialist", StringComparer.OrdinalIgnoreCase))) {
                 if (!string.IsNullOrWhiteSpace(specialist.DesignationTypeLimit) && specialist.DesignationLimitValue > 0) {
@@ -76,7 +77,7 @@ namespace Domain.Entities {
                 errors.Add($"Allies consume {allyDP} DP ({(double)allyDP / totalDP:P0}), exceeding the 20% DP limit.");
             }
 
-            return !errors.Any();
+            return errors.Count == 0;
         }
     }
 }

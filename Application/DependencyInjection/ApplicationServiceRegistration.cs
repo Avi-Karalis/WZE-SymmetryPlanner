@@ -12,6 +12,7 @@ namespace Application.DependencyInjection {
         public static IServiceCollection AddServices(this IServiceCollection serviceCollection) {
             serviceCollection.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
             serviceCollection.AddScoped(typeof(IUnitService), typeof(UnitService));
+            serviceCollection.AddScoped(typeof(IWeaponService), typeof(WeaponService));
             return serviceCollection;
         }
     }

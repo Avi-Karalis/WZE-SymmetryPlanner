@@ -19,6 +19,7 @@ namespace Infrastructure.DependencyInjection {
         public static IServiceCollection AddRepositories(this IServiceCollection services) {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository <>));
             services.AddScoped(typeof(IUnitRepository), typeof(UnitRepository));
+            services.AddScoped(typeof(IWeaponRepository), typeof(WeaponRepository));
             return services;
         }
     }

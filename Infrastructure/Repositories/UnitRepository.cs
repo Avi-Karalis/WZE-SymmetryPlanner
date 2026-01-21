@@ -16,16 +16,29 @@ namespace Infrastructure.Repositories {
             _context = context;
         }
 
-        public async Task<IEnumerable<Unit>> GetByFactionAsync(string faction) {
+        public async Task<Unit> GetFullByIdAsync(Guid id) {
             return await _context.Units
-                                 .Where(u => u.Faction == faction && u.DeletedAt == null)
-                                 .ToListAsync();
+                .Include(u => u.UnitUnitSpecialAbilities)
+                    .ThenInclude(uusa => uusa.UnitSpecialAbility)
+                .Include(u => u.UnitWeapon)
+                    .ThenInclude(uw => uw.Weapon)
+                        .ThenInclude(w => w.WeaponWeaponSpecialAbility)
+                            .ThenInclude(wwsa => wwsa.WeaponSpecialAbility)
+                .FirstOrDefaultAsync(u => u.Id == id && u.DeletedAt == null)
+                ?? throw new KeyNotFoundException($"Unit {id} not found");
         }
 
-        public async Task<IEnumerable<Unit>> GetByDesignationAsync(string designation) {
+        public async Task<IEnumerable<Unit>> GetAllFullAsync() {
             return await _context.Units
-                                 .Where(u => u.Designation.Contains(designation) && u.DeletedAt == null)
-                                 .ToListAsync();
+                .Where(u => u.DeletedAt == null)
+                .Include(u => u.UnitUnitSpecialAbilities)
+                    .ThenInclude(uusa => uusa.UnitSpecialAbility)
+                .Include(u => u.UnitWeapon)
+                    .ThenInclude(uw => uw.Weapon)
+                        .ThenInclude(w => w.WeaponWeaponSpecialAbility)
+                            .ThenInclude(wwsa => wwsa.WeaponSpecialAbility)
+                .ToListAsync();
         }
+
     }
 }

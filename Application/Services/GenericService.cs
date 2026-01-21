@@ -6,7 +6,7 @@ namespace Application.Services {
         private readonly IGenericRepository<T> _repository;
         public GenericService(IGenericRepository<T> repository) => _repository = repository;
 
-        public async Task<T> CreateAsync(T entity) {
+        public virtual async Task<T> CreateAsync(T entity) {
             entity.CreatedAt = DateTime.UtcNow;
             return await _repository.CreateAsync(entity);
         }

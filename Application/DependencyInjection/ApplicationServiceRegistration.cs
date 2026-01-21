@@ -1,11 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Application.DependencyInjection {
     public static class ApplicationServiceRegistration {
@@ -13,6 +9,9 @@ namespace Application.DependencyInjection {
             serviceCollection.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
             serviceCollection.AddScoped(typeof(IUnitService), typeof(UnitService));
             serviceCollection.AddScoped(typeof(IWeaponService), typeof(WeaponService));
+            serviceCollection.AddScoped(typeof(IWeaponSpecialAbilityService), typeof(WeaponSpecialAbilityService));
+            serviceCollection.AddScoped(typeof(IUnitSpecialAbilityService), typeof(UnitSpecialAbilityService));
+
             return serviceCollection;
         }
     }

@@ -1,6 +1,6 @@
 <template>
   <div class="dark-theme">
-    <Switch />
+    <AppHeader />
     <main>
       <slot />
     </main>

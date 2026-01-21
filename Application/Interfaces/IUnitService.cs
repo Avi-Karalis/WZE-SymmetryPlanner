@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces {
     public interface IUnitService : IGenericService<Unit> {
-        Task<IEnumerable<Unit>> GetByFactionAsync(string faction);
-        Task<IEnumerable<Unit>> GetByDesignationAsync(string designation);
+        Task<Unit> GetFullByIdAsync(Guid id);
+        Task<IEnumerable<Unit>> GetAllFullAsync();
     }
 }

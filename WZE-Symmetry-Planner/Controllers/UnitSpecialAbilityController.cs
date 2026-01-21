@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Services;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -7,26 +8,26 @@ using System.Threading.Tasks;
 namespace WebAPI.Controllers {
     [ApiController]
     [Route("api/[controller]")]
-    public class WeaponController : ControllerBase {
-        private readonly IWeaponService _service;
+    public class UnitSpecialAbilityController : ControllerBase {
+        private readonly IUnitSpecialAbilityService _service;
 
-        public WeaponController(IWeaponService service) {
+        public UnitSpecialAbilityController(IUnitSpecialAbilityService service) {
             _service = service;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(await _service.GetAllFullAsync());
+        public async Task<IActionResult> GetAll() => Ok(await _service.GetAllAsync());
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id) {
-            var weapon = await _service.GetFullByIdAsync(id);
-            if (weapon == null) return NotFound();
-            return Ok(weapon);
+            var ability = await _service.GetByIdAsync(id);
+            if (ability == null) return NotFound();
+            return Ok(ability);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Weapon weapon) {
-            var created = await _service.CreateAsync(weapon);
+        public async Task<IActionResult> Create([FromBody] UnitSpecialAbility ability) {
+            var created = await _service.CreateAsync(ability);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 

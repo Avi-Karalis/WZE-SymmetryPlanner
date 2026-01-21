@@ -25,9 +25,8 @@ namespace Domain.Entities {
 
         public ICollection<UnitWeapon> UnitWeapon { get; set; } = new List<UnitWeapon>();
 
-        public static List<WeaponWeaponSpecialAbility> CreateAbilities(params WeaponSpecialAbility[] abilities) {
-
-            return abilities.Select(a => new WeaponWeaponSpecialAbility { WeaponSpecialAbility = a }).ToList();
-        }
+        public static List<WeaponWeaponSpecialAbility> CreateAbilities(params WeaponSpecialAbility[] abilities) =>
+            abilities.Select(a => new WeaponWeaponSpecialAbility { WeaponSpecialAbility = a }).ToList();
+        
     }
 }

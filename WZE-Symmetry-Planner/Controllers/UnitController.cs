@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace WebAPI.Controllers {
     [ApiController]
     [Route("api/[controller]")]
-    public class WeaponController : ControllerBase {
-        private readonly IWeaponService _service;
+    public class UnitController : ControllerBase {
+        private readonly IUnitService _service;
 
-        public WeaponController(IWeaponService service) {
+        public UnitController(IUnitService service) {
             _service = service;
         }
 
@@ -19,14 +19,15 @@ namespace WebAPI.Controllers {
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id) {
-            var weapon = await _service.GetFullByIdAsync(id);
-            if (weapon == null) return NotFound();
-            return Ok(weapon);
+            var unit = await _service.GetFullByIdAsync(id);
+            if (unit == null) return NotFound();
+            return Ok(unit);
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Weapon weapon) {
-            var created = await _service.CreateAsync(weapon);
+        public async Task<IActionResult> Create([FromBody] Unit unit) {
+            var created = await _service.CreateAsync(unit);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 

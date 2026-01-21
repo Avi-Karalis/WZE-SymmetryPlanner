@@ -4,9 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
 using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
-using Domain.Entities;
 
-namespace Infrastructure.DependencyInjection {
+namespace Infrastructure.DependencyInjection;
     public static class InfrastructureServiceRegistration {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) {
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -20,7 +19,8 @@ namespace Infrastructure.DependencyInjection {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository <>));
             services.AddScoped(typeof(IUnitRepository), typeof(UnitRepository));
             services.AddScoped(typeof(IWeaponRepository), typeof(WeaponRepository));
+            services.AddScoped(typeof(IUnitSpecialAbilityRepository), typeof(UnitSpecialAbilityRepository));
+            services.AddScoped(typeof(IWeaponSpecialAbilityRepository), typeof(WeaponSpecialAbilityRepository));
             return services;
         }
     }
-}

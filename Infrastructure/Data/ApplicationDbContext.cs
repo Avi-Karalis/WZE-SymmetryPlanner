@@ -36,17 +36,18 @@ namespace Infrastructure.Data {
             // -------------------
             // UnitSpecialAbility join table
             // -------------------
-            modelBuilder.Entity<UnitUnitSpecialAbility>(entity => {
-                entity.ToTable("UnitUnitSpecialAbilities"); // lowercase
+            modelBuilder.Entity<UnitUnitSpecialAbility>(entity =>
+            {
+                entity.ToTable("UnitUnitSpecialAbilities");
                 entity.HasKey(e => new { e.UnitId, e.UnitSpecialAbilityId });
 
                 entity.HasOne(e => e.Unit)
-                      .WithMany(u => u.UnitUnitSpecialAbility)
+                      .WithMany(u => u.UnitUnitSpecialAbilities)  // <--- use correct property
                       .HasForeignKey(e => e.UnitId)
                       .HasConstraintName("FK_UnitUnitSpecialAbilities_Units_UnitId");
 
                 entity.HasOne(e => e.UnitSpecialAbility)
-                      .WithMany(us => us.UnitUnitSpecialAbility)
+                      .WithMany(us => us.UnitUnitSpecialAbility)  // <--- this is correct
                       .HasForeignKey(e => e.UnitSpecialAbilityId)
                       .HasConstraintName("FK_UnitUnitSpecialAbilities_UnitSpecialAbilities_UnitSpecialAbilityId");
             });

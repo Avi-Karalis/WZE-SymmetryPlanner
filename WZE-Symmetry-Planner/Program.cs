@@ -5,6 +5,7 @@ using Application.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using static WZE_Symmetry_Planner.Utilities.CommandHelper;
+using System.Text.Json.Serialization;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 Env.Load();
 // Add services to the container.
@@ -14,7 +15,10 @@ Console.WriteLine($"📡 Connection string: {connectionString}");
 builder.Configuration["ConnectionStrings:DefaultConnection"] = connectionString;
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddRepositories();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(o => {
+    o.JsonSerializerOptions.ReferenceHandler =
+        ReferenceHandler.IgnoreCycles;
+});
 builder.Services.AddServices();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

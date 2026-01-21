@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces {
     public interface IWeaponService : IGenericService<Weapon>{
-    
+        Task<Weapon> GetFullByIdAsync(Guid id);
+        Task<IEnumerable<Weapon>> GetAllFullAsync();
     }
 }

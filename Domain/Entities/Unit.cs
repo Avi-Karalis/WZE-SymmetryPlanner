@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Domain.Entities {
 
@@ -10,7 +11,7 @@ namespace Domain.Entities {
         public IEnumerable<string> Designation { get; set; }
         public string? DesignationTypeLimit { get; set; }
         public sbyte DesignationLimitValue { get; set; } = 0;
-        public ICollection<UnitUnitSpecialAbility>? UnitUnitSpecialAbility { get; set; }
+        public ICollection<UnitUnitSpecialAbility> UnitUnitSpecialAbilities { get; set; } = new List<UnitUnitSpecialAbility>();
         public sbyte DPCost { get; set; }
         public sbyte SPCost { get; set; }
         public sbyte MV {  get; set; }
@@ -24,8 +25,9 @@ namespace Domain.Entities {
         public sbyte LD { get; set; }
         public ICollection<string>? FactionAvailabilities { get; set; }
         public sbyte Base { get; set; }
-
+ 
         public ICollection<UnitWeapon>? UnitWeapon { get; set; }
+
         public Unit() { }
         public Unit(
             string faction,
@@ -69,15 +71,7 @@ namespace Domain.Entities {
                 DesignationLimitValue = designationLimitValue;
                 FactionAvailabilities = factionAvailabilities ?? new List<string>();
                 UnitWeapon = unitWeapon ?? new List<UnitWeapon>();
-                UnitUnitSpecialAbility = new List<UnitUnitSpecialAbility>();
-                if (unitSpecialAbilities != null) {
-                    foreach (var ability in unitSpecialAbilities) {
-                        UnitUnitSpecialAbility.Add(new UnitUnitSpecialAbility {
-                            Unit = this,
-                            UnitSpecialAbility = ability
-                        });
-                    }
-                }
+
             } else if (designation.Contains("Leader")) {
                 Faction = faction;
                 UnitType = unitType;
@@ -98,15 +92,7 @@ namespace Domain.Entities {
                 DesignationLimitValue = designationLimitValue;
                 FactionAvailabilities = factionAvailabilities ?? new List<string>();
                 UnitWeapon = unitWeapon ?? new List<UnitWeapon>();
-                UnitUnitSpecialAbility = new List<UnitUnitSpecialAbility>();
-                if (unitSpecialAbilities != null) {
-                    foreach (var ability in unitSpecialAbilities) {
-                        UnitUnitSpecialAbility.Add(new UnitUnitSpecialAbility {
-                            Unit = this,
-                            UnitSpecialAbility = ability
-                        });
-                    }
-                }
+
             }
         }
 
@@ -125,14 +111,12 @@ namespace Domain.Entities {
         }
 
         public void AddUnitSpecialAbility(IEnumerable<UnitSpecialAbility> specialAbilities) {
-            specialAbilities.ToList().ForEach(sa => UnitUnitSpecialAbility.Add(new UnitUnitSpecialAbility { Unit = this, UnitSpecialAbility = sa }));
+            foreach (var sa in specialAbilities)
+                UnitUnitSpecialAbilities.Add(new UnitUnitSpecialAbility { Unit = this, UnitSpecialAbility = sa });
         }
 
         public void AddUnitSpecialAbility(UnitSpecialAbility specialAbility) {
-            UnitUnitSpecialAbility.Add(new UnitUnitSpecialAbility {
-                Unit = this,
-                UnitSpecialAbility = specialAbility
-            });
+            UnitUnitSpecialAbilities.Add(new UnitUnitSpecialAbility { Unit = this, UnitSpecialAbility = specialAbility });
         }
     }
 

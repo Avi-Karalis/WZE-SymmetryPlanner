@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260121172513_initialCreate")]
+    [Migration("20260121224138_initialCreate")]
     partial class initialCreate
     {
         /// <inheritdoc />
@@ -152,6 +152,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<short>("ST")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("Status")
                         .HasColumnType("smallint");
 
                     b.Property<string>("UnitType")

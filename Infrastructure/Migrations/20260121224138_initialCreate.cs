@@ -49,6 +49,7 @@ namespace Infrastructure.Migrations
                     LD = table.Column<short>(type: "smallint", nullable: false),
                     FactionAvailabilities = table.Column<string[]>(type: "text[]", nullable: true),
                     Base = table.Column<short>(type: "smallint", nullable: false),
+                    Status = table.Column<short>(type: "smallint", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)

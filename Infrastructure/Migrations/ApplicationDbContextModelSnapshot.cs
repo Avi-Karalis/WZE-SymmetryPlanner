@@ -151,6 +151,9 @@ namespace Infrastructure.Migrations
                     b.Property<short>("ST")
                         .HasColumnType("smallint");
 
+                    b.Property<short>("Status")
+                        .HasColumnType("smallint");
+
                     b.Property<string>("UnitType")
                         .IsRequired()
                         .HasColumnType("text");

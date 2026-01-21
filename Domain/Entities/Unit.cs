@@ -30,70 +30,58 @@ namespace Domain.Entities {
 
         public Unit() { }
         public Unit(
-            string faction,
-            string unitType,
-            IEnumerable<string> designation,
-            sbyte dpCost,
-            sbyte spCost,
-            sbyte mv,
-            sbyte mw,
-            sbyte cc,
-            sbyte st,
-            sbyte def,
-            sbyte ar,
-            sbyte w,
-            sbyte pw,
-            sbyte ld,
-            sbyte @base,
-            string? designationTypeLimit = null,
-            sbyte designationLimitValue = 0,
-            ICollection<UnitSpecialAbility>? unitSpecialAbilities = null,
-            ICollection<string>? factionAvailabilities = null,
-            ICollection<UnitWeapon>? unitWeapon = null
-        ) {
-            if (!designation.Contains("Leader")) {
-                Faction = faction;
-                UnitType = unitType;
-                Designation = designation;
-                DPCost = dpCost;
-                SPCost = spCost;
-                MV = mv;
+    string faction,
+    string unitType,
+    IEnumerable<string> designation,
+    sbyte dpCost,
+    sbyte spCost,
+    sbyte mv,
+    sbyte mw,
+    sbyte cc,
+    sbyte st,
+    sbyte def,
+    sbyte ar,
+    sbyte w,
+    sbyte pw,
+    sbyte ld,
+    sbyte @base,
+    string? designationTypeLimit = null,
+    sbyte designationLimitValue = 0,
+    ICollection<UnitSpecialAbility>? unitSpecialAbilities = null,
+    ICollection<string>? factionAvailabilities = null,
+    ICollection<UnitWeapon>? unitWeapon = null
+) {
+            Faction = faction;
+            UnitType = unitType;
+            Designation = designation;
+            DPCost = dpCost;
+            SPCost = spCost;
+            MV = mv;
+            ST = st;
+            DEF = def;
+            AR = ar;
+            W = w;
+            PW = pw;
+            Base = @base;
+            DesignationTypeLimit = designationTypeLimit;
+            DesignationLimitValue = designationLimitValue;
+            FactionAvailabilities = factionAvailabilities ?? new List<string>();
+            UnitWeapon = unitWeapon ?? new List<UnitWeapon>();
+
+            if (designation.Contains("Leader")) {
+                MW = (sbyte)(mw + 1);
+                CC = (sbyte)(cc + 1);
+                LD = (sbyte)(ld + 2);
+            } else {
                 MW = mw;
                 CC = cc;
-                ST = st;
-                DEF = def;
-                AR = ar;
-                W = w;
-                PW = pw;
                 LD = ld;
-                Base = @base;
-                DesignationTypeLimit = designationTypeLimit;
-                DesignationLimitValue = designationLimitValue;
-                FactionAvailabilities = factionAvailabilities ?? new List<string>();
-                UnitWeapon = unitWeapon ?? new List<UnitWeapon>();
-
-            } else if (designation.Contains("Leader")) {
-                Faction = faction;
-                UnitType = unitType;
-                Designation = designation;
-                DPCost = dpCost;
-                SPCost = spCost;
-                MV = mv;
-                MW = (sbyte)(mw + 1);
-                CC = (sbyte)(cc +1) ;
-                ST = st;
-                DEF = def;
-                AR = ar;
-                W = w;
-                PW = pw;
-                LD = (sbyte)(ld+2);
-                Base = @base;
-                DesignationTypeLimit = designationTypeLimit;
-                DesignationLimitValue = designationLimitValue;
-                FactionAvailabilities = factionAvailabilities ?? new List<string>();
-                UnitWeapon = unitWeapon ?? new List<UnitWeapon>();
             }
+
+            if (unitSpecialAbilities != null && unitSpecialAbilities.Count != 0)
+                AddUnitSpecialAbility(unitSpecialAbilities);
         }
+
 
         public void AddWeapons(IEnumerable<Weapon> weapons) {
             weapons.ToList().ForEach(weapon => UnitWeapon.Add(new UnitWeapon {

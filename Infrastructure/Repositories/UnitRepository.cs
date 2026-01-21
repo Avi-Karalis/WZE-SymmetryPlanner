@@ -24,13 +24,13 @@ namespace Infrastructure.Repositories {
                     .ThenInclude(uw => uw.Weapon)
                         .ThenInclude(w => w.WeaponWeaponSpecialAbility)
                             .ThenInclude(wwsa => wwsa.WeaponSpecialAbility)
-                .FirstOrDefaultAsync(u => u.Id == id && u.DeletedAt == null)
+                .FirstOrDefaultAsync(u => u.Id == id && u.DeletedAt == null && u.Status == 0)
                 ?? throw new KeyNotFoundException($"Unit {id} not found");
         }
 
         public async Task<IEnumerable<Unit>> GetAllFullAsync() {
             return await _context.Units
-                .Where(u => u.DeletedAt == null)
+                .Where(u => u.DeletedAt == null && u.Status == 0)
                 .Include(u => u.UnitUnitSpecialAbilities)
                     .ThenInclude(uusa => uusa.UnitSpecialAbility)
                 .Include(u => u.UnitWeapon)

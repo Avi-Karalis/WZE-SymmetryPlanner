@@ -25,7 +25,7 @@ namespace Domain.Entities {
         public sbyte LD { get; set; }
         public ICollection<string>? FactionAvailabilities { get; set; }
         public sbyte Base { get; set; }
- 
+        public sbyte Status { get; set; } = 0; // 0 public, 1 testing
         public ICollection<UnitWeapon>? UnitWeapon { get; set; }
 
         public Unit() { }
@@ -92,7 +92,6 @@ namespace Domain.Entities {
                 DesignationLimitValue = designationLimitValue;
                 FactionAvailabilities = factionAvailabilities ?? new List<string>();
                 UnitWeapon = unitWeapon ?? new List<UnitWeapon>();
-
             }
         }
 

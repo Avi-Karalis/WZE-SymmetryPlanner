@@ -22,15 +22,37 @@ namespace Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.Allegiance", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<byte>("Type")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Allegiance");
+                });
+
             modelBuilder.Entity("Domain.Entities.ForceList", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Allegiance")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("AllegianceId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -55,7 +77,14 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AllegianceId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ForceList");
                 });
@@ -201,6 +230,51 @@ namespace Infrastructure.Migrations
                     b.ToTable("UnitWeapons");
                 });
 
+            modelBuilder.Entity("Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("LastLogin")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PictureUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Provider")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderUserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<byte>("Role")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User");
+                });
+
             modelBuilder.Entity("Domain.Entities.Weapon", b =>
                 {
                     b.Property<Guid>("Id")
@@ -328,10 +402,29 @@ namespace Infrastructure.Migrations
                     b.ToTable("ForceListUnit");
                 });
 
+            modelBuilder.Entity("Domain.Entities.ForceList", b =>
+                {
+                    b.HasOne("Domain.Entities.Allegiance", "Allegiance")
+                        .WithMany()
+                        .HasForeignKey("AllegianceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany("ForceLists")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Allegiance");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Domain.Entities.UnitUnitSpecialAbility", b =>
                 {
                     b.HasOne("Domain.Entities.Unit", "Unit")
-                        .WithMany("UnitUnitSpecialAbility")
+                        .WithMany("UnitUnitSpecialAbilities")
                         .HasForeignKey("UnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -404,7 +497,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Unit", b =>
                 {
-                    b.Navigation("UnitUnitSpecialAbility");
+                    b.Navigation("UnitUnitSpecialAbilities");
 
                     b.Navigation("UnitWeapon");
                 });
@@ -412,6 +505,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.UnitSpecialAbility", b =>
                 {
                     b.Navigation("UnitUnitSpecialAbility");
+                });
+
+            modelBuilder.Entity("Domain.Entities.User", b =>
+                {
+                    b.Navigation("ForceLists");
                 });
 
             modelBuilder.Entity("Domain.Entities.Weapon", b =>

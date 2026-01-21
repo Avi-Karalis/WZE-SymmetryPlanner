@@ -6,28 +6,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ForceList",
+                name: "Allegiance",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Faction = table.Column<string>(type: "text", nullable: false),
-                    Allegiance = table.Column<string>(type: "text", nullable: false),
-                    MaxDp = table.Column<int>(type: "integer", nullable: false),
-                    MaxSp = table.Column<int>(type: "integer", nullable: false),
+                    Type = table.Column<byte>(type: "smallint", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ForceList", x => x.Id);
+                    table.PrimaryKey("PK_Allegiance", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,6 +77,27 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Provider = table.Column<string>(type: "text", nullable: false),
+                    ProviderUserId = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    PictureUrl = table.Column<string>(type: "text", nullable: true),
+                    Role = table.Column<byte>(type: "smallint", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastLogin = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Weapons",
                 columns: table => new
                 {
@@ -127,30 +144,6 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ForceListUnit",
-                columns: table => new
-                {
-                    ForceListId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UnitsId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForceListUnit", x => new { x.ForceListId, x.UnitsId });
-                    table.ForeignKey(
-                        name: "FK_ForceListUnit_ForceList_ForceListId",
-                        column: x => x.ForceListId,
-                        principalTable: "ForceList",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ForceListUnit_Units_UnitsId",
-                        column: x => x.UnitsId,
-                        principalTable: "Units",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UnitUnitSpecialAbilities",
                 columns: table => new
                 {
@@ -170,6 +163,38 @@ namespace Infrastructure.Migrations
                         name: "FK_UnitUnitSpecialAbilities_Units_UnitId",
                         column: x => x.UnitId,
                         principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForceList",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Faction = table.Column<string>(type: "text", nullable: false),
+                    AllegianceId = table.Column<Guid>(type: "uuid", nullable: false),
+                    MaxDp = table.Column<int>(type: "integer", nullable: false),
+                    MaxSp = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForceList", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ForceList_Allegiance_AllegianceId",
+                        column: x => x.AllegianceId,
+                        principalTable: "Allegiance",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ForceList_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -222,6 +247,40 @@ namespace Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ForceListUnit",
+                columns: table => new
+                {
+                    ForceListId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UnitsId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForceListUnit", x => new { x.ForceListId, x.UnitsId });
+                    table.ForeignKey(
+                        name: "FK_ForceListUnit_ForceList_ForceListId",
+                        column: x => x.ForceListId,
+                        principalTable: "ForceList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ForceListUnit_Units_UnitsId",
+                        column: x => x.UnitsId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ForceList_AllegianceId",
+                table: "ForceList",
+                column: "AllegianceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ForceList_UserId",
+                table: "ForceList",
+                column: "UserId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_ForceListUnit_UnitsId",
                 table: "ForceListUnit",
@@ -272,6 +331,12 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Weapons");
+
+            migrationBuilder.DropTable(
+                name: "Allegiance");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }

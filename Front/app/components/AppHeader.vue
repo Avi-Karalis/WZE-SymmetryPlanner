@@ -36,11 +36,5 @@ const isActive = (path) => route.path.startsWith(path);
 </template>
 
 <style scoped>
-.nav-link {
-  @apply text-gray-300 hover:text-white transition font-medium;
-}
 
-.nav-link.active {
-  @apply text-white border-b-2 border-green-500 pb-1;
-}
 </style>

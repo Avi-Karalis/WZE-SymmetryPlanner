@@ -1,6 +1,11 @@
-<script setup>
-import { ref } from "vue";
+<script setup lang="js">
+import { h, resolveComponent } from "vue";
+
 import { useClipboard } from "@vueuse/core";
+
+const UButton = resolveComponent("UButton");
+const UBadge = resolveComponent("UBadge");
+const UDropdownMenu = resolveComponent("UDropdownMenu");
 
 const toast = useToast();
 const { copy } = useClipboard();
@@ -43,166 +48,127 @@ const data = ref([
     },
 ]);
 
-const sorting = ref([]);
-
-function getStatusColor(status) {
-    return {
-        paid: "success",
-        failed: "error",
-        refunded: "neutral",
-    }[status];
-}
-
-function copyPaymentId(id) {
-    copy(id);
-    toast.add({
-        title: "Payment ID copied to clipboard!",
-        color: "success",
-        icon: "i-lucide-circle-check",
-    });
-}
-
 const columns = [
-    { accessorKey: "id" },
-    { accessorKey: "date" },
-    { accessorKey: "status" },
-    { accessorKey: "email" },
+    {
+        accessorKey: "id",
+        header: "#",
+        cell: ({ row }) => `#${row.getValue("id")}`,
+    },
+    {
+        accessorKey: "date",
+        header: "Date",
+        cell: ({ row }) => {
+            return new Date(row.getValue("date")).toLocaleString("en-US", {
+                day: "numeric",
+                month: "short",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+            });
+        },
+    },
+    {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+            const color = {
+                paid: "success",
+                failed: "error",
+                refunded: "neutral",
+            }[row.getValue("status")];
+
+            return h(
+                UBadge,
+                { class: "capitalize", variant: "subtle", color },
+                () => row.getValue("status"),
+            );
+        },
+    },
+    {
+        accessorKey: "email",
+        header: "Email",
+    },
     {
         accessorKey: "amount",
-        meta: { class: { th: "text-right", td: "text-right font-medium" } },
+        header: "Amount",
+        meta: {
+            class: {
+                th: "text-right",
+                td: "text-right font-medium",
+            },
+        },
+        cell: ({ row }) => {
+            const amount = Number.parseFloat(row.getValue("amount"));
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "EUR",
+            }).format(amount);
+        },
     },
-    { accessorKey: "actions", meta: { class: { td: "text-right" } } },
+    {
+        id: "actions",
+        meta: {
+            class: {
+                td: "text-right",
+            },
+        },
+        cell: ({ row }) => {
+            return h(
+                UDropdownMenu,
+                {
+                    content: {
+                        align: "end",
+                    },
+                    items: getRowItems(row),
+                    "aria-label": "Actions dropdown",
+                },
+                () =>
+                    h(UButton, {
+                        icon: "i-lucide-ellipsis-vertical",
+                        color: "neutral", 
+                        variant: "ghost", 
+                        size: "sm",
+                        "aria-label": "Actions dropdown",
+                    }),
+            );
+        },
+    },
 ];
+
+function getRowItems(row) {
+    return [
+        {
+            type: "label",
+            label: "Actions",
+        },
+        {
+            label: "Copy payment ID",
+            icon: 'i-lucide-copy',
+            onSelect() {
+                copy(row.original.id);
+
+                toast.add({
+                    title: "Payment ID copied to clipboard!",
+                    color: "success",
+                    icon: "i-lucide-circle-check",
+                });
+            },
+        },
+        {
+            type: "separator",
+        },
+        {
+            label: "View customer",
+            icon: 'i-lucide-user',
+        },
+        {
+            label: "View payment details",
+            icon: 'i-lucide-info',
+        },
+    ];
+}
 </script>
 
 <template>
-    <UTable
-        :data="data"
-        :columns="columns"
-        v-model:sorting="sorting"
-        class="flex-1"
-    >
-        <!-- ID Column with sorting -->
-        <template #header-id="{ column }">
-            <UDropdownMenu
-                :content="{ align: 'start' }"
-                aria-label="Actions dropdown"
-            >
-                <template #trigger>
-                    <UButton
-                        color="neutral"
-                        variant="ghost"
-                        :label="'ID'"
-                        :icon="
-                            column.getIsSorted() === 'asc'
-                                ? 'i-lucide-arrow-up-narrow-wide'
-                                : column.getIsSorted() === 'desc'
-                                  ? 'i-lucide-arrow-down-wide-narrow'
-                                  : 'i-lucide-arrow-up-down'
-                        "
-                        class="-mx-2.5 data-[state=open]:bg-elevated"
-                        @click="
-                            column.toggleSorting(column.getIsSorted() === 'asc')
-                        "
-                    />
-                </template>
-                <UDropdownMenuItem
-                    v-for="option in ['asc', 'desc']"
-                    :key="option"
-                    type="checkbox"
-                    :icon="
-                        option === 'asc'
-                            ? 'i-lucide-arrow-up-narrow-wide'
-                            : 'i-lucide-arrow-down-wide-narrow'
-                    "
-                    :checked="column.getIsSorted() === option"
-                    @select="() => column.toggleSorting(option === 'desc')"
-                >
-                    {{ option.toUpperCase() }}
-                </UDropdownMenuItem>
-            </UDropdownMenu>
-        </template>
-
-        <!-- Date Column -->
-        <template #header-date> Date </template>
-
-        <!-- Status Column -->
-        <template #cell-status="{ row }">
-            <UBadge
-                :variant="'subtle'"
-                :color="getStatusColor(row.status)"
-                class="capitalize"
-            >
-                {{ row.status }}
-            </UBadge>
-        </template>
-        <template #header-status="{ column }">
-            <UDropdownMenu
-                :content="{ align: 'start' }"
-                aria-label="Actions dropdown"
-            >
-                <template #trigger>
-                    <UButton
-                        color="neutral"
-                        variant="ghost"
-                        label="Status"
-                        :icon="
-                            column.getIsSorted() === 'asc'
-                                ? 'i-lucide-arrow-up-narrow-wide'
-                                : column.getIsSorted() === 'desc'
-                                  ? 'i-lucide-arrow-down-wide-narrow'
-                                  : 'i-lucide-arrow-up-down'
-                        "
-                        class="-mx-2.5 data-[state=open]:bg-elevated"
-                    />
-                </template>
-                <UDropdownMenuItem
-                    v-for="option in ['asc', 'desc']"
-                    :key="option"
-                    type="checkbox"
-                    :icon="
-                        option === 'asc'
-                            ? 'i-lucide-arrow-up-narrow-wide'
-                            : 'i-lucide-arrow-down-wide-narrow'
-                    "
-                    :checked="column.getIsSorted() === option"
-                    @select="() => column.toggleSorting(option === 'desc')"
-                >
-                    {{ option.toUpperCase() }}
-                </UDropdownMenuItem>
-            </UDropdownMenu>
-        </template>
-
-        <!-- Amount Column -->
-        <template #header-amount> Amount </template>
-        <template #cell-amount="{ row }">
-            <div class="text-right font-medium">{{ row.amount }}</div>
-        </template>
-
-        <!-- Actions Column -->
-        <template #cell-actions="{ row }">
-            <UDropdownMenu
-                :content="{ align: 'end' }"
-                aria-label="Actions dropdown"
-            >
-                <template #trigger>
-                    <UButton
-                        icon="i-lucide-ellipsis-vertical"
-                        color="neutral"
-                        variant="ghost"
-                        aria-label="Actions dropdown"
-                    />
-                </template>
-                <UDropdownMenuItem label="Actions" type="label" />
-                <UDropdownMenuItem
-                    @select="() => copyPaymentId(row.original.id)"
-                >
-                    Copy payment ID
-                </UDropdownMenuItem>
-                <UDropdownMenuItem type="separator" />
-                <UDropdownMenuItem>View customer</UDropdownMenuItem>
-                <UDropdownMenuItem>View payment details</UDropdownMenuItem>
-            </UDropdownMenu>
-        </template>
-    </UTable>
+    <UTable :data="data" :columns="columns" class="flex-1" />
 </template>

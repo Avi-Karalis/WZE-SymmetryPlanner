@@ -1,12 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2025-07-15",
-  devtools: { enabled: true },
-  css: ["~/../assets/css/themes.css"],
-  modules: ["@nuxt/ui"],  
-   runtimeConfig: {
-    public: {
-      apiBase: 'https://localhost:7095/api'
-    }
-  }
+    compatibilityDate: "2025-07-15",
+    devtools: { enabled: true },
+    css: ["@/../assets/css/main.css"],
+    modules: ["@nuxt/ui"],
+    runtimeConfig: {
+        public: {
+            apiBase: "https://localhost:7095/api",
+        },
+    },
+
 });

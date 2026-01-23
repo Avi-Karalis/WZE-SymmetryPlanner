@@ -39,5 +39,11 @@ namespace WebAPI.Controllers {
             var restored = await _service.RestoreAsync(id);
             return Ok(restored);
         }
+
+        [HttpPatch("update/{id}")]
+        public async Task<IActionResult> Update(Guid id, WeaponUpdateDto dto) {
+            var restored = await _service.UpdateAsync(id, dto);
+            return Ok(restored);
+        }
     }
 }

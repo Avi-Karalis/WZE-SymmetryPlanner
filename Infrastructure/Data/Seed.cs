@@ -167,7 +167,7 @@ namespace Infrastructure.Data
             context.UnitSpecialAbilities.AddRange(unitSpecialAbilities);
 
             Weapon punisherShortSword = new() { Name = "Punisher Shortsword", CCMod = 1, CCDam = 7, DynamicDAM = true, CritFail = 20, WeaponWeaponSpecialAbility = Weapon.CreateAbilities(reach1, vicious )};
-            Weapon mp105HG = new() { Name = "MP-105 Handgun", CCMod = 1, CCDam = 12, ShortRange = 6, ShortRangeDam = 12, ShortRangeMod = 1, LongRange = 18, LongRangeDam = 12, LongRangeMod = -12, CritFail = 20, WeaponWeaponSpecialAbility = Weapon.CreateAbilities() };
+            Weapon mp105HG = new() { Name = "MP-105 Handgun", CCMod = 1, CCDam = 12, ShortRange = 6, ShortRangeDam = 12, ShortRangeMod = 1, LongRange = 18, LongRangeDam = 12, LongRangeMod = -2, CritFail = 20, WeaponWeaponSpecialAbility = Weapon.CreateAbilities() };
             Weapon punisherHandgun = new() { Name = "Punisher Handgun", CCMod = -2, CCDam = 12, ShortRange = 6, ShortRangeDam = 13, ShortRangeMod = 0, LongRange = 18, LongRangeDam = 12, LongRangeMod = -2, CritFail = 20, WeaponWeaponSpecialAbility = Weapon.CreateAbilities() };
             Weapon mp103SMG = new() { Name = "MP-103 SMG", ShortRange = 6, ShortRangeDam = 12, ShortRangeMod = 0, LongRange = 18, LongRangeDam = 11, LongRangeMod = -1, CritFail = 19, WeaponWeaponSpecialAbility = Weapon.CreateAbilities(burst2) };
             Weapon hg14SG = new() { Name = "HG-13 Shotgun", ShortRange = 6, ShortRangeDam = 13, ShortRangeMod = 1, LongRange = 18, LongRangeDam = 11, LongRangeMod = -1, CritFail = 20, SRDamageMultiplier = 2, WeaponWeaponSpecialAbility = Weapon.CreateAbilities() };

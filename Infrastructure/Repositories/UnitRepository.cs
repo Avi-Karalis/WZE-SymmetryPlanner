@@ -27,7 +27,17 @@ namespace Infrastructure.Repositories {
                 .FirstOrDefaultAsync(u => u.Id == id && u.DeletedAt == null && u.Status == 0)
                 ?? throw new KeyNotFoundException($"Unit {id} not found");
         }
-
+        public async Task<IEnumerable<Unit>> GetAllByFactionAsync(string faction) {
+            return await _context.Units
+                .Where(u => u.DeletedAt == null && u.Status == 0 && u.Faction == faction)
+                .Include(u => u.UnitUnitSpecialAbilities)
+                    .ThenInclude(uusa => uusa.UnitSpecialAbility)
+                .Include(u => u.UnitWeapon)
+                    .ThenInclude(uw => uw.Weapon)
+                        .ThenInclude(w => w.WeaponWeaponSpecialAbility)
+                            .ThenInclude(wwsa => wwsa.WeaponSpecialAbility)
+                .ToListAsync();
+        }
         public async Task<IEnumerable<Unit>> GetAllFullAsync() {
             return await _context.Units
                 .Where(u => u.DeletedAt == null && u.Status == 0)

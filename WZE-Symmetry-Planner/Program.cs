@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using static WZE_Symmetry_Planner.Utilities.CommandHelper;
 using System.Text.Json.Serialization;
+
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 Env.Load();
 // Add services to the container.
@@ -13,6 +15,7 @@ string? password = Environment.GetEnvironmentVariable("POSTGRESPSW");
 string? connectionString = $"Host=localhost;Port=5433;Database=WZE-Symmetry-Planner;Username=postgres;Password={password}";
 Console.WriteLine($"📡 Connection string: {connectionString}");
 builder.Configuration["ConnectionStrings:DefaultConnection"] = connectionString;
+builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile));
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddRepositories();
 builder.Services.AddControllers().AddJsonOptions(o => {

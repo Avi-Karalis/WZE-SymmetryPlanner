@@ -1,65 +1,74 @@
 ﻿using Application.Interfaces;
+using Application.DTOs;
+using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
 
 namespace Application.Services {
-    public class UnitService : GenericService<Unit>, IUnitService {
+    public class UnitService : GenericService<Unit, UnitReadDto, UnitCreateDto, UnitUpdateDto>, IUnitService {
         private readonly IUnitRepository _unitRepository;
         private readonly IUnitSpecialAbilityService _unitAbilityService;
         private readonly IWeaponService _weaponService;
-
+        private readonly IMapper _mapper;
         public UnitService(
             IUnitRepository unitRepository,
             IUnitSpecialAbilityService unitAbilityService,
-            IWeaponService weaponService
-        ) : base(unitRepository) {
+            IWeaponService weaponService,
+            IMapper mapper
+        ) : base(unitRepository, mapper) {
             _unitRepository = unitRepository;
             _unitAbilityService = unitAbilityService;
             _weaponService = weaponService;
+            _mapper = mapper;
         }
-        public async Task<Unit> GetFullByIdAsync(Guid id) {
-            return await _unitRepository.GetFullByIdAsync(id);
+        public async Task<UnitReadDto> GetFullByIdAsync(Guid id) {
+            return _mapper.Map<UnitReadDto>(await _unitRepository.GetFullByIdAsync(id));
+        }
+        public async Task<IEnumerable<UnitReadDto>> GetAllByFactionAsync(string faction) { 
+           return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAllByFactionAsync(faction));
+        }
+        public async Task<IEnumerable<UnitReadDto>> GetAllFullAsync() {
+            return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAllFullAsync());
         }
 
-        public async Task<IEnumerable<Unit>> GetAllFullAsync() {
-            return await _unitRepository.GetAllFullAsync();
-        }
-
-        public override async Task<Unit> CreateAsync(Unit unit) {
-            // Process Unit Special Abilities
+        public override async Task<UnitReadDto> CreateAsync(UnitCreateDto unitDto) {
+            Unit unitEntity = _mapper.Map<Unit>(unitDto);
             var newAbilities = new List<UnitSpecialAbility>();
-            foreach (var abilityEntry in unit.UnitUnitSpecialAbilities ?? Array.Empty<UnitUnitSpecialAbility>()) {
+            foreach (Guid abilityEntry in unitDto.UnitSpecialAbilityIds) {
                 UnitSpecialAbility ability;
 
-                if (abilityEntry.UnitSpecialAbility.Id != Guid.Empty) {
-                    ability = await _unitAbilityService.GetByIdAsync(abilityEntry.UnitSpecialAbility.Id)
+                if (abilityEntry != Guid.Empty) {
+                    ability = _mapper.Map<UnitSpecialAbility>( await _unitAbilityService.GetByIdAsync(abilityEntry))
                               ?? throw new Exception("UnitSpecialAbility not found");
                 } else {
-                    ability = await _unitAbilityService.CreateAsync(abilityEntry.UnitSpecialAbility);
+                    ability = null!;
                 }
 
                 newAbilities.Add(ability);
             }
 
-            unit.AddUnitSpecialAbility(newAbilities);
+            unitEntity.AddUnitSpecialAbility(newAbilities);
 
-            // Process Weapons
-            foreach (var uw in unit.UnitWeapon ?? Array.Empty<UnitWeapon>()) {
-                Weapon weapon;
-                if (uw.Weapon.Id != Guid.Empty) {
-                    weapon = await _weaponService.GetByIdAsync(uw.Weapon.Id)
+            // 3️⃣ Process Weapons
+            foreach (var weaponEntry in unitDto.WeaponIds ) {
+                WeaponReadDto weapon;
+
+                if (weaponEntry != Guid.Empty) {
+                    weapon = _mapper.Map<WeaponReadDto>(await _weaponService.GetByIdAsync(weaponEntry))
                              ?? throw new Exception("Weapon not found");
                 } else {
-                    weapon = await _weaponService.CreateAsync(uw.Weapon);
+                    weapon = await _weaponService.CreateAsync(_mapper.Map<WeaponCreateDto>(weaponEntry));
                 }
 
-                unit.AddWeapon(weapon);
+                unitEntity.AddWeapon(_mapper.Map<Weapon>(weapon));
             }
 
-            return await _unitRepository.CreateAsync(unit);
+            // 4️⃣ Save entity
+            var createdUnit = await _unitRepository.CreateAsync(unitEntity);
+
+            // 5️⃣ Map back to ReadDto
+            return _mapper.Map<UnitReadDto>(createdUnit);
         }
     }
 }

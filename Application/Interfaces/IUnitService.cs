@@ -1,13 +1,9 @@
 ﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Application.DTOs;
 namespace Application.Interfaces {
-    public interface IUnitService : IGenericService<Unit> {
-        Task<Unit> GetFullByIdAsync(Guid id);
-        Task<IEnumerable<Unit>> GetAllFullAsync();
+    public interface IUnitService : IGenericService<Unit, UnitReadDto, UnitCreateDto, UnitUpdateDto> {
+        Task<UnitReadDto> GetFullByIdAsync(Guid id);
+        Task<IEnumerable<UnitReadDto>> GetAllFullAsync();
+        Task<IEnumerable<UnitReadDto>> GetAllByFactionAsync(string faction);
     }
 }

@@ -1,12 +1,10 @@
-﻿
-
-namespace Application.Interfaces {
-    public interface IGenericService<T> where T : class  {
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<T?> GetByIdAsync(Guid id);
-        Task<T> CreateAsync(T datum);
-        Task<T> UpdateAsync(Guid id, T datum);
+﻿namespace Application.Interfaces {
+    public interface IGenericService<TEntity, TReadDto, TCreateDto, TUpdateDto> where TEntity : class  {
+        Task<IEnumerable<TReadDto>> GetAllAsync();
+        Task<TReadDto?> GetByIdAsync(Guid id);
+        Task<TReadDto> CreateAsync(TCreateDto datum);
+        Task<TReadDto> UpdateAsync(Guid id, TUpdateDto datum);
         Task<bool> DeleteAsync(Guid id);
-        Task<T> RestoreAsync(Guid id);
+        Task<TReadDto> RestoreAsync(Guid id);
     }
 }

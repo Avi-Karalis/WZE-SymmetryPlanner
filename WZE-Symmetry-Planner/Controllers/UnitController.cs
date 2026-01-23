@@ -1,8 +1,7 @@
-﻿using Application.Interfaces;
-using Domain.Entities;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
+
 
 namespace WebAPI.Controllers {
     [ApiController]
@@ -16,6 +15,8 @@ namespace WebAPI.Controllers {
 
         [HttpGet]
         public async Task<IActionResult> GetAll() => Ok(await _service.GetAllFullAsync());
+        [HttpGet("by-faction/{faction}")]
+        public async Task<IActionResult> GetByFactionAll(string faction) => Ok(await _service.GetAllByFactionAsync(faction));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id) {
@@ -26,7 +27,7 @@ namespace WebAPI.Controllers {
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Unit unit) {
+        public async Task<IActionResult> Create([FromBody] UnitCreateDto unit) {
             var created = await _service.CreateAsync(unit);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }

@@ -1,40 +1,44 @@
 ﻿using Application.Interfaces;
+using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Interfaces;
 namespace Application.Services {
-    public class GenericService<T> : IGenericService<T> where T : BaseEntity {
-        private readonly IGenericRepository<T> _repository;
-        public GenericService(IGenericRepository<T> repository) => _repository = repository;
+    public class GenericService<TEntity, TReadDto, TCreateDto, TUpdateDto> : IGenericService<TEntity, TReadDto, TCreateDto, TUpdateDto> where TEntity : BaseEntity {
+        private readonly IGenericRepository<TEntity> _repository;
+        private readonly IMapper _mapper;
+        public GenericService(IGenericRepository<TEntity> repository, IMapper mapper) => (_repository, _mapper ) = (repository, mapper);
 
-        public virtual async Task<T> CreateAsync(T entity) {
+        public virtual async Task<TReadDto> CreateAsync(TCreateDto dto) {
+
+            var entity = _mapper.Map<TEntity>(dto);
             entity.CreatedAt = DateTime.UtcNow;
-            return await _repository.CreateAsync(entity);
+            var created = await _repository.CreateAsync(entity);
+            return _mapper.Map<TReadDto>(created);
         }
-        public async Task<IEnumerable<T>> GetAllAsync() {
-            return await _repository.GetAllAsync();
-        }
-
-        public async Task<IEnumerable<T>> GetAllAndDeletedAsync() {
-            return await _repository.GetAllAndDeletedAsync();
+        public async Task<IEnumerable<TReadDto>> GetAllAsync() {
+            return _mapper.Map<IEnumerable<TReadDto>>(await _repository.GetAllAsync());
         }
 
-        public async Task<T?> GetByIdAsync(Guid id) {
-            try {
-                return await _repository.GetByIdAsync(id);
-            } catch (KeyNotFoundException) {
-                return null;
-            }
+        public async Task<IEnumerable<TReadDto>> GetAllAndDeletedAsync() {
+            return _mapper.Map<IEnumerable<TReadDto>>(await _repository.GetAllAndDeletedAsync());
         }
 
-        public async Task<T> GetByIdAndDeletedAsync(Guid id) {
-            return await _repository.GetByIdAndDeleted(id);
+        public async Task<TReadDto?> GetByIdAsync(Guid id) {
+
+            return _mapper.Map<TReadDto>(await _repository.GetByIdAsync(id));
         }
 
-        public async Task<T> UpdateAsync(Guid id, T entity) {
+        public async Task<TReadDto> GetByIdAndDeletedAsync(Guid id) {
+            return _mapper.Map<TReadDto>(await _repository.GetByIdAndDeleted(id));
+        }
+
+        public async Task<TReadDto> UpdateAsync(Guid id, TUpdateDto dto) {
+            var entity = _mapper.Map<TEntity>(dto);
+
             // Ensure the entity ID matches
             if (entity.Id != id)
                 entity.Id = id;
-            return await _repository.UpdateAsync(entity);
+            return _mapper.Map<TReadDto>(await _repository.UpdateAsync(entity));
         }
         public async Task<bool> DeleteAsync(Guid id) {
             return await _repository.DeleteAsync(id);
@@ -42,8 +46,8 @@ namespace Application.Services {
         public async Task<bool> HardDeleteAsync(Guid id) {
             return await _repository.HardDelete(id);
         }
-        public async Task<T> RestoreAsync(Guid id) {
-            return await _repository.RestoreAsync(id);
+        public async Task<TReadDto> RestoreAsync(Guid id) {
+            return _mapper.Map<TReadDto>(await _repository.RestoreAsync(id));
         }
     }
 }

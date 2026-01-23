@@ -1,55 +1,55 @@
 ﻿using Application.Interfaces;
+using Application.DTOs;
+using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Interfaces;
-using System;
-using System.Threading.Tasks;
 
 namespace Application.Services {
-    public class WeaponService : GenericService<Weapon>, IWeaponService {
+    public class WeaponService : GenericService<Weapon, WeaponReadDto, WeaponCreateDto, WeaponUpdateDto>, IWeaponService {
         private readonly IWeaponRepository _weaponRepository;
         private readonly IWeaponSpecialAbilityService _abilityService;
-
+        private readonly IMapper _mapper;
         public WeaponService(
             IWeaponRepository weaponRepository,
-            IWeaponSpecialAbilityService abilityService
-        ) : base(weaponRepository) {
+            IWeaponSpecialAbilityService abilityService,
+            IMapper mapper
+        ) : base(weaponRepository, mapper) {
             _weaponRepository = weaponRepository;
             _abilityService = abilityService;
+            _mapper = mapper;
         }
 
-        public override async Task<Weapon> CreateAsync(Weapon weapon) {
-            // Attach any special abilities (existing or new)
-            var newAbilities = new List<WeaponWeaponSpecialAbility>();
+        public override async Task<WeaponReadDto> CreateAsync(WeaponCreateDto weaponCreateDto) {
 
-            foreach (var ws in weapon.WeaponWeaponSpecialAbility ?? Array.Empty<WeaponWeaponSpecialAbility>()) {
+            var newAbilities = new List<WeaponWeaponSpecialAbility>();
+            List<Guid> weaponSpecialAbilities = new List<Guid>();
+            foreach (var ws in weaponCreateDto.WeaponSpecialAbilityIds) {
                 WeaponSpecialAbility ability;
                 
-                if (ws.WeaponSpecialAbility.Id != Guid.Empty) {
-                    // Existing ability
-                    ability = await _abilityService.GetByIdAsync(ws.WeaponSpecialAbility.Id)
+                if (ws != Guid.Empty) {
+
+                    ability = _mapper.Map<WeaponSpecialAbility>(await _abilityService.GetByIdAsync(ws))
                               ?? throw new Exception("WeaponSpecialAbility not found");
+                    weaponSpecialAbilities.Add(ability.Id);
                 } else {
-                    // New ability
-                    ability = await _abilityService.CreateAsync(ws.WeaponSpecialAbility);
+                    ability = null!;
                 }
 
                 newAbilities.Add(new WeaponWeaponSpecialAbility {
-                    Weapon = weapon,
+                    Weapon = _mapper.Map<Weapon>(weaponCreateDto),
                     WeaponSpecialAbility = ability
                 });
             }
 
-            weapon.WeaponWeaponSpecialAbility = newAbilities;
-            return await _weaponRepository.CreateAsync(weapon);
+            weaponCreateDto.WeaponSpecialAbilityIds = weaponSpecialAbilities;
+            return _mapper.Map<WeaponReadDto>(await _weaponRepository.CreateAsync(_mapper.Map<Weapon>(weaponCreateDto)));
         }
 
-        public async Task<Weapon> GetFullByIdAsync(Guid id) {
-            return await _weaponRepository.GetFullByIdAsync(id);
-        }
+        public async Task<WeaponReadDto> GetFullByIdAsync(Guid id) =>  _mapper.Map<WeaponReadDto>(await _weaponRepository.GetFullByIdAsync(id));
+        
 
 
-        public async Task<IEnumerable<Weapon>> GetAllFullAsync() {
-            return await _weaponRepository.GetAllFullAsync();
-        }
+        public async Task<IEnumerable<WeaponReadDto>> GetAllFullAsync() => _mapper.Map<IEnumerable<WeaponReadDto>>(await _weaponRepository.GetAllFullAsync());
+        
     }
 }

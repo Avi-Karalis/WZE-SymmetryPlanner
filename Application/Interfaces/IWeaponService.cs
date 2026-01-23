@@ -1,13 +1,8 @@
 ﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Application.DTOs;
 namespace Application.Interfaces {
-    public interface IWeaponService : IGenericService<Weapon>{
-        Task<Weapon> GetFullByIdAsync(Guid id);
-        Task<IEnumerable<Weapon>> GetAllFullAsync();
+    public interface IWeaponService : IGenericService<Weapon, WeaponReadDto, WeaponCreateDto, WeaponUpdateDto>{
+        Task<WeaponReadDto> GetFullByIdAsync(Guid id);
+        Task<IEnumerable<WeaponReadDto>> GetAllFullAsync();
     }
 }

@@ -1,9 +1,8 @@
 ﻿using Application.Interfaces;
-using Application.Services;
+using Application.DTOs;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
+
 
 namespace WebAPI.Controllers {
     [ApiController]
@@ -26,7 +25,7 @@ namespace WebAPI.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] UnitSpecialAbility ability) {
+        public async Task<IActionResult> Create([FromBody] UnitSpecialAbilityCreateDto ability) {
             var created = await _service.CreateAsync(ability);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }

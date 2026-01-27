@@ -6,7 +6,7 @@ namespace Application.Services {
     public class GenericService<TEntity, TReadDto, TCreateDto, TUpdateDto> : IGenericService<TEntity, TReadDto, TCreateDto, TUpdateDto> where TEntity : BaseEntity {
         private readonly IGenericRepository<TEntity> _repository;
         private readonly IMapper _mapper;
-        public GenericService(IGenericRepository<TEntity> repository, IMapper mapper) => (_repository, _mapper ) = (repository, mapper);
+        public GenericService(IGenericRepository<TEntity> repository, IMapper mapper) => (_repository, _mapper) = (repository, mapper);
 
         public virtual async Task<TReadDto> CreateAsync(TCreateDto dto) {
 
@@ -49,5 +49,6 @@ namespace Application.Services {
         public async Task<TReadDto> RestoreAsync(Guid id) {
             return _mapper.Map<TReadDto>(await _repository.RestoreAsync(id));
         }
+
     }
 }

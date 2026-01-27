@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260121224138_initialCreate")]
+    [Migration("20260127153800_initialCreate")]
     partial class initialCreate
     {
         /// <inheritdoc />
@@ -89,7 +89,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ForceList");
+                    b.ToTable("ForceLists");
                 });
 
             modelBuilder.Entity("Domain.Entities.Unit", b =>
@@ -398,14 +398,14 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("ForceListId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UnitsId")
+                    b.Property<Guid>("UnitId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("ForceListId", "UnitsId");
+                    b.HasKey("ForceListId", "UnitId");
 
-                    b.HasIndex("UnitsId");
+                    b.HasIndex("UnitId");
 
-                    b.ToTable("ForceListUnit");
+                    b.ToTable("ForceListUnits", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.ForceList", b =>
@@ -496,7 +496,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Entities.Unit", null)
                         .WithMany()
-                        .HasForeignKey("UnitsId")
+                        .HasForeignKey("UnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

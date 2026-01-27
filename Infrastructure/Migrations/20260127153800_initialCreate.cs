@@ -169,7 +169,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ForceList",
+                name: "ForceLists",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -185,15 +185,15 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ForceList", x => x.Id);
+                    table.PrimaryKey("PK_ForceLists", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ForceList_Allegiance_AllegianceId",
+                        name: "FK_ForceLists_Allegiance_AllegianceId",
                         column: x => x.AllegianceId,
                         principalTable: "Allegiance",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ForceList_User_UserId",
+                        name: "FK_ForceLists_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
@@ -249,43 +249,43 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ForceListUnit",
+                name: "ForceListUnits",
                 columns: table => new
                 {
                     ForceListId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UnitsId = table.Column<Guid>(type: "uuid", nullable: false)
+                    UnitId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ForceListUnit", x => new { x.ForceListId, x.UnitsId });
+                    table.PrimaryKey("PK_ForceListUnits", x => new { x.ForceListId, x.UnitId });
                     table.ForeignKey(
-                        name: "FK_ForceListUnit_ForceList_ForceListId",
+                        name: "FK_ForceListUnits_ForceLists_ForceListId",
                         column: x => x.ForceListId,
-                        principalTable: "ForceList",
+                        principalTable: "ForceLists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ForceListUnit_Units_UnitsId",
-                        column: x => x.UnitsId,
+                        name: "FK_ForceListUnits_Units_UnitId",
+                        column: x => x.UnitId,
                         principalTable: "Units",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ForceList_AllegianceId",
-                table: "ForceList",
+                name: "IX_ForceLists_AllegianceId",
+                table: "ForceLists",
                 column: "AllegianceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ForceList_UserId",
-                table: "ForceList",
+                name: "IX_ForceLists_UserId",
+                table: "ForceLists",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ForceListUnit_UnitsId",
-                table: "ForceListUnit",
-                column: "UnitsId");
+                name: "IX_ForceListUnits_UnitId",
+                table: "ForceListUnits",
+                column: "UnitId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UnitUnitSpecialAbilities_UnitSpecialAbilityId",
@@ -307,7 +307,7 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ForceListUnit");
+                name: "ForceListUnits");
 
             migrationBuilder.DropTable(
                 name: "UnitUnitSpecialAbilities");
@@ -319,7 +319,7 @@ namespace Infrastructure.Migrations
                 name: "WeaponWeaponSpecialAbilities");
 
             migrationBuilder.DropTable(
-                name: "ForceList");
+                name: "ForceLists");
 
             migrationBuilder.DropTable(
                 name: "UnitSpecialAbilities");

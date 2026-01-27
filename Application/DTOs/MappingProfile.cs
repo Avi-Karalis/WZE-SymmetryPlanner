@@ -32,10 +32,19 @@ public class MappingProfile : Profile {
         CreateMap<WeaponSpecialAbilityCreateDto, WeaponSpecialAbility>();
         CreateMap<WeaponSpecialAbilityUpdateDto, WeaponSpecialAbility>();
 
-        CreateMap<ForceListCreateDto, ForceList>();
-        CreateMap<ForceList, ForceListReadDto>();
-        CreateMap<ForceList, ForceListUpdateDto>();
-        CreateMap<ForceListReadDto, ForceList>();
-        CreateMap<ForceListUpdateDto, ForceList>();
+        CreateMap<ForceListCreateDto, ForceList>()
+            .ForMember(dest => dest.Allegiance,
+                opt => opt.MapFrom(src => new Allegiance {
+                    Type = src.Allegiance
+                }))
+            .ForMember(dest => dest.Units, opt => opt.Ignore())
+            .ForMember(dest => dest.User, opt => opt.Ignore());
+
+        // Domain → Read DTO
+        CreateMap<ForceList, ForceListReadDto>()
+            .ForMember(dest => dest.Allegiance,
+                opt => opt.MapFrom(src => src.Allegiance.Name))
+            .ForMember(dest => dest.Units,
+                opt => opt.MapFrom(src => src.Units));
     }
 }

@@ -5,5 +5,7 @@ namespace Application.Interfaces {
         Task<UnitReadDto> GetFullByIdAsync(Guid id);
         Task<IEnumerable<UnitReadDto>> GetAllFullAsync();
         Task<IEnumerable<UnitReadDto>> GetAllByFactionAsync(string faction);
+        Task<List<string>> GetAvailableFactionsAsync();
+        Task<List<Unit>> GetUnitsByFactionAsync(string faction);
     }
 }

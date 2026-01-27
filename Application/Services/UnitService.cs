@@ -70,5 +70,13 @@ namespace Application.Services {
 
             return _mapper.Map<UnitReadDto>(createdUnit);
         }
+
+
+        public async Task<List<string>> GetAvailableFactionsAsync() {
+            return await _unitRepository.GetAvailableFactionsAsync();
+        }
+        public async Task<List<Unit>> GetUnitsByFactionAsync(string faction) {
+            return await _unitRepository.GetUnitsByFactionAsync(faction);
+        }
     }
 }

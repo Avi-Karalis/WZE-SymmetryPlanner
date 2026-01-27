@@ -83,7 +83,23 @@ namespace Infrastructure.Data {
             });
 
             modelBuilder.Entity<ForceList>()
-                   .HasMany(f => f.Units).WithMany();
+                .HasMany(fl => fl.Units)
+                .WithMany()
+                .UsingEntity<Dictionary<string, object>>(
+                    "ForceListUnit",
+                    j => j.HasOne<Unit>()
+                          .WithMany()
+                          .HasForeignKey("UnitId")
+                          .OnDelete(DeleteBehavior.Cascade),
+                    j => j.HasOne<ForceList>()
+                          .WithMany()
+                          .HasForeignKey("ForceListId")
+                          .OnDelete(DeleteBehavior.Cascade),
+                    j => {
+                        j.HasKey("ForceListId", "UnitId");
+                        j.ToTable("ForceListUnits");
+                    }
+                );
             // Apply any additional configurations
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
   

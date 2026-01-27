@@ -31,5 +31,11 @@ public class MappingProfile : Profile {
         CreateMap<WeaponSpecialAbility, WeaponSpecialAbilityReadDto>();
         CreateMap<WeaponSpecialAbilityCreateDto, WeaponSpecialAbility>();
         CreateMap<WeaponSpecialAbilityUpdateDto, WeaponSpecialAbility>();
+
+        CreateMap<ForceListCreateDto, ForceList>();
+        CreateMap<ForceList, ForceListReadDto>();
+        CreateMap<ForceList, ForceListUpdateDto>();
+        CreateMap<ForceListReadDto, ForceList>();
+        CreateMap<ForceListUpdateDto, ForceList>();
     }
 }

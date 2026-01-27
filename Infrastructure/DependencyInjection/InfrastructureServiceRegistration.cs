@@ -21,6 +21,7 @@ namespace Infrastructure.DependencyInjection;
             services.AddScoped(typeof(IWeaponRepository), typeof(WeaponRepository));
             services.AddScoped(typeof(IUnitSpecialAbilityRepository), typeof(UnitSpecialAbilityRepository));
             services.AddScoped(typeof(IWeaponSpecialAbilityRepository), typeof(WeaponSpecialAbilityRepository));
-            return services;
+            services.AddScoped(typeof(IForceListRepository), typeof(ForceListRepository));
+        return services;
         }
     }

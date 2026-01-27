@@ -2,11 +2,7 @@
 using Infrastructure.Data;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.Repositories {
     public class UnitRepository : GenericRepository<Unit>, IUnitRepository {
@@ -47,6 +43,18 @@ namespace Infrastructure.Repositories {
                     .ThenInclude(uw => uw.Weapon)
                         .ThenInclude(w => w.WeaponWeaponSpecialAbility)
                             .ThenInclude(wwsa => wwsa.WeaponSpecialAbility)
+                .ToListAsync();
+        }
+        public async Task<List<string>> GetAvailableFactionsAsync() {
+            return await _context.Units.Where(u => u.DeletedAt == null && u.Status ==0)
+                .Select(u => u.Faction)
+                .Distinct()
+                .OrderBy(f => f)
+                .ToListAsync();
+        }
+
+        public async Task<List<Unit>> GetUnitsByFactionAsync(string faction) {
+            return await _context.Units.Where(u => u.DeletedAt == null && u.Status == 0 && u.Faction == faction)
                 .ToListAsync();
         }
 

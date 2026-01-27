@@ -11,6 +11,7 @@ namespace Infrastructure.Data {
         public DbSet<UnitWeapon> UnitWeapons { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
+        public DbSet<ForceList> ForceLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
@@ -85,7 +86,7 @@ namespace Infrastructure.Data {
                    .HasMany(f => f.Units).WithMany();
             // Apply any additional configurations
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-
+  
             // Optional: soft delete filters
             // modelBuilder.Entity<SpecialAbility>().HasQueryFilter(w => w.DeletedAt == null);
             // modelBuilder.Entity<Unit>().HasQueryFilter(u => u.DeletedAt == null);

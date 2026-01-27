@@ -50,7 +50,7 @@ namespace Application.Services {
 
             unitEntity.AddUnitSpecialAbility(newAbilities);
 
-            // 3️⃣ Process Weapons
+
             foreach (var weaponEntry in unitDto.WeaponIds ) {
                 WeaponReadDto weapon;
 
@@ -64,10 +64,10 @@ namespace Application.Services {
                 unitEntity.AddWeapon(_mapper.Map<Weapon>(weapon));
             }
 
-            // 4️⃣ Save entity
+
             var createdUnit = await _unitRepository.CreateAsync(unitEntity);
 
-            // 5️⃣ Map back to ReadDto
+
             return _mapper.Map<UnitReadDto>(createdUnit);
         }
     }

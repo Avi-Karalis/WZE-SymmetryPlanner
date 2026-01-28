@@ -17,9 +17,10 @@ namespace Application.DTOs {
         string Allegiance,          // string for UI
         int MaxDp,
         int MaxSp,
-        ICollection<UnitReadDto> Units,
         Guid UserId
-    );
+    ) {
+        public ICollection<UnitReadDto> Units { get; set; } = new List<UnitReadDto>();
+    };
     public record ForceListUpdateDto(
         string Name,
         string Faction,

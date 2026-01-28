@@ -1,19 +1,21 @@
-﻿namespace Domain.Entities {
+﻿using System.Linq;
+
+namespace Domain.Entities {
     public class ForceList : BaseEntity {
         public string Name { get; set; }
         public string Faction { get; set; }
         public Allegiance Allegiance { get; set; }
-        public ICollection<Unit> Units { get; set; } = new List<Unit>();
         public sbyte MaxDp { get; set; }
         public sbyte MaxSp { get; set; }
         public sbyte? CurrentDp { get; set; }
         public sbyte? CurrentSp { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
-
+        public ICollection<ForceListUnit> ForceListUnits { get; set; } = new List<ForceListUnit>();
         private static readonly string[] AllyDesignations ={"Advisor","Seconding","Dark Cult"};
-        
 
+        private IEnumerable<Unit> Units =>
+    ForceListUnits.Select(flu => flu.Unit);
         public bool Validate(out List<string> errors) {
             errors = new List<string>();
 

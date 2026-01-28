@@ -7,5 +7,6 @@ namespace Application.Interfaces {
         Task<IEnumerable<UnitReadDto>> GetAllByFactionAsync(string faction);
         Task<List<string>> GetAvailableFactionsAsync();
         Task<List<Unit>> GetUnitsByFactionAsync(string faction);
+        Task<Unit> GetUnitTrackedAsync(Guid unitId);
     }
 }

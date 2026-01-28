@@ -9,5 +9,7 @@ namespace Infrastructure.Interfaces {
     public interface IForceListRepository : IGenericRepository<ForceList> {
         Task AddAsync(ForceList forceList);
         Task<ForceList> GetByIdWithUnitsAsync(Guid id);
+        Task<Unit> GetUnitByIdAsync(Guid unitId);
+
     }
 }

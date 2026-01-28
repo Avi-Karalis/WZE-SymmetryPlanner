@@ -12,6 +12,7 @@ namespace Infrastructure.Data {
         public DbSet<Unit> Units { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
         public DbSet<ForceList> ForceLists { get; set; }
+        public DbSet<ForceListUnit> ForceListUnits { get; set; }
         public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
@@ -81,25 +82,21 @@ namespace Infrastructure.Data {
                 entity.ToTable("WeaponSpecialAbilities"); // lowercase
                 entity.HasKey(e => e.Id);
             });
+            modelBuilder.Entity<ForceListUnit>()
+                .HasKey(flu => flu.Id);
 
-            modelBuilder.Entity<ForceList>()
-                .HasMany(fl => fl.Units)
+            modelBuilder.Entity<ForceListUnit>()
+                .HasOne(flu => flu.ForceList)
+                .WithMany(fl => fl.ForceListUnits)
+                .HasForeignKey(flu => flu.ForceListId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ForceListUnit>()
+                .HasOne(flu => flu.Unit)
                 .WithMany()
-                .UsingEntity<Dictionary<string, object>>(
-                    "ForceListUnit",
-                    j => j.HasOne<Unit>()
-                          .WithMany()
-                          .HasForeignKey("UnitId")
-                          .OnDelete(DeleteBehavior.Cascade),
-                    j => j.HasOne<ForceList>()
-                          .WithMany()
-                          .HasForeignKey("ForceListId")
-                          .OnDelete(DeleteBehavior.Cascade),
-                    j => {
-                        j.Property<int>("Id");
-                        j.HasKey("Id");
-                        j.ToTable("ForceListUnits");
-                    });
+                .HasForeignKey(flu => flu.UnitId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // Apply any additional configurations
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
   

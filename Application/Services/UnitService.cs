@@ -78,5 +78,7 @@ namespace Application.Services {
         public async Task<List<Unit>> GetUnitsByFactionAsync(string faction) {
             return await _unitRepository.GetUnitsByFactionAsync(faction);
         }
+
+        public async Task<Unit> GetUnitTrackedAsync(Guid unitId) => await _unitRepository.GetUnitTrackedAsync(unitId);
     }
 }

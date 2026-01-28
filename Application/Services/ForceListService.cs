@@ -38,7 +38,7 @@ namespace Application.Services {
         }
         public async Task AddUnitAsync(Guid forceListId, Guid unitId) {
             var forceList = await _forceListRepository.GetByIdWithUnitsAsync(forceListId);
-            var unit = await _forceListRepository.GetUnitByIdAsync(unitId);
+            var unit = await _unitService.GetEntityByIdAsync(unitId);
 
             var flu = new ForceListUnit {
                 ForceListId = forceListId,
@@ -48,7 +48,7 @@ namespace Application.Services {
             forceList.ForceListUnits.Add(flu); // add directly
             forceList.CurrentDp = (sbyte)((forceList.CurrentDp ?? 0) + unit.DPCost);
             forceList.CurrentSp = (sbyte)((forceList.CurrentSp ?? 0) + unit.SPCost);
-            if (unit.SPCost < 0) forceList.MaxSp = (sbyte)(forceList.MaxSp - unit.SPCost);
+            if (unit.SPCost > 0) forceList.MaxSp = (sbyte)(forceList.MaxSp - unit.SPCost);
 
             await _forceListRepository.SaveAsync();
         }

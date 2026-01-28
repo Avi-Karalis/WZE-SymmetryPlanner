@@ -27,7 +27,8 @@ namespace Application.Services {
 
             return _mapper.Map<TReadDto>(await _repository.GetByIdAsync(id));
         }
-
+        public async Task<TEntity?> GetEntityByIdAsync(Guid id) => await _repository.GetByIdAsync(id);
+        
         public async Task<TReadDto> GetByIdAndDeletedAsync(Guid id) {
             return _mapper.Map<TReadDto>(await _repository.GetByIdAndDeleted(id));
         }

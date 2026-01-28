@@ -10,5 +10,6 @@ namespace Infrastructure.Interfaces {
         Task<IEnumerable<T>> GetAllAndDeletedAsync();
         Task<T> RestoreAsync(Guid id);
         Task<bool> HardDelete(Guid id);
+        Task SaveAsync();
     }
 }

@@ -45,6 +45,7 @@ public class MappingProfile : Profile {
                 opt => opt.MapFrom(src => src.Allegiance.Name))
             .ForMember(dest => dest.Units,
                 opt => opt.MapFrom(src => src.Units));
+
         CreateMap<ForceListReadDto, ForceListUpdateDto>();
 
     }

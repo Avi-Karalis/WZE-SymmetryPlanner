@@ -152,13 +152,13 @@
         }
         private void ValidateSupportPoints(List<string> errors) {
             int totalSP = Units.Sum(u => u.SPCost);
-            if (totalSP > 0)
+            if (totalSP <= MaxSp)
                 errors.Add($"Support point total ({totalSP}) exceeds the allowed SP limit.");
         }
 
         private void ValidateDeploymentPoints(List<string> errors) {
             int totalDP = Units.Sum(u => u.DPCost);
-            if (totalDP > MaxDp)
+            if (totalDP >= MaxDp)
                 errors.Add($"Deployment Point limit exceeded: {totalDP}/{MaxDp} DP used.");
         }
 

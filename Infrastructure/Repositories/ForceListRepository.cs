@@ -17,6 +17,16 @@ namespace Infrastructure.Repositories {
             _context.ForceLists.Add(forceList);
             await _context.SaveChangesAsync();
         }
+        public async Task<ForceList> GetByIdWithUnitsAsync(Guid id) {
+            return await _context.ForceLists
+                .Include(f => f.Units)
+                .ThenInclude(u => u.UnitWeapon)
+                .Include(f => f.Units)
+                .ThenInclude(u => u.UnitUnitSpecialAbilities)
+                .FirstOrDefaultAsync(f => f.Id == id && f.DeletedAt == null)
+                ?? throw new KeyNotFoundException("Force list not found");
+        }
+
 
     }
 

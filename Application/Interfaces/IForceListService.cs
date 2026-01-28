@@ -9,7 +9,7 @@ namespace Application.Interfaces {
         Task<Guid> CreateForceListAsync(ForceListCreateDto dto);
         Task AddUnitAsync(Guid forceListId, Guid unitId);
         Task RemoveUnitAsync(Guid forceListId, Guid unitId);
-
+        Task<ForceListReadDto> GetByIdAsync(Guid id);
         Task<(bool isValid, List<string> errors)> ValidateAsync(Guid forceListId);
     }
 }

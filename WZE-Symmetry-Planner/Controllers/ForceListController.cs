@@ -33,7 +33,7 @@ namespace WZE_Symmetry_Planner.Controllers {
             return NoContent();
         }
 
-        [HttpDelete("{id}/units/{unitId}")]
+        [HttpPost("{id}/units/rem")]
         public async Task<IActionResult> RemoveUnit(Guid id, Guid unitId) {
             await _service.RemoveUnitAsync(id, unitId);
             return NoContent();
@@ -42,6 +42,11 @@ namespace WZE_Symmetry_Planner.Controllers {
         [HttpPost("{id}/validate")]
         public async Task<IActionResult> Validate(Guid id) {
             var result = await _service.ValidateAsync(id);
+            return Ok(result);
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id) {
+            var result = await _service.GetByIdAsync(id);
             return Ok(result);
         }
     }

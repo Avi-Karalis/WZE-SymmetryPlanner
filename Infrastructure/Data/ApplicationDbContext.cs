@@ -12,7 +12,7 @@ namespace Infrastructure.Data {
         public DbSet<Unit> Units { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
         public DbSet<ForceList> ForceLists { get; set; }
-
+        public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
@@ -96,10 +96,10 @@ namespace Infrastructure.Data {
                           .HasForeignKey("ForceListId")
                           .OnDelete(DeleteBehavior.Cascade),
                     j => {
-                        j.HasKey("ForceListId", "UnitId");
+                        j.Property<int>("Id");
+                        j.HasKey("Id");
                         j.ToTable("ForceListUnits");
-                    }
-                );
+                    });
             // Apply any additional configurations
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
   

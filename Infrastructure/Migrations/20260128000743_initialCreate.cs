@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -78,7 +79,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -95,7 +96,7 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,8 +177,10 @@ namespace Infrastructure.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Faction = table.Column<string>(type: "text", nullable: false),
                     AllegianceId = table.Column<Guid>(type: "uuid", nullable: false),
-                    MaxDp = table.Column<int>(type: "integer", nullable: false),
-                    MaxSp = table.Column<int>(type: "integer", nullable: false),
+                    MaxDp = table.Column<short>(type: "smallint", nullable: false),
+                    MaxSp = table.Column<short>(type: "smallint", nullable: false),
+                    CurrentDp = table.Column<short>(type: "smallint", nullable: true),
+                    CurrentSp = table.Column<short>(type: "smallint", nullable: true),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -193,9 +196,9 @@ namespace Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ForceLists_User_UserId",
+                        name: "FK_ForceLists_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -252,12 +255,14 @@ namespace Infrastructure.Migrations
                 name: "ForceListUnits",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ForceListId = table.Column<Guid>(type: "uuid", nullable: false),
                     UnitId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ForceListUnits", x => new { x.ForceListId, x.UnitId });
+                    table.PrimaryKey("PK_ForceListUnits", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ForceListUnits_ForceLists_ForceListId",
                         column: x => x.ForceListId,
@@ -281,6 +286,11 @@ namespace Infrastructure.Migrations
                 name: "IX_ForceLists_UserId",
                 table: "ForceLists",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ForceListUnits_ForceListId",
+                table: "ForceListUnits",
+                column: "ForceListId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ForceListUnits_UnitId",
@@ -337,7 +347,7 @@ namespace Infrastructure.Migrations
                 name: "Allegiance");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
         }
     }
 }

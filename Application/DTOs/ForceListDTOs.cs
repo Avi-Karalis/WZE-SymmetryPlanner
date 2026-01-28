@@ -20,7 +20,7 @@ namespace Application.DTOs {
     int CurrentDp,
     int CurrentSp,
     Guid UserId,
-    IEnumerable<UnitReadDto> Units
+    ICollection<UnitReadDto> Units
     );
     public record ForceListUpdateDto(
         Guid Id,
@@ -35,5 +35,6 @@ namespace Application.DTOs {
         Guid UserId,
         User User
     );
-
+    public record ForceListAddUnitDto(Guid UnitId);
+    public record ForceListRemoveUnitDto(Guid UnitId);
 }

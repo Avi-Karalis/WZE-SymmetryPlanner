@@ -2,6 +2,7 @@
 using Infrastructure.Data;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 
 namespace Infrastructure.Repositories {
@@ -72,10 +73,28 @@ namespace Infrastructure.Repositories {
         }
 
         public async Task<T> UpdateAsync(T entity) {
-            var existing = await _dbSet.FirstOrDefaultAsync(e => e.Id == entity.Id) ??
-                throw new KeyNotFoundException($"Entity with ID {entity.Id} not found.");
-            entity.UpdatedAt = DateTime.UtcNow;
+            var existing = await _dbSet
+                    .FirstOrDefaultAsync(e => e.Id == entity.Id)
+                    ?? throw new KeyNotFoundException($"Entity with ID {entity.Id} not found.");
+
             _context.Entry(existing).CurrentValues.SetValues(entity);
+
+            // Handle ICollection<T> properties
+            var collectionProps = typeof(T).GetProperties()
+                .Where(p => p.PropertyType.IsGenericType &&
+                            typeof(ICollection<>).IsAssignableFrom(p.PropertyType.GetGenericTypeDefinition()));
+
+            foreach (var prop in collectionProps) {
+                var existingCollection = (IList)prop.GetValue(existing);
+                var newCollection = (IEnumerable)prop.GetValue(entity);
+
+                existingCollection.Clear();
+                foreach (var item in newCollection) {
+                    existingCollection.Add(item);
+                }
+            }
+
+            existing.GetType().GetProperty("UpdatedAt")?.SetValue(existing, DateTime.UtcNow);
             await _context.SaveChangesAsync();
             return existing;
         }

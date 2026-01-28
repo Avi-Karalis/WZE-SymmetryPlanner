@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260127153800_initialCreate")]
+    [Migration("20260128000743_initialCreate")]
     partial class initialCreate
     {
         /// <inheritdoc />
@@ -60,6 +60,12 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<short?>("CurrentDp")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("CurrentSp")
+                        .HasColumnType("smallint");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -67,11 +73,11 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("MaxDp")
-                        .HasColumnType("integer");
+                    b.Property<short>("MaxDp")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("MaxSp")
-                        .HasColumnType("integer");
+                    b.Property<short>("MaxSp")
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -278,7 +284,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Domain.Entities.Weapon", b =>
@@ -395,13 +401,21 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("ForceListUnit", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<Guid>("ForceListId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("UnitId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("ForceListId", "UnitId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ForceListId");
 
                     b.HasIndex("UnitId");
 

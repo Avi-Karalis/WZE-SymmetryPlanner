@@ -6,13 +6,13 @@ using Infrastructure.Interfaces;
 
 
 namespace Application.Services {
-    public class UnitService : GenericService<Unit, UnitReadDto, UnitCreateDto, UnitUpdateDto>, IUnitService {
-        private readonly IUnitRepository _unitRepository;
+    public class UnitService : GenericService<Unit, UnitReadDto, UnitCreateDto, UnitUpdateDto>, Interfaces.IUnitService {
+        private readonly Infrastructure.Interfaces.IUnitRepository _unitRepository;
         private readonly IUnitSpecialAbilityService _unitAbilityService;
         private readonly IWeaponService _weaponService;
         private readonly IMapper _mapper;
         public UnitService(
-            IUnitRepository unitRepository,
+            Infrastructure.Interfaces.IUnitRepository unitRepository,
             IUnitSpecialAbilityService unitAbilityService,
             IWeaponService weaponService,
             IMapper mapper

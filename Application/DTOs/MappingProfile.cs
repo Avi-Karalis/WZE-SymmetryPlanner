@@ -10,7 +10,6 @@ public class MappingProfile : Profile {
                        opt => opt.MapFrom(src => src.UnitUnitSpecialAbilities.Select(uusa => uusa.UnitSpecialAbility)))
             .ForMember(dest => dest.Weapons,
                        opt => opt.MapFrom(src => src.UnitWeapon.Select(uw => uw.Weapon)));
-
         CreateMap<UnitCreateDto, Unit>();
         CreateMap<UnitUpdateDto, Unit>();
 
@@ -46,5 +45,7 @@ public class MappingProfile : Profile {
                 opt => opt.MapFrom(src => src.Allegiance.Name))
             .ForMember(dest => dest.Units,
                 opt => opt.MapFrom(src => src.Units));
+        CreateMap<ForceListReadDto, ForceListUpdateDto>();
+
     }
 }

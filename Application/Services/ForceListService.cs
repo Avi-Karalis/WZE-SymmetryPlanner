@@ -3,28 +3,27 @@ using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Interfaces;
-
 namespace Application.Services {
     public class ForceListService: GenericService<ForceList, ForceListReadDto, ForceListCreateDto, ForceListUpdateDto>, IForceListService {
-        private readonly IUnitService _unitService;
+        private readonly IUnitRepository _unitRepository;
         private readonly IForceListRepository _forceListRepository;
         private readonly IMapper _mapper;
 
         public ForceListService(
             IForceListRepository forceListRepository,
-            IUnitService unitService,
+            IUnitRepository unitService,
             IMapper mapper
         ) : base(forceListRepository, mapper) {
             _forceListRepository = forceListRepository;
-            _unitService = unitService;
+            _unitRepository = unitService;
             _mapper = mapper;
         }
 
         public Task<List<string>> GetAvailableFactionsAsync()
-            => _unitService.GetAvailableFactionsAsync();
+            => _unitRepository.GetAvailableFactionsAsync();
 
         public Task<List<Unit>> GetUnitsForFactionAsync(string faction)
-            => _unitService.GetUnitsByFactionAsync(faction);
+            => _unitRepository.GetUnitsByFactionAsync(faction);
 
         public async Task<Guid> CreateForceListAsync(ForceListCreateDto dto) {
             ForceList forceList = _mapper.Map<ForceList>(dto);
@@ -32,15 +31,16 @@ namespace Application.Services {
             await _forceListRepository.AddAsync(forceList);
             return forceList.Id;
         }
-
         public async Task AddUnitAsync(Guid forceListId, Guid unitId) {
             var forceList = await _forceListRepository.GetByIdAsync(forceListId)
-                ?? throw new Exception("Force list not found");
+            ?? throw new Exception("Force list not found");
 
-            UnitReadDto unit = await _unitService.GetByIdAsync(unitId)
+            var unit = await _unitRepository.GetByIdAsync(unitId)
                 ?? throw new Exception("Unit not found");
 
-            forceList.Units.Add(_mapper.Map<Unit>(unit));
+            forceList.Units.Add(unit);
+            forceList.CurrentDp = (sbyte)((forceList.CurrentDp ?? 0) + unit.DPCost);
+            forceList.CurrentSp = (sbyte)((forceList.CurrentSp ?? 0) + unit.SPCost);
             await _forceListRepository.UpdateAsync(forceList);
         }
 
@@ -51,6 +51,8 @@ namespace Application.Services {
             var unit = forceList.Units.FirstOrDefault(u => u.Id == unitId);
             if (unit != null) {
                 forceList.Units.Remove(unit);
+                forceList.CurrentDp = (sbyte?)((forceList.CurrentDp ?? 0) - unit.DPCost);
+                forceList.CurrentSp = (sbyte?)((forceList.CurrentSp ?? 0) - unit.SPCost);
                 await _forceListRepository.UpdateAsync(forceList);
             }
         }

@@ -478,6 +478,9 @@ namespace Infrastructure.Data
 
 
             context.Units.AddRange(units);
+
+            User user = new("ID", "Averkkaralis@gmail.com" , "Avi");
+            context.Users.Add(user);
             context.SaveChanges();
             // Seed data for Weapons
 

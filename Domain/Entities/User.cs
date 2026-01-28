@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace Domain.Entities {
     public class User : BaseEntity{
 
@@ -18,6 +16,11 @@ namespace Domain.Entities {
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? LastLogin { get; set; }
-
+        public User(string providerUserId, string email, string name) {
+            ProviderUserId = providerUserId;
+            Email = email;
+            Name = name;
+        }
     }
+    
 }

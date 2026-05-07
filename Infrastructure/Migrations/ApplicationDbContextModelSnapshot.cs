@@ -95,6 +95,27 @@ namespace Infrastructure.Migrations
                     b.ToTable("ForceLists");
                 });
 
+            modelBuilder.Entity("Domain.Entities.ForceListUnit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ForceListId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UnitId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ForceListId");
+
+                    b.HasIndex("UnitId");
+
+                    b.ToTable("ForceListUnits");
+                });
+
             modelBuilder.Entity("Domain.Entities.Unit", b =>
                 {
                     b.Property<Guid>("Id")
@@ -396,29 +417,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("WeaponWeaponSpecialAbilities", (string)null);
                 });
 
-            modelBuilder.Entity("ForceListUnit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<Guid>("ForceListId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UnitId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ForceListId");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("ForceListUnits", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Entities.ForceList", b =>
                 {
                     b.HasOne("Domain.Entities.Allegiance", "Allegiance")
@@ -436,6 +434,25 @@ namespace Infrastructure.Migrations
                     b.Navigation("Allegiance");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ForceListUnit", b =>
+                {
+                    b.HasOne("Domain.Entities.ForceList", "ForceList")
+                        .WithMany("ForceListUnits")
+                        .HasForeignKey("ForceListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Unit", "Unit")
+                        .WithMany()
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ForceList");
+
+                    b.Navigation("Unit");
                 });
 
             modelBuilder.Entity("Domain.Entities.UnitUnitSpecialAbility", b =>
@@ -497,19 +514,9 @@ namespace Infrastructure.Migrations
                     b.Navigation("WeaponSpecialAbility");
                 });
 
-            modelBuilder.Entity("ForceListUnit", b =>
+            modelBuilder.Entity("Domain.Entities.ForceList", b =>
                 {
-                    b.HasOne("Domain.Entities.ForceList", null)
-                        .WithMany()
-                        .HasForeignKey("ForceListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Unit", null)
-                        .WithMany()
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("ForceListUnits");
                 });
 
             modelBuilder.Entity("Domain.Entities.Unit", b =>

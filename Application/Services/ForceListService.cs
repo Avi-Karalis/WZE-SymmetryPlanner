@@ -3,27 +3,32 @@ using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 namespace Application.Services {
     public class ForceListService: GenericService<ForceList, ForceListReadDto, ForceListCreateDto, ForceListUpdateDto>, IForceListService {
-        private readonly IUnitRepository _unitRepository;
+        private readonly IUnitService _unitService;
         private readonly IForceListRepository _forceListRepository;
         private readonly IMapper _mapper;
 
         public ForceListService(
             IForceListRepository forceListRepository,
-            IUnitRepository unitService,
+            IUnitService unitService,
             IMapper mapper
         ) : base(forceListRepository, mapper) {
             _forceListRepository = forceListRepository;
-            _unitRepository = unitService;
+            _unitService = unitService;
             _mapper = mapper;
         }
 
+        public async Task<ForceListReadDto> GetByIdAsync(Guid id) {
+            var forceList = await _forceListRepository.GetByIdWithUnitsAsync(id);
+            return _mapper.Map<ForceListReadDto>(forceList);
+        }
         public Task<List<string>> GetAvailableFactionsAsync()
-            => _unitRepository.GetAvailableFactionsAsync();
+            => _unitService.GetAvailableFactionsAsync();
 
         public Task<List<Unit>> GetUnitsForFactionAsync(string faction)
-            => _unitRepository.GetUnitsByFactionAsync(faction);
+            => _unitService.GetUnitsByFactionAsync(faction);
 
         public async Task<Guid> CreateForceListAsync(ForceListCreateDto dto) {
             ForceList forceList = _mapper.Map<ForceList>(dto);
@@ -32,31 +37,34 @@ namespace Application.Services {
             return forceList.Id;
         }
         public async Task AddUnitAsync(Guid forceListId, Guid unitId) {
-            var forceList = await _forceListRepository.GetByIdAsync(forceListId)
-            ?? throw new Exception("Force list not found");
+            var forceList = await _forceListRepository.GetByIdWithUnitsAsync(forceListId);
+            var unit = await _unitService.GetEntityByIdAsync(unitId);
 
-            var unit = await _unitRepository.GetByIdAsync(unitId)
-                ?? throw new Exception("Unit not found");
+            var flu = new ForceListUnit {
+                ForceListId = forceListId,
+                UnitId = unitId
+            };
 
-            forceList.Units.Add(unit);
+            forceList.ForceListUnits.Add(flu); // add directly
             forceList.CurrentDp = (sbyte)((forceList.CurrentDp ?? 0) + unit.DPCost);
             forceList.CurrentSp = (sbyte)((forceList.CurrentSp ?? 0) + unit.SPCost);
-            await _forceListRepository.UpdateAsync(forceList);
+            if (unit.SPCost > 0) forceList.MaxSp = (sbyte)(forceList.MaxSp - unit.SPCost);
+
+            await _forceListRepository.SaveAsync();
         }
 
         public async Task RemoveUnitAsync(Guid forceListId, Guid unitId) {
-            var forceList = await _forceListRepository.GetByIdAsync(forceListId)
-                ?? throw new Exception("Force list not found");
+            var forceList = await _forceListRepository.GetByIdWithUnitsAsync(forceListId);
+            var flu = forceList.ForceListUnits.FirstOrDefault(f => f.UnitId == unitId);
 
-            var unit = forceList.Units.FirstOrDefault(u => u.Id == unitId);
-            if (unit != null) {
-                forceList.Units.Remove(unit);
-                forceList.CurrentDp = (sbyte?)((forceList.CurrentDp ?? 0) - unit.DPCost);
-                forceList.CurrentSp = (sbyte?)((forceList.CurrentSp ?? 0) - unit.SPCost);
-                await _forceListRepository.UpdateAsync(forceList);
-            }
+
+            forceList.ForceListUnits.Remove(flu); // add directly
+            forceList.CurrentDp = (sbyte)((forceList.CurrentDp ?? 0) - flu.Unit.DPCost);
+            forceList.CurrentSp = (sbyte)((forceList.CurrentSp ?? 0) - flu.Unit.SPCost);
+            if (flu.Unit.SPCost < 0) forceList.MaxSp = (sbyte)(forceList.MaxSp + flu.Unit.SPCost);
+
+            await _forceListRepository.SaveAsync();
         }
-
         public async Task<(bool isValid, List<string> errors)> ValidateAsync(Guid forceListId) {
             var forceList = await _forceListRepository.GetByIdAsync(forceListId)
                 ?? throw new Exception("Force list not found");

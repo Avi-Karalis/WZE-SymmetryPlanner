@@ -57,6 +57,9 @@ namespace Infrastructure.Repositories {
             return await _context.Units.Where(u => u.DeletedAt == null && u.Status == 0 && u.Faction == faction)
                 .ToListAsync();
         }
-
+        public async Task<Unit> GetUnitTrackedAsync(Guid unitId) {
+            return await _context.Units
+                .FirstAsync(u => u.Id == unitId && u.DeletedAt == null);
+        }
     }
 }

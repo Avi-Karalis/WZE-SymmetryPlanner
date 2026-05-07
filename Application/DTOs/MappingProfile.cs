@@ -33,18 +33,32 @@ public class MappingProfile : Profile {
 
         CreateMap<ForceListCreateDto, ForceList>()
             .ForMember(dest => dest.Allegiance,
-                opt => opt.MapFrom(src => new Allegiance {
-                    Type = src.Allegiance
-                }))
-            .ForMember(dest => dest.Units, opt => opt.Ignore())
-            .ForMember(dest => dest.User, opt => opt.Ignore());
+                       opt => opt.MapFrom(src => new Allegiance { Type = src.Allegiance }))
+            .ForMember(dest => dest.ForceListUnits, opt => opt.Ignore()) // ignore the collection
+            .ForMember(dest => dest.User, opt => opt.Ignore())
+            .AfterMap((src, dest) => {
+                dest.ForceListUnits = new List<ForceListUnit>();
+                // If DTO had UnitIds, you could do:
+                // foreach (var unitId in src.UnitIds)
+                //     dest.ForceListUnits.Add(new ForceListUnit { UnitId = unitId });
+            });
 
         // Domain → Read DTO
         CreateMap<ForceList, ForceListReadDto>()
             .ForMember(dest => dest.Allegiance,
-                opt => opt.MapFrom(src => src.Allegiance.Name))
-            .ForMember(dest => dest.Units,
-                opt => opt.MapFrom(src => src.Units));
+                       opt => opt.MapFrom(src => src.Allegiance.Name))
+            .ForMember(dest => dest.Units, opt => opt.Ignore()) // ignore first
+            .AfterMap((src, dest) => {
+                dest.Units = src.ForceListUnits
+                                .Select(flu => flu.Unit)
+                                .Select(u => new UnitReadDto {
+                                    Id = u.Id,
+                                    UnitType = u.UnitType,
+                                    DPCost = u.DPCost,
+                                    SPCost = u.SPCost
+                                })
+                                .ToList();
+            });
         CreateMap<ForceListReadDto, ForceListUpdateDto>();
 
     }

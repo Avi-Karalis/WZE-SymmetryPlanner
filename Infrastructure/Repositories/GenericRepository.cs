@@ -98,5 +98,9 @@ namespace Infrastructure.Repositories {
             await _context.SaveChangesAsync();
             return existing;
         }
+
+        public async Task SaveAsync() {
+            await _context.SaveChangesAsync();
+        }
     }
 }

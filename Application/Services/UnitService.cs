@@ -7,12 +7,12 @@ using Infrastructure.Interfaces;
 
 namespace Application.Services {
     public class UnitService : GenericService<Unit, UnitReadDto, UnitCreateDto, UnitUpdateDto>, Interfaces.IUnitService {
-        private readonly Infrastructure.Interfaces.IUnitRepository _unitRepository;
+        private readonly IUnitRepository _unitRepository;
         private readonly IUnitSpecialAbilityService _unitAbilityService;
         private readonly IWeaponService _weaponService;
         private readonly IMapper _mapper;
         public UnitService(
-            Infrastructure.Interfaces.IUnitRepository unitRepository,
+            IUnitRepository unitRepository,
             IUnitSpecialAbilityService unitAbilityService,
             IWeaponService weaponService,
             IMapper mapper
@@ -78,5 +78,7 @@ namespace Application.Services {
         public async Task<List<Unit>> GetUnitsByFactionAsync(string faction) {
             return await _unitRepository.GetUnitsByFactionAsync(faction);
         }
+
+        public async Task<Unit> GetUnitTrackedAsync(Guid unitId) => await _unitRepository.GetUnitTrackedAsync(unitId);
     }
 }

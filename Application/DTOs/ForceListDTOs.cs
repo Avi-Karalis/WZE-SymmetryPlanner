@@ -11,29 +11,22 @@ namespace Application.DTOs {
     );
 
     public record ForceListReadDto(
-            Guid Id,
-    string Name,
-    string Faction,
-    string Allegiance,          // string for UI
-    int MaxDp,
-    int MaxSp,
-    int CurrentDp,
-    int CurrentSp,
-    Guid UserId,
-    ICollection<UnitReadDto> Units
-    );
-    public record ForceListUpdateDto(
         Guid Id,
         string Name,
         string Faction,
-        Allegiance Allegiance,
-        ICollection<Unit> Units,
+        string Allegiance,          // string for UI
         int MaxDp,
         int MaxSp,
-        int CurrentDp,
-        int CurrentSp,
-        Guid UserId,
-        User User
+        Guid UserId
+    ) {
+        public ICollection<UnitReadDto> Units { get; set; } = new List<UnitReadDto>();
+    };
+    public record ForceListUpdateDto(
+        string Name,
+        string Faction,
+        AllegianceType Allegiance,
+        int MaxDp,
+        int MaxSp
     );
     public record ForceListAddUnitDto(Guid UnitId);
     public record ForceListRemoveUnitDto(Guid UnitId);

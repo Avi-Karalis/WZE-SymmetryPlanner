@@ -1,0 +1,340 @@
+Solution: D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner.sln
+
+
+Restoring packages...
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x [D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner.sln]
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x [D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner.sln]
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : error NU1605: Warning As Error: Detected package downgrade: AutoMapper from 16.1.1 to 16.0.0. Reference the package directly from the project to select a different version.  [D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner.sln]
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : error NU1605:  WZE-Symmetry-Planner -> Application -> AutoMapper (>= 16.1.1)  [D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner.sln]
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : error NU1605:  WZE-Symmetry-Planner -> AutoMapper (>= 16.0.0) [D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner.sln]
+  Restored D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj (in 404 ms).
+  Restored D:\repos\WZE-SymmetryPlanner\Application\Application.csproj (in 404 ms).
+  Restored D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj (in 404 ms).
+  Failed to restore D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj (in 404 ms).
+
+Project list:
+
+Project(s)
+----------
+Application\Application.csproj
+Domain\Domain.csproj
+Infrastructure\Infrastructure.csproj
+WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj
+
+=== Project: Application\Application.csproj ===
+
+TargetFramework(s): <TargetFramework>net10.0</TargetFramework>
+
+
+-- dotnet list package --outdated --format detailed --verbosity minimal --project
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+  All projects are up-to-date for restore.
+
+The following sources were used:
+   https://api.nuget.org/v3/index.json
+   C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
+
+Project `Application` has the following updates to its packages
+   [net10.0]: 
+   Top-level Package                                            Requested   Resolved   Latest
+   > Microsoft.Extensions.DependencyInjection.Abstractions      10.0.2      10.0.2     10.0.7
+
+
+-- dotnet list package --vulnerable --project
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+  All projects are up-to-date for restore.
+
+The following sources were used:
+   https://api.nuget.org/v3/index.json
+   C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
+
+The given project `Application` has no vulnerable packages given the current sources.
+
+-- Build attempt for net10.0 --
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+  All projects are up-to-date for restore.
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\User.cs(17,25): warning CS0108: 'User.CreatedAt' hides inherited member 'BaseEntity.CreatedAt'. Use the new keyword if hiding was intended. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\WeaponWeaponSpecialAbility.cs(11,23): warning CS8618: Non-nullable property 'Weapon' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\WeaponWeaponSpecialAbility.cs(14,37): warning CS8618: Non-nullable property 'WeaponSpecialAbility' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\UnitUnitSpecialAbility.cs(10,21): warning CS8618: Non-nullable property 'Unit' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\UnitUnitSpecialAbility.cs(13,35): warning CS8618: Non-nullable property 'UnitSpecialAbility' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\UnitWeapon.cs(8,21): warning CS8618: Non-nullable property 'Unit' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\UnitWeapon.cs(11,23): warning CS8618: Non-nullable property 'Weapon' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\Unit.cs(31,16): warning CS8618: Non-nullable property 'Faction' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\Unit.cs(31,16): warning CS8618: Non-nullable property 'UnitType' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\Unit.cs(31,16): warning CS8618: Non-nullable property 'Designation' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\Unit.cs(87,48): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\Unit.cs(94,13): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\ForceList.cs(3,23): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\ForceList.cs(4,23): warning CS8618: Non-nullable property 'Faction' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\ForceList.cs(5,27): warning CS8618: Non-nullable property 'Allegiance' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\ForceList.cs(12,21): warning CS8618: Non-nullable property 'User' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+  Domain -> D:\repos\WZE-SymmetryPlanner\Domain\bin\Debug\net8.0\Domain.dll
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitSpecialAbilityRepository.cs(16,44): warning CS0108: 'UnitSpecialAbilityRepository.GetByIdAsync(Guid)' hides inherited member 'GenericRepository<UnitSpecialAbility>.GetByIdAsync(Guid)'. Use the new keyword if hiding was intended. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitSpecialAbilityRepository.cs(16,44): warning CS8613: Nullability of reference types in return type of 'Task<UnitSpecialAbility?> UnitSpecialAbilityRepository.GetByIdAsync(Guid id)' doesn't match implicitly implemented member 'Task<UnitSpecialAbility> IGenericRepository<UnitSpecialAbility>.GetByIdAsync(Guid id)'. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\WeaponSpecialAbilityRepository.cs(17,50): warning CS0108: 'WeaponSpecialAbilityRepository.GetByIdAsync(Guid)' hides inherited member 'GenericRepository<WeaponSpecialAbility>.GetByIdAsync(Guid)'. Use the new keyword if hiding was intended. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\WeaponSpecialAbilityRepository.cs(17,50): warning CS8613: Nullability of reference types in return type of 'Task<WeaponSpecialAbility?> WeaponSpecialAbilityRepository.GetByIdAsync(Guid id)' doesn't match implicitly implemented member 'Task<WeaponSpecialAbility> IGenericRepository<WeaponSpecialAbility>.GetByIdAsync(Guid id)'. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\WeaponSpecialAbilityRepository.cs(9,16): warning CS8618: Non-nullable field '_context' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitSpecialAbilityRepository.cs(9,12): warning CS8618: Non-nullable field '_context' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\WeaponRepository.cs(19,26): warning CS8620: Argument of type 'IIncludableQueryable<Weapon, ICollection<WeaponWeaponSpecialAbility>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Weapon, IEnumerable<WeaponWeaponSpecialAbility>>' in 'IIncludableQueryable<Weapon, WeaponSpecialAbility> EntityFrameworkQueryableExtensions.ThenInclude<Weapon, WeaponWeaponSpecialAbility, WeaponSpecialAbility>(IIncludableQueryable<Weapon, IEnumerable<WeaponWeaponSpecialAbility>> source, Expression<Func<WeaponWeaponSpecialAbility, WeaponSpecialAbility>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\GenericRepository.cs(43,24): warning CS8600: Converting null literal or possible null value to non-nullable type. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\GenericRepository.cs(48,24): warning CS8600: Converting null literal or possible null value to non-nullable type. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\WeaponRepository.cs(27,26): warning CS8620: Argument of type 'IIncludableQueryable<Weapon, ICollection<WeaponWeaponSpecialAbility>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Weapon, IEnumerable<WeaponWeaponSpecialAbility>>' in 'IIncludableQueryable<Weapon, WeaponSpecialAbility> EntityFrameworkQueryableExtensions.ThenInclude<Weapon, WeaponWeaponSpecialAbility, WeaponSpecialAbility>(IIncludableQueryable<Weapon, IEnumerable<WeaponWeaponSpecialAbility>> source, Expression<Func<WeaponWeaponSpecialAbility, WeaponSpecialAbility>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitRepository.cs(16,26): warning CS8620: Argument of type 'IIncludableQueryable<Unit, ICollection<UnitWeapon>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Unit, IEnumerable<UnitWeapon>>' in 'IIncludableQueryable<Unit, Weapon> EntityFrameworkQueryableExtensions.ThenInclude<Unit, UnitWeapon, Weapon>(IIncludableQueryable<Unit, IEnumerable<UnitWeapon>> source, Expression<Func<UnitWeapon, Weapon>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitRepository.cs(16,26): warning CS8620: Argument of type 'IIncludableQueryable<Unit, ICollection<WeaponWeaponSpecialAbility>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Unit, IEnumerable<WeaponWeaponSpecialAbility>>' in 'IIncludableQueryable<Unit, WeaponSpecialAbility> EntityFrameworkQueryableExtensions.ThenInclude<Unit, WeaponWeaponSpecialAbility, WeaponSpecialAbility>(IIncludableQueryable<Unit, IEnumerable<WeaponWeaponSpecialAbility>> source, Expression<Func<WeaponWeaponSpecialAbility, WeaponSpecialAbility>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitRepository.cs(27,26): warning CS8620: Argument of type 'IIncludableQueryable<Unit, ICollection<UnitWeapon>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Unit, IEnumerable<UnitWeapon>>' in 'IIncludableQueryable<Unit, Weapon> EntityFrameworkQueryableExtensions.ThenInclude<Unit, UnitWeapon, Weapon>(IIncludableQueryable<Unit, IEnumerable<UnitWeapon>> source, Expression<Func<UnitWeapon, Weapon>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitRepository.cs(27,26): warning CS8620: Argument of type 'IIncludableQueryable<Unit, ICollection<WeaponWeaponSpecialAbility>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Unit, IEnumerable<WeaponWeaponSpecialAbility>>' in 'IIncludableQueryable<Unit, WeaponSpecialAbility> EntityFrameworkQueryableExtensions.ThenInclude<Unit, WeaponWeaponSpecialAbility, WeaponSpecialAbility>(IIncludableQueryable<Unit, IEnumerable<WeaponWeaponSpecialAbility>> source, Expression<Func<WeaponWeaponSpecialAbility, WeaponSpecialAbility>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\GenericRepository.cs(88,42): warning CS8600: Converting null literal or possible null value to non-nullable type. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\GenericRepository.cs(89,37): warning CS8600: Converting null literal or possible null value to non-nullable type. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\GenericRepository.cs(91,17): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\GenericRepository.cs(92,38): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitRepository.cs(38,26): warning CS8620: Argument of type 'IIncludableQueryable<Unit, ICollection<UnitWeapon>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Unit, IEnumerable<UnitWeapon>>' in 'IIncludableQueryable<Unit, Weapon> EntityFrameworkQueryableExtensions.ThenInclude<Unit, UnitWeapon, Weapon>(IIncludableQueryable<Unit, IEnumerable<UnitWeapon>> source, Expression<Func<UnitWeapon, Weapon>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitRepository.cs(38,26): warning CS8620: Argument of type 'IIncludableQueryable<Unit, ICollection<WeaponWeaponSpecialAbility>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Unit, IEnumerable<WeaponWeaponSpecialAbility>>' in 'IIncludableQueryable<Unit, WeaponSpecialAbility> EntityFrameworkQueryableExtensions.ThenInclude<Unit, WeaponWeaponSpecialAbility, WeaponSpecialAbility>(IIncludableQueryable<Unit, IEnumerable<WeaponWeaponSpecialAbility>> source, Expression<Func<WeaponWeaponSpecialAbility, WeaponSpecialAbility>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\WeaponSpecialAbilityRepository.cs(8,47): warning CS0649: Field 'WeaponSpecialAbilityRepository._context' is never assigned to, and will always have its default value null [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitSpecialAbilityRepository.cs(8,43): warning CS0649: Field 'UnitSpecialAbilityRepository._context' is never assigned to, and will always have its default value null [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+  Infrastructure -> D:\repos\WZE-SymmetryPlanner\Infrastructure\bin\Debug\net10.0\Infrastructure.dll
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\WeaponWeaponSpecialAbilityDTOs.cs(12,19): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\WeaponWeaponSpecialAbilityDTOs.cs(15,19): warning CS8618: Non-nullable property 'Description' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\WeaponWeaponSpecialAbilityDTOs.cs(5,19): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\WeaponWeaponSpecialAbilityDTOs.cs(8,19): warning CS8618: Non-nullable property 'Description' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitUnitSpecialAbilityDTOs.cs(5,19): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitUnitSpecialAbilityDTOs.cs(8,19): warning CS8618: Non-nullable property 'Description' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitUnitSpecialAbilityDTOs.cs(12,19): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitUnitSpecialAbilityDTOs.cs(15,19): warning CS8618: Non-nullable property 'Description' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\WeaponDTOs.cs(25,19): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitDTOs.cs(5,19): warning CS8618: Non-nullable property 'Faction' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitDTOs.cs(6,19): warning CS8618: Non-nullable property 'UnitType' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitDTOs.cs(7,32): warning CS8618: Non-nullable property 'Designation' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitDTOs.cs(30,19): warning CS8618: Non-nullable property 'Faction' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitDTOs.cs(31,19): warning CS8618: Non-nullable property 'UnitType' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitDTOs.cs(32,32): warning CS8618: Non-nullable property 'Designation' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\WeaponDTOs.cs(6,19): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\Services\WeaponService.cs(26,32): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\Services\UnitService.cs(38,43): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\Services\UnitService.cs(54,41): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\MappingProfile.cs(12,50): warning CS8604: Possible null reference argument for parameter 'source' in 'IEnumerable<Weapon> Enumerable.Select<UnitWeapon, Weapon>(IEnumerable<UnitWeapon> source, Func<UnitWeapon, Weapon> selector)'. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\MappingProfile.cs(24,50): warning CS8604: Possible null reference argument for parameter 'source' in 'IEnumerable<WeaponSpecialAbility> Enumerable.Select<WeaponWeaponSpecialAbility, WeaponSpecialAbility>(IEnumerable<WeaponWeaponSpecialAbility> source, Func<WeaponWeaponSpecialAbility, WeaponSpecialAbility> selector)'. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+  Application -> D:\repos\WZE-SymmetryPlanner\Application\bin\Debug\net10.0\Application.dll
+
+Build succeeded.
+
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\User.cs(17,25): warning CS0108: 'User.CreatedAt' hides inherited member 'BaseEntity.CreatedAt'. Use the new keyword if hiding was intended. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\WeaponWeaponSpecialAbility.cs(11,23): warning CS8618: Non-nullable property 'Weapon' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\WeaponWeaponSpecialAbility.cs(14,37): warning CS8618: Non-nullable property 'WeaponSpecialAbility' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\UnitUnitSpecialAbility.cs(10,21): warning CS8618: Non-nullable property 'Unit' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\UnitUnitSpecialAbility.cs(13,35): warning CS8618: Non-nullable property 'UnitSpecialAbility' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\UnitWeapon.cs(8,21): warning CS8618: Non-nullable property 'Unit' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\UnitWeapon.cs(11,23): warning CS8618: Non-nullable property 'Weapon' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\Unit.cs(31,16): warning CS8618: Non-nullable property 'Faction' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\Unit.cs(31,16): warning CS8618: Non-nullable property 'UnitType' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\Unit.cs(31,16): warning CS8618: Non-nullable property 'Designation' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\Unit.cs(87,48): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\Unit.cs(94,13): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\ForceList.cs(3,23): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\ForceList.cs(4,23): warning CS8618: Non-nullable property 'Faction' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\ForceList.cs(5,27): warning CS8618: Non-nullable property 'Allegiance' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Domain\Entities\ForceList.cs(12,21): warning CS8618: Non-nullable property 'User' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitSpecialAbilityRepository.cs(16,44): warning CS0108: 'UnitSpecialAbilityRepository.GetByIdAsync(Guid)' hides inherited member 'GenericRepository<UnitSpecialAbility>.GetByIdAsync(Guid)'. Use the new keyword if hiding was intended. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitSpecialAbilityRepository.cs(16,44): warning CS8613: Nullability of reference types in return type of 'Task<UnitSpecialAbility?> UnitSpecialAbilityRepository.GetByIdAsync(Guid id)' doesn't match implicitly implemented member 'Task<UnitSpecialAbility> IGenericRepository<UnitSpecialAbility>.GetByIdAsync(Guid id)'. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\WeaponSpecialAbilityRepository.cs(17,50): warning CS0108: 'WeaponSpecialAbilityRepository.GetByIdAsync(Guid)' hides inherited member 'GenericRepository<WeaponSpecialAbility>.GetByIdAsync(Guid)'. Use the new keyword if hiding was intended. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\WeaponSpecialAbilityRepository.cs(17,50): warning CS8613: Nullability of reference types in return type of 'Task<WeaponSpecialAbility?> WeaponSpecialAbilityRepository.GetByIdAsync(Guid id)' doesn't match implicitly implemented member 'Task<WeaponSpecialAbility> IGenericRepository<WeaponSpecialAbility>.GetByIdAsync(Guid id)'. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\WeaponSpecialAbilityRepository.cs(9,16): warning CS8618: Non-nullable field '_context' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitSpecialAbilityRepository.cs(9,12): warning CS8618: Non-nullable field '_context' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\WeaponRepository.cs(19,26): warning CS8620: Argument of type 'IIncludableQueryable<Weapon, ICollection<WeaponWeaponSpecialAbility>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Weapon, IEnumerable<WeaponWeaponSpecialAbility>>' in 'IIncludableQueryable<Weapon, WeaponSpecialAbility> EntityFrameworkQueryableExtensions.ThenInclude<Weapon, WeaponWeaponSpecialAbility, WeaponSpecialAbility>(IIncludableQueryable<Weapon, IEnumerable<WeaponWeaponSpecialAbility>> source, Expression<Func<WeaponWeaponSpecialAbility, WeaponSpecialAbility>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\GenericRepository.cs(43,24): warning CS8600: Converting null literal or possible null value to non-nullable type. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\GenericRepository.cs(48,24): warning CS8600: Converting null literal or possible null value to non-nullable type. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\WeaponRepository.cs(27,26): warning CS8620: Argument of type 'IIncludableQueryable<Weapon, ICollection<WeaponWeaponSpecialAbility>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Weapon, IEnumerable<WeaponWeaponSpecialAbility>>' in 'IIncludableQueryable<Weapon, WeaponSpecialAbility> EntityFrameworkQueryableExtensions.ThenInclude<Weapon, WeaponWeaponSpecialAbility, WeaponSpecialAbility>(IIncludableQueryable<Weapon, IEnumerable<WeaponWeaponSpecialAbility>> source, Expression<Func<WeaponWeaponSpecialAbility, WeaponSpecialAbility>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitRepository.cs(16,26): warning CS8620: Argument of type 'IIncludableQueryable<Unit, ICollection<UnitWeapon>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Unit, IEnumerable<UnitWeapon>>' in 'IIncludableQueryable<Unit, Weapon> EntityFrameworkQueryableExtensions.ThenInclude<Unit, UnitWeapon, Weapon>(IIncludableQueryable<Unit, IEnumerable<UnitWeapon>> source, Expression<Func<UnitWeapon, Weapon>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitRepository.cs(16,26): warning CS8620: Argument of type 'IIncludableQueryable<Unit, ICollection<WeaponWeaponSpecialAbility>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Unit, IEnumerable<WeaponWeaponSpecialAbility>>' in 'IIncludableQueryable<Unit, WeaponSpecialAbility> EntityFrameworkQueryableExtensions.ThenInclude<Unit, WeaponWeaponSpecialAbility, WeaponSpecialAbility>(IIncludableQueryable<Unit, IEnumerable<WeaponWeaponSpecialAbility>> source, Expression<Func<WeaponWeaponSpecialAbility, WeaponSpecialAbility>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitRepository.cs(27,26): warning CS8620: Argument of type 'IIncludableQueryable<Unit, ICollection<UnitWeapon>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Unit, IEnumerable<UnitWeapon>>' in 'IIncludableQueryable<Unit, Weapon> EntityFrameworkQueryableExtensions.ThenInclude<Unit, UnitWeapon, Weapon>(IIncludableQueryable<Unit, IEnumerable<UnitWeapon>> source, Expression<Func<UnitWeapon, Weapon>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitRepository.cs(27,26): warning CS8620: Argument of type 'IIncludableQueryable<Unit, ICollection<WeaponWeaponSpecialAbility>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Unit, IEnumerable<WeaponWeaponSpecialAbility>>' in 'IIncludableQueryable<Unit, WeaponSpecialAbility> EntityFrameworkQueryableExtensions.ThenInclude<Unit, WeaponWeaponSpecialAbility, WeaponSpecialAbility>(IIncludableQueryable<Unit, IEnumerable<WeaponWeaponSpecialAbility>> source, Expression<Func<WeaponWeaponSpecialAbility, WeaponSpecialAbility>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\GenericRepository.cs(88,42): warning CS8600: Converting null literal or possible null value to non-nullable type. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\GenericRepository.cs(89,37): warning CS8600: Converting null literal or possible null value to non-nullable type. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\GenericRepository.cs(91,17): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\GenericRepository.cs(92,38): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitRepository.cs(38,26): warning CS8620: Argument of type 'IIncludableQueryable<Unit, ICollection<UnitWeapon>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Unit, IEnumerable<UnitWeapon>>' in 'IIncludableQueryable<Unit, Weapon> EntityFrameworkQueryableExtensions.ThenInclude<Unit, UnitWeapon, Weapon>(IIncludableQueryable<Unit, IEnumerable<UnitWeapon>> source, Expression<Func<UnitWeapon, Weapon>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitRepository.cs(38,26): warning CS8620: Argument of type 'IIncludableQueryable<Unit, ICollection<WeaponWeaponSpecialAbility>?>' cannot be used for parameter 'source' of type 'IIncludableQueryable<Unit, IEnumerable<WeaponWeaponSpecialAbility>>' in 'IIncludableQueryable<Unit, WeaponSpecialAbility> EntityFrameworkQueryableExtensions.ThenInclude<Unit, WeaponWeaponSpecialAbility, WeaponSpecialAbility>(IIncludableQueryable<Unit, IEnumerable<WeaponWeaponSpecialAbility>> source, Expression<Func<WeaponWeaponSpecialAbility, WeaponSpecialAbility>> navigationPropertyPath)' due to differences in the nullability of reference types. [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\WeaponSpecialAbilityRepository.cs(8,47): warning CS0649: Field 'WeaponSpecialAbilityRepository._context' is never assigned to, and will always have its default value null [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Infrastructure\Repositories\UnitSpecialAbilityRepository.cs(8,43): warning CS0649: Field 'UnitSpecialAbilityRepository._context' is never assigned to, and will always have its default value null [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\WeaponWeaponSpecialAbilityDTOs.cs(12,19): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\WeaponWeaponSpecialAbilityDTOs.cs(15,19): warning CS8618: Non-nullable property 'Description' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\WeaponWeaponSpecialAbilityDTOs.cs(5,19): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\WeaponWeaponSpecialAbilityDTOs.cs(8,19): warning CS8618: Non-nullable property 'Description' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitUnitSpecialAbilityDTOs.cs(5,19): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitUnitSpecialAbilityDTOs.cs(8,19): warning CS8618: Non-nullable property 'Description' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitUnitSpecialAbilityDTOs.cs(12,19): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitUnitSpecialAbilityDTOs.cs(15,19): warning CS8618: Non-nullable property 'Description' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\WeaponDTOs.cs(25,19): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitDTOs.cs(5,19): warning CS8618: Non-nullable property 'Faction' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitDTOs.cs(6,19): warning CS8618: Non-nullable property 'UnitType' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitDTOs.cs(7,32): warning CS8618: Non-nullable property 'Designation' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitDTOs.cs(30,19): warning CS8618: Non-nullable property 'Faction' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitDTOs.cs(31,19): warning CS8618: Non-nullable property 'UnitType' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\UnitDTOs.cs(32,32): warning CS8618: Non-nullable property 'Designation' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\WeaponDTOs.cs(6,19): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\Services\WeaponService.cs(26,32): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\Services\UnitService.cs(38,43): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\Services\UnitService.cs(54,41): warning CS8602: Dereference of a possibly null reference. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\MappingProfile.cs(12,50): warning CS8604: Possible null reference argument for parameter 'source' in 'IEnumerable<Weapon> Enumerable.Select<UnitWeapon, Weapon>(IEnumerable<UnitWeapon> source, Func<UnitWeapon, Weapon> selector)'. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+D:\repos\WZE-SymmetryPlanner\Application\DTOs\MappingProfile.cs(24,50): warning CS8604: Possible null reference argument for parameter 'source' in 'IEnumerable<WeaponSpecialAbility> Enumerable.Select<WeaponWeaponSpecialAbility, WeaponSpecialAbility>(IEnumerable<WeaponWeaponSpecialAbility> source, Func<WeaponWeaponSpecialAbility, WeaponSpecialAbility> selector)'. [D:\repos\WZE-SymmetryPlanner\Application\Application.csproj]
+    60 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:05.04
+
+=== Project: Domain\Domain.csproj ===
+
+TargetFramework(s): <TargetFramework>net8.0</TargetFramework>
+
+
+-- dotnet list package --outdated --format detailed --verbosity minimal --project
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+  All projects are up-to-date for restore.
+
+The following sources were used:
+   https://api.nuget.org/v3/index.json
+   C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
+
+Project `Domain` has the following updates to its packages
+   [net8.0]: 
+   Top-level Package                              Requested   Resolved   Latest
+   > AutoMapper                                   16.0.0      16.0.0     16.1.1
+   > Microsoft.EntityFrameworkCore                9.0.4       9.0.4      10.0.7
+   > Microsoft.EntityFrameworkCore.SqlServer      9.0.4       9.0.4      10.0.7
+   > Npgsql.EntityFrameworkCore.PostgreSQL        9.0.4       9.0.4      10.0.1
+
+
+-- dotnet list package --vulnerable --project
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+  All projects are up-to-date for restore.
+
+The following sources were used:
+   https://api.nuget.org/v3/index.json
+   C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
+
+Project `Domain` has the following vulnerable packages
+   [net8.0]: 
+   Top-level Package      Requested   Resolved   Severity   Advisory URL                                     
+   > AutoMapper           16.0.0      16.0.0     High       https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+
+
+-- Build attempt for net10.0 --
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+  All projects are up-to-date for restore.
+C:\Program Files\dotnet\sdk\10.0.203\Sdks\Microsoft.NET.Sdk\targets\Microsoft.PackageDependencyResolution.targets(266,5): error NETSDK1005: Assets file 'D:\repos\WZE-SymmetryPlanner\Domain\obj\project.assets.json' doesn't have a target for 'net10.0'. Ensure that restore has run and that you have included 'net10.0' in the TargetFrameworks for your project. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+
+Build FAILED.
+
+C:\Program Files\dotnet\sdk\10.0.203\Sdks\Microsoft.NET.Sdk\targets\Microsoft.PackageDependencyResolution.targets(266,5): error NETSDK1005: Assets file 'D:\repos\WZE-SymmetryPlanner\Domain\obj\project.assets.json' doesn't have a target for 'net10.0'. Ensure that restore has run and that you have included 'net10.0' in the TargetFrameworks for your project. [D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj]
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:00.27
+
+=== Project: Infrastructure\Infrastructure.csproj ===
+
+TargetFramework(s): <TargetFramework>net10.0</TargetFramework>
+
+
+-- dotnet list package --outdated --format detailed --verbosity minimal --project
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+  All projects are up-to-date for restore.
+
+The following sources were used:
+   https://api.nuget.org/v3/index.json
+   C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
+
+Project `Infrastructure` has the following updates to its packages
+   [net10.0]: 
+   Top-level Package                         Requested   Resolved   Latest
+   > Microsoft.EntityFrameworkCore           9.0.4       9.0.4      10.0.7
+   > Microsoft.Extensions.Configuration      9.0.4       9.0.4      10.0.7
+
+
+-- dotnet list package --vulnerable --project
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+  All projects are up-to-date for restore.
+
+The following sources were used:
+   https://api.nuget.org/v3/index.json
+   C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
+
+The given project `Infrastructure` has no vulnerable packages given the current sources.
+
+-- Build attempt for net10.0 --
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x [D:\repos\WZE-SymmetryPlanner\Infrastructure\Infrastructure.csproj]
+  All projects are up-to-date for restore.
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+  Domain -> D:\repos\WZE-SymmetryPlanner\Domain\bin\Debug\net8.0\Domain.dll
+  Infrastructure -> D:\repos\WZE-SymmetryPlanner\Infrastructure\bin\Debug\net10.0\Infrastructure.dll
+
+Build succeeded.
+
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+    1 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.58
+
+=== Project: WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj ===
+
+TargetFramework(s): <TargetFramework>net10.0</TargetFramework>
+
+
+-- dotnet list package --outdated --format detailed --verbosity minimal --project
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x [D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj]
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : error NU1605: Warning As Error: Detected package downgrade: AutoMapper from 16.1.1 to 16.0.0. Reference the package directly from the project to select a different version. 
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : error NU1605:  WZE-Symmetry-Planner -> Application -> AutoMapper (>= 16.1.1) 
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : error NU1605:  WZE-Symmetry-Planner -> AutoMapper (>= 16.0.0)
+  Failed to restore D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj (in 480 ms).
+  3 of 4 projects are up-to-date for restore.
+
+-- dotnet list package --vulnerable --project
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x [D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj]
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : error NU1605: Warning As Error: Detected package downgrade: AutoMapper from 16.1.1 to 16.0.0. Reference the package directly from the project to select a different version. 
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : error NU1605:  WZE-Symmetry-Planner -> Application -> AutoMapper (>= 16.1.1) 
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : error NU1605:  WZE-Symmetry-Planner -> AutoMapper (>= 16.0.0)
+  Failed to restore D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj (in 502 ms).
+  3 of 4 projects are up-to-date for restore.
+
+-- Build attempt for net10.0 --
+
+  Determining projects to restore...
+D:\repos\WZE-SymmetryPlanner\Domain\Domain.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x [D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj]
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : warning NU1903: Package 'AutoMapper' 16.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : error NU1605: Warning As Error: Detected package downgrade: AutoMapper from 16.1.1 to 16.0.0. Reference the package directly from the project to select a different version. 
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : error NU1605:  WZE-Symmetry-Planner -> Application -> AutoMapper (>= 16.1.1) 
+D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj : error NU1605:  WZE-Symmetry-Planner -> AutoMapper (>= 16.0.0)
+  Failed to restore D:\repos\WZE-SymmetryPlanner\WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj (in 573 ms).
+  3 of 4 projects are up-to-date for restore.
+
+Assessment complete.
+

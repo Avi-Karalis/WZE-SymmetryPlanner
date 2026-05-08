@@ -19,15 +19,29 @@ namespace Infrastructure.Repositories {
         }
         public async Task<ForceList> GetByIdWithUnitsAsync(Guid id) {
             return await _context.ForceLists
+                .Include(f => f.Allegiance)
                 .Include(f => f.ForceListUnits)
                     .ThenInclude(flu => flu.Unit)
                         .ThenInclude(u => u.UnitWeapon)
+                            .ThenInclude(uw => uw.Weapon)
+                                .ThenInclude(w => w.WeaponWeaponSpecialAbility)
+                                    .ThenInclude(wwsa => wwsa.WeaponSpecialAbility)
                 .Include(f => f.ForceListUnits)
                     .ThenInclude(flu => flu.Unit)
                         .ThenInclude(u => u.UnitUnitSpecialAbilities)
+                            .ThenInclude(uusa => uusa.UnitSpecialAbility)
                 .FirstOrDefaultAsync(f => f.Id == id && f.DeletedAt == null)
                 ?? throw new KeyNotFoundException("Force list not found");
         }
+        public async Task<IEnumerable<ForceList>> GetAllWithUnitsAsync() {
+            return await _context.ForceLists
+                .Where(f => f.DeletedAt == null)
+                .Include(f => f.Allegiance)
+                .Include(f => f.ForceListUnits)
+                    .ThenInclude(flu => flu.Unit)
+                .ToListAsync();
+        }
+
         public async Task<Unit> GetUnitByIdAsync(Guid unitId) {
             return await _context.Units
                 .Include(u => u.UnitWeapon)

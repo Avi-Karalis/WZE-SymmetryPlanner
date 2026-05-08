@@ -20,6 +20,11 @@ namespace Application.Services {
             _mapper = mapper;
         }
 
+        public async Task<IEnumerable<ForceListReadDto>> GetAllAsync() {
+            var lists = await _forceListRepository.GetAllWithUnitsAsync();
+            return _mapper.Map<IEnumerable<ForceListReadDto>>(lists);
+        }
+
         public async Task<ForceListReadDto> GetByIdAsync(Guid id) {
             var forceList = await _forceListRepository.GetByIdWithUnitsAsync(id);
             return _mapper.Map<ForceListReadDto>(forceList);
@@ -40,15 +45,15 @@ namespace Application.Services {
             var forceList = await _forceListRepository.GetByIdWithUnitsAsync(forceListId);
             var unit = await _unitService.GetEntityByIdAsync(unitId);
 
-            var flu = new ForceListUnit {
+            forceList.ForceListUnits.Add(new ForceListUnit {
                 ForceListId = forceListId,
                 UnitId = unitId
-            };
+            });
 
-            forceList.ForceListUnits.Add(flu); // add directly
-            forceList.CurrentDp = (sbyte)((forceList.CurrentDp ?? 0) + unit.DPCost);
-            forceList.CurrentSp = (sbyte)((forceList.CurrentSp ?? 0) + unit.SPCost);
-            if (unit.SPCost > 0) forceList.MaxSp = (sbyte)(forceList.MaxSp - unit.SPCost);
+            forceList.CurrentDp = (sbyte)(forceList.ForceListUnits.Sum(f => f.Unit?.DPCost ?? 0) + unit.DPCost);
+            forceList.CurrentSp = (sbyte)(forceList.ForceListUnits.Where(f => f.Unit?.SPCost > 0).Sum(f => f.Unit.SPCost) + (unit.SPCost > 0 ? unit.SPCost : 0));
+            if (unit.SPCost < 0) forceList.MaxSp = (sbyte)(forceList.MaxSp + Math.Abs(unit.SPCost)); // leader grants SP budget
+            forceList.UpdatedAt = DateTime.UtcNow;
 
             await _forceListRepository.SaveAsync();
         }
@@ -57,17 +62,17 @@ namespace Application.Services {
             var forceList = await _forceListRepository.GetByIdWithUnitsAsync(forceListId);
             var flu = forceList.ForceListUnits.FirstOrDefault(f => f.UnitId == unitId);
 
+            forceList.ForceListUnits.Remove(flu);
 
-            forceList.ForceListUnits.Remove(flu); // add directly
-            forceList.CurrentDp = (sbyte)((forceList.CurrentDp ?? 0) - flu.Unit.DPCost);
-            forceList.CurrentSp = (sbyte)((forceList.CurrentSp ?? 0) - flu.Unit.SPCost);
-            if (flu.Unit.SPCost < 0) forceList.MaxSp = (sbyte)(forceList.MaxSp + flu.Unit.SPCost);
+            forceList.CurrentDp = (sbyte)forceList.ForceListUnits.Sum(f => f.Unit?.DPCost ?? 0);
+            forceList.CurrentSp = (sbyte)forceList.ForceListUnits.Where(f => f.Unit?.SPCost > 0).Sum(f => f.Unit.SPCost);
+            if (flu.Unit.SPCost < 0) forceList.MaxSp = (sbyte)(forceList.MaxSp - Math.Abs(flu.Unit.SPCost)); // remove SP budget granted by leader
+            forceList.UpdatedAt = DateTime.UtcNow;
 
             await _forceListRepository.SaveAsync();
         }
         public async Task<(bool isValid, List<string> errors)> ValidateAsync(Guid forceListId) {
-            var forceList = await _forceListRepository.GetByIdAsync(forceListId)
-                ?? throw new Exception("Force list not found");
+            var forceList = await _forceListRepository.GetByIdWithUnitsAsync(forceListId);
 
             bool valid = forceList.Validate(out var errors);
             return (valid, errors);

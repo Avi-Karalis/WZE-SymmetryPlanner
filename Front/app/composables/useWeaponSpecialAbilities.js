@@ -37,11 +37,37 @@ export function useWeaponSpecialAbilities() {
         }
     }
 
+    const remove = async (id) => {
+        if (process.server) return
+        try {
+            await $axios.delete(`/WeaponSpecialAbility/${id}`)
+            abilities.value = abilities.value.filter(a => a.id !== id)
+        } catch (err) {
+            error.value = err
+            throw err
+        }
+    }
+
+    const update = async (id, dto) => {
+        if (process.server) return null
+        try {
+            const res = await $axios.patch(`/WeaponSpecialAbility/update/${id}`, dto)
+            const idx = abilities.value.findIndex(a => a.id === id)
+            if (idx !== -1) abilities.value[idx] = res.data
+            return res.data
+        } catch (err) {
+            error.value = err
+            throw err
+        }
+    }
+
     return {
         abilities,
         loading,
         error,
         fetchAll,
-        create
+        create,
+        remove,
+        update,
     }
 }

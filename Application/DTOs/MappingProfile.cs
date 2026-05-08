@@ -45,18 +45,15 @@ public class MappingProfile : Profile {
 
         // Domain → Read DTO
         CreateMap<ForceList, ForceListReadDto>()
-            .ForMember(dest => dest.Allegiance,
-                       opt => opt.MapFrom(src => src.Allegiance.Name))
-            .ForMember(dest => dest.Units, opt => opt.Ignore()) // ignore first
-            .AfterMap((src, dest) => {
+            .ForCtorParam("allegiance", opt => opt.MapFrom(src => src.Allegiance.Name))
+            .ForCtorParam("maxSp", opt => opt.MapFrom(src =>
+                src.ForceListUnits.Where(flu => flu.Unit != null && flu.Unit.SPCost < 0)
+                                  .Sum(flu => (int)Math.Abs(flu.Unit.SPCost))))
+            .ForMember(dest => dest.Units, opt => opt.Ignore())
+            .AfterMap((src, dest, ctx) => {
                 dest.Units = src.ForceListUnits
-                                .Select(flu => flu.Unit)
-                                .Select(u => new UnitReadDto {
-                                    Id = u.Id,
-                                    UnitType = u.UnitType,
-                                    DPCost = u.DPCost,
-                                    SPCost = u.SPCost
-                                })
+                                .Where(flu => flu.Unit != null)
+                                .Select(flu => ctx.Mapper.Map<UnitReadDto>(flu.Unit))
                                 .ToList();
             });
         CreateMap<ForceListReadDto, ForceListUpdateDto>();

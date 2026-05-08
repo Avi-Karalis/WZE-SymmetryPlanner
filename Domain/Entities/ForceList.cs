@@ -22,7 +22,6 @@ namespace Domain.Entities {
             ValidateLeaderRequirement(errors);
             ValidateUniqueUnits(errors);
             ValidateAllyLegality(errors);
-            ValidateDarkCultSingleFaction(errors);
             ValidateLeaderAndSpecialistTrooperConsumption(errors);
             ValidateSupportPoints(errors);
             ValidateDeploymentPoints(errors);
@@ -31,7 +30,8 @@ namespace Domain.Entities {
             return errors.Count == 0;
         }
         private bool IsAlly(Unit u) =>
-    u.Designation.Any(d => AllyDesignations.Any(a => string.Equals(d, a, StringComparison.OrdinalIgnoreCase)));
+            !string.Equals(u.Faction, Faction, StringComparison.OrdinalIgnoreCase) &&
+            u.Designation.Any(d => AllyDesignations.Any(a => string.Equals(d, a, StringComparison.OrdinalIgnoreCase)));
 
         private bool HasEffectiveDesignation(Unit u, string designation) {
             if (IsAlly(u)) return designation.Contains("Trooper", StringComparison.OrdinalIgnoreCase);
@@ -64,7 +64,7 @@ namespace Domain.Entities {
                 bool hasAdvisor = ally.Designation.Any(d => d.Equals("Advisor", StringComparison.OrdinalIgnoreCase));
 
                 if (hasSeconding) {
-                    if (!Allegiance.Equals("Agents of Light", StringComparison.OrdinalIgnoreCase))
+                    if (!Allegiance.Name.Equals("Agents of Light", StringComparison.OrdinalIgnoreCase))
                         errors.Add("Seconding Allies require Agents of Light allegiance.");
 
                     if (Faction.Equals("Brotherhood", StringComparison.OrdinalIgnoreCase))
@@ -72,7 +72,7 @@ namespace Domain.Entities {
                 }
 
                 if (hasDarkCult) {
-                    if (!Allegiance.Equals("Servants of Darkness", StringComparison.OrdinalIgnoreCase))
+                    if (!Allegiance.Name.Equals("Servants of Darkness", StringComparison.OrdinalIgnoreCase))
                         errors.Add("Dark Cult Allies require Servants of Darkness allegiance.");
 
                     if (IsDarkLegionFaction(Faction))
@@ -81,19 +81,12 @@ namespace Domain.Entities {
 
                 if (hasAdvisor && IsDarkLegionFaction(Faction))
                     errors.Add("Dark Legion Forces may not take Advisor Allies.");
+
+                if (!hasSeconding && !hasDarkCult && !hasAdvisor)
+                    errors.Add($"Unit '{ally.UnitType}' has an unrecognised ally designation.");
             }
         }
 
-        private void ValidateDarkCultSingleFaction(List<string> errors) {
-            var darkCultFactions = Units
-                .Where(u => IsAlly(u) && u.Designation.Any(d => d.Equals("Dark Cult", StringComparison.OrdinalIgnoreCase)))
-                .Select(u => u.Faction)
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .ToList();
-
-            if (darkCultFactions.Count > 1)
-                errors.Add("Dark Cult Allies must all come from a single Dark Legion faction.");
-        }
 
         private void ValidateLeaderAndSpecialistTrooperConsumption(List<string> errors) {
             // Build a shared trooper pool (Troopers + Allies-as-Trooper)
@@ -153,14 +146,15 @@ namespace Domain.Entities {
             }
         }
         private void ValidateSupportPoints(List<string> errors) {
-            int totalSP = Units.Sum(u => u.SPCost);
-            if (totalSP <= MaxSp)
-                errors.Add($"Support point total ({totalSP}) exceeds the allowed SP limit.");
+            int spBudget = Units.Where(u => u.SPCost < 0).Sum(u => -u.SPCost); // SP granted by leaders
+            int spUsed = Units.Where(u => u.SPCost > 0).Sum(u => (int)u.SPCost); // SP consumed by support units
+            if (spUsed > spBudget)
+                errors.Add($"Support point total ({spUsed}) exceeds the allowed SP limit ({spBudget}).");
         }
 
         private void ValidateDeploymentPoints(List<string> errors) {
             int totalDP = Units.Sum(u => u.DPCost);
-            if (totalDP >= MaxDp)
+            if (totalDP > MaxDp)
                 errors.Add($"Deployment Point limit exceeded: {totalDP}/{MaxDp} DP used.");
         }
 

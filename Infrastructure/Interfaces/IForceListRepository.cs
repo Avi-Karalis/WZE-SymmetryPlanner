@@ -10,6 +10,7 @@ namespace Infrastructure.Interfaces {
         Task AddAsync(ForceList forceList);
         Task<ForceList> GetByIdWithUnitsAsync(Guid id);
         Task<Unit> GetUnitByIdAsync(Guid unitId);
+        Task<IEnumerable<ForceList>> GetAllWithUnitsAsync();
 
     }
 }

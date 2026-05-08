@@ -42,12 +42,38 @@ export function useWeapons() {
         return await $axios.get(`/Weapon/${id}`).then(r => r.data)
     }
 
+    const remove = async (id) => {
+        if (process.server) return
+        try {
+            await $axios.delete(`/Weapon/${id}`)
+            weapons.value = weapons.value.filter(w => w.id !== id)
+        } catch (err) {
+            error.value = err
+            throw err
+        }
+    }
+
+    const update = async (id, dto) => {
+        if (process.server) return null
+        try {
+            const res = await $axios.patch(`/Weapon/update/${id}`, dto)
+            const idx = weapons.value.findIndex(w => w.id === id)
+            if (idx !== -1) weapons.value[idx] = res.data
+            return res.data
+        } catch (err) {
+            error.value = err
+            throw err
+        }
+    }
+
     return {
         weapons,
         loading,
         error,
         fetchAll,
         create,
-        getById
+        getById,
+        remove,
+        update,
     }
 }

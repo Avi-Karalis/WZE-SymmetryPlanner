@@ -1,35 +1,66 @@
 <template>
-  <header>
-    <label class="theme-switch">
-      <input
-        type="checkbox"
-        v-model="isDark"
-        @change="toggleTheme"
-      />
-      <span class="slider"></span>
-      <span class="label">
-        {{ isDark ? "Dark" : "Light" }}
-      </span>
-    </label>
-  </header>
+  <label class="theme-switch">
+    <input type="checkbox" :checked="isDark" @change="toggle" />
+    <span class="slider"></span>
+    <span class="label">{{ isDark ? 'Dark' : 'Light' }}</span>
+  </label>
 </template>
 
-
 <script setup>
-import { ref, onMounted } from "vue";
+const colorMode = useColorMode()
+const isDark = computed(() => colorMode.value === 'dark')
 
-const isDark = ref(false);
-
-onMounted(() => {
-  isDark.value = localStorage.getItem("theme") === "dark";
-  document.body.classList.toggle("dark-theme", isDark.value);
-});
-
-function toggleTheme() {
-  document.body.classList.toggle("dark-theme", isDark.value);
-  localStorage.setItem("theme", isDark.value ? "dark" : "light");
+function toggle() {
+  colorMode.preference = isDark.value ? 'light' : 'dark'
 }
 </script>
+
+<style scoped>
+.theme-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.slider {
+  width: 42px;
+  height: 22px;
+  background: #ccc;
+  border-radius: 999px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.slider::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+input:checked + .slider {
+  background: #4f46e5;
+}
+
+input:checked + .slider::after {
+  transform: translateX(20px);
+}
+
+.label {
+  font-size: 0.75rem;
+  color: currentColor;
+}
+</style>
 
 <style scoped>
 .theme-switch {

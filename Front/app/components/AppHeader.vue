@@ -10,7 +10,7 @@ const isActive = (path) => route.path.startsWith(path);
   <header class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow border-b border-gray-200 dark:border-gray-700">
     <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <div class="text-xl font-bold tracking-wide">
-        Army Builder
+        Warzone: Eternal Symmetry Planner
       </div>
 
       <div class="flex gap-6">

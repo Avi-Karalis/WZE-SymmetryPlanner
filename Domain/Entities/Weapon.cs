@@ -22,6 +22,7 @@ namespace Domain.Entities {
         public sbyte LRDamageMultiplier { get; set; } = 1;
         public sbyte CritFail { get; set; } = 20;
         public bool DynamicDAM { get; set; } = false;
+        public bool DynamicRange { get; set; } = false;
 
         public ICollection<UnitWeapon> UnitWeapon { get; set; } = new List<UnitWeapon>();
 

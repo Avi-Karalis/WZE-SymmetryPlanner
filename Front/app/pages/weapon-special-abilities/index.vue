@@ -8,7 +8,7 @@
 
         <table v-if="abilities.length" class="w-full text-sm">
             <thead>
-                <tr class="bg-gray-700 text-left">
+                <tr class="bg-gray-200 dark:bg-gray-700 text-left text-gray-700 dark:text-gray-100">
                     <th class="px-3 py-2">Name</th>
                     <th class="px-3 py-2">Value X</th>
                     <th class="px-3 py-2">Value Y</th>
@@ -17,11 +17,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="a in abilities" :key="a.id" class="border-b border-gray-700 hover:bg-gray-800">
+                <tr v-for="a in abilities" :key="a.id" class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <td class="px-3 py-2 font-medium">{{ a.name }}</td>
-                    <td class="px-3 py-2 text-gray-300">{{ a.valueX ?? '—' }}</td>
-                    <td class="px-3 py-2 text-gray-300">{{ a.valueY ?? '—' }}</td>
-                    <td class="px-3 py-2 text-gray-300 text-xs max-w-xs truncate" :title="a.description">{{ a.description }}</td>
+                    <td class="px-3 py-2 text-gray-600 dark:text-gray-300">{{ a.valueX ?? '—' }}</td>
+                    <td class="px-3 py-2 text-gray-600 dark:text-gray-300">{{ a.valueY ?? '—' }}</td>
+                    <td class="px-3 py-2 text-gray-600 dark:text-gray-300 text-xs max-w-xs truncate" :title="a.description">{{ a.description }}</td>
                     <td class="px-3 py-2 text-center">
                         <RowActions @edit="startEdit(a)" @delete="confirmDelete(a)" />
                     </td>

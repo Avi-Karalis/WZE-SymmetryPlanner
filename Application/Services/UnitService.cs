@@ -80,5 +80,50 @@ namespace Application.Services {
         }
 
         public async Task<Unit> GetUnitTrackedAsync(Guid unitId) => await _unitRepository.GetUnitTrackedAsync(unitId);
+
+        public override async Task<UnitReadDto> UpdateAsync(Guid id, UnitUpdateDto dto) {
+            // Fetch tracked unit with all relationships loaded
+            var unit = await _unitRepository.GetFullByIdAsync(id);
+
+            // Update scalar properties
+            unit.Faction = dto.Faction;
+            unit.UnitType = dto.UnitType;
+            unit.Designation = dto.Designation;
+            unit.DesignationTypeLimit = dto.DesignationTypeLimit;
+            unit.DesignationLimitValue = dto.DesignationLimitValue;
+            unit.DPCost = dto.DPCost;
+            unit.SPCost = dto.SPCost;
+            unit.MV = dto.MV;
+            unit.MW = dto.MW;
+            unit.CC = dto.CC;
+            unit.ST = dto.ST;
+            unit.DEF = dto.DEF;
+            unit.AR = dto.AR;
+            unit.W = dto.W;
+            unit.PW = dto.PW;
+            unit.LD = dto.LD;
+            unit.Base = dto.Base;
+            unit.FactionAvailabilities = dto.FactionAvailabilities?.ToList();
+            unit.UpdatedAt = DateTime.UtcNow;
+
+            // Replace special abilities
+            unit.UnitUnitSpecialAbilities.Clear();
+            foreach (var abilityId in dto.UnitSpecialAbilityIds ?? Enumerable.Empty<Guid>()) {
+                var ability = await _unitAbilityService.GetEntityByIdAsync(abilityId)
+                              ?? throw new Exception($"UnitSpecialAbility {abilityId} not found");
+                unit.UnitUnitSpecialAbilities.Add(new UnitUnitSpecialAbility { Unit = unit, UnitSpecialAbility = ability });
+            }
+
+            // Replace weapons
+            unit.UnitWeapon!.Clear();
+            foreach (var weaponId in dto.WeaponIds ?? Enumerable.Empty<Guid>()) {
+                var weapon = await _weaponService.GetEntityByIdAsync(weaponId)
+                             ?? throw new Exception($"Weapon {weaponId} not found");
+                unit.UnitWeapon.Add(new UnitWeapon { Unit = unit, Weapon = weapon });
+            }
+
+            await _unitRepository.SaveAsync();
+            return await GetFullByIdAsync(id);
+        }
     }
 }

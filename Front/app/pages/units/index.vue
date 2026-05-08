@@ -1,7 +1,7 @@
 <template>
     <div class="p-6 max-w-7xl mx-auto">
         <PageHeader title="Units">
-            <button class="btn-primary" @click="showCreate = true">+ New Unit</button>
+            <NuxtLink to="/units/create" class="btn-primary">+ New Unit</NuxtLink>
         </PageHeader>
 
         <LoadingError :loading="loading" :error="error" />
@@ -12,7 +12,7 @@
 
         <table v-if="filteredUnits.length" class="w-full text-sm">
             <thead>
-                <tr class="bg-gray-700 text-left">
+                <tr class="bg-gray-200 dark:bg-gray-700 text-left text-gray-700 dark:text-gray-100">
                     <th class="px-3 py-2">Faction / Type</th>
                     <th class="px-3 py-2">Designation</th>
                     <th class="px-3 py-2 text-center">DP</th>
@@ -30,11 +30,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="u in filteredUnits" :key="u.id" class="border-b border-gray-700 hover:bg-gray-800">
+                <tr v-for="u in filteredUnits" :key="u.id" class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <td class="px-3 py-2">
                         <NuxtLink :to="`/units/${u.id}`" class="text-blue-400 hover:underline font-medium">{{ u.faction }} {{ u.unitType }}</NuxtLink>
                     </td>
-                    <td class="px-3 py-2 text-xs text-gray-300">{{ u.designation?.join(', ') }}</td>
+                    <td class="px-3 py-2 text-xs text-gray-600 dark:text-gray-300">{{ u.designation?.join(', ') }}</td>
                     <td class="px-3 py-2 text-center">{{ u.dpCost }}</td>
                     <td class="px-3 py-2 text-center">{{ u.spCost }}</td>
                     <td class="px-3 py-2 text-center">{{ u.mv }}</td>
@@ -45,7 +45,7 @@
                     <td class="px-3 py-2 text-center">{{ u.ar }}</td>
                     <td class="px-3 py-2 text-center">{{ u.w }}</td>
                     <td class="px-3 py-2 text-center">{{ u.ld }}</td>
-                    <td class="px-3 py-2 text-xs text-gray-300">{{ u.weapons?.map(w => w.name).join(', ') || '—' }}</td>
+                    <td class="px-3 py-2 text-xs text-gray-600 dark:text-gray-300">{{ u.weapons?.map(w => w.name).join(', ') || '—' }}</td>
                     <td class="px-3 py-2 text-center">
                         <RowActions @edit="startEdit(u)" @delete="confirmDelete(u)" />
                     </td>
@@ -54,10 +54,10 @@
         </table>
         <p v-else-if="!loading" class="text-gray-400">No units found.</p>
 
-        <!-- Create / Edit Modal -->
+        <!-- Edit Modal -->
         <AppModal
-            v-if="showCreate || editTarget"
-            :title="editTarget ? 'Edit Unit' : 'New Unit'"
+            v-if="editTarget"
+            title="Edit Unit"
             max-width="max-w-2xl"
             @close="closeModal"
         >
@@ -68,8 +68,8 @@
                     <FormField label="Designations (comma-separated)" :required="true" class="col-span-2">
                         <input v-model="designationInput" class="field-input" placeholder="e.g. Trooper, Leader" required />
                     </FormField>
-                    <FormField label="Designation Type Limit">
-                        <input v-model="form.designationTypeLimit" class="field-input" placeholder="e.g. Trooper or Any" />
+                    <FormField label="Designation Type Limit (comma-separated for multiple)">
+                        <input v-model="form.designationTypeLimit" class="field-input" placeholder="e.g. Trooper  or  Undead Legionnaire, Necromutant" />
                     </FormField>
                     <FormField label="Designation Limit Value">
                         <input v-model.number="form.designationLimitValue" type="number" class="field-input" />
@@ -90,18 +90,18 @@
                         <input v-model="factionAvailInput" class="field-input" placeholder="e.g. Capitol, Bauhaus" />
                     </FormField>
                     <FormField label="Weapons" class="col-span-2">
-                        <div class="border border-gray-600 rounded p-2 max-h-32 overflow-y-auto">
-                            <label v-for="w in allWeapons" :key="w.id" class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-700 px-1 rounded">
+                        <div class="border border-gray-300 dark:border-gray-600 rounded p-2 max-h-48 overflow-y-auto">
+                            <label v-for="w in sortedWeapons" :key="w.id" class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-1 rounded">
                                 <input type="checkbox" :value="w.id" v-model="form.weaponIds" />
-                                <span class="text-sm">{{ w.name }}</span>
+                                <span class="text-sm">{{ weaponLabel(w) }}</span>
                             </label>
                         </div>
                     </FormField>
                     <FormField label="Unit Special Abilities" class="col-span-2">
-                        <div class="border border-gray-600 rounded p-2 max-h-32 overflow-y-auto">
-                            <label v-for="a in allUnitAbilities" :key="a.id" class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-700 px-1 rounded">
+                        <div class="border border-gray-300 dark:border-gray-600 rounded p-2 max-h-48 overflow-y-auto">
+                            <label v-for="a in sortedAbilities" :key="a.id" class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-1 rounded">
                                 <input type="checkbox" :value="a.id" v-model="form.unitSpecialAbilityIds" />
-                                <span class="text-sm">{{ a.name }}</span>
+                                <span class="text-sm">{{ abilityLabel(a) }}</span>
                             </label>
                         </div>
                     </FormField>
@@ -131,12 +131,33 @@ const { weapons: allWeapons, fetchAll: fetchWeapons } = useWeapons()
 const { abilities: allUnitAbilities, fetchAll: fetchUnitAbilities } = useUnitSpecialAbilities()
 
 const filterText = ref('')
-const showCreate = ref(false)
 const editTarget = ref(null)
 const deleteTarget = ref(null)
 const saving = ref(false)
 const designationInput = ref('')
 const factionAvailInput = ref('')
+
+const sortedWeapons = computed(() =>
+    [...(allWeapons.value ?? [])].sort((a, b) => a.name.localeCompare(b.name))
+)
+
+const sortedAbilities = computed(() =>
+    [...(allUnitAbilities.value ?? [])].sort((a, b) => {
+        const nameCompare = a.name.localeCompare(b.name)
+        if (nameCompare !== 0) return nameCompare
+        return (a.valueX ?? '').toString().localeCompare((b.valueX ?? '').toString())
+    })
+)
+
+function weaponLabel(w) {
+    const sas = w.weaponSpecialAbilities?.map(s => s.name).join(', ')
+    return sas ? `${w.name} (${sas})` : w.name
+}
+
+function abilityLabel(a) {
+    const parts = [a.valueX, a.valueY].filter(Boolean).join(', ')
+    return parts ? `${a.name} (${parts})` : a.name
+}
 
 const filteredUnits = computed(() => {
     if (!filterText.value) return units.value
@@ -187,7 +208,6 @@ function startEdit(u) {
 }
 
 function closeModal() {
-    showCreate.value = false
     editTarget.value = null
     designationInput.value = ''
     factionAvailInput.value = ''
@@ -199,12 +219,8 @@ async function saveUnit() {
     form.value.designation = designationInput.value.split(',').map(s => s.trim()).filter(Boolean)
     form.value.factionAvailabilities = factionAvailInput.value.split(',').map(s => s.trim()).filter(Boolean)
     try {
-        if (editTarget.value) {
-            await update(editTarget.value.id, form.value)
-            await fetchAll()
-        } else {
-            await create(form.value)
-        }
+        await update(editTarget.value.id, form.value)
+        await fetchAll()
         closeModal()
     } catch (e) {
         alert('Failed to save unit: ' + (e.response?.data || e.message))

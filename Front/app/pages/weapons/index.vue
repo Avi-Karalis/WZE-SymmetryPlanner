@@ -8,7 +8,7 @@
 
         <table v-if="weapons.length" class="w-full text-sm">
             <thead>
-                <tr class="bg-gray-700 text-left">
+                <tr class="bg-gray-200 dark:bg-gray-700 text-left text-gray-700 dark:text-gray-100">
                     <th class="px-3 py-2">Name</th>
                     <th class="px-3 py-2 text-center">CC Mod</th>
                     <th class="px-3 py-2 text-center">CC Dam</th>
@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="w in weapons" :key="w.id" class="border-b border-gray-700 hover:bg-gray-800">
+                <tr v-for="w in weapons" :key="w.id" class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <td class="px-3 py-2 font-medium">
                         <NuxtLink :to="`/weapons/${w.id}`" class="text-blue-400 hover:underline">{{ w.name }}</NuxtLink>
                     </td>
@@ -37,7 +37,7 @@
                     <td class="px-3 py-2 text-center">{{ w.longRangeMod ?? '—' }}</td>
                     <td class="px-3 py-2 text-center">{{ w.longRangeDam ?? '—' }}</td>
                     <td class="px-3 py-2 text-center">{{ w.critFail }}</td>
-                    <td class="px-3 py-2 text-xs text-gray-300">
+                    <td class="px-3 py-2 text-xs text-gray-600 dark:text-gray-300">
                         {{ w.weaponSpecialAbilities?.map(a => a.name).join(', ') || '—' }}
                     </td>
                     <td class="px-3 py-2 text-center">
@@ -72,9 +72,13 @@
                         <input id="dynamicDam" v-model="form.dynamicDAM" type="checkbox" />
                         <label for="dynamicDam" class="field-label mb-0">Dynamic DAM</label>
                     </div>
+                    <div class="flex items-center gap-2 pt-4">
+                        <input id="dynamicRange" v-model="form.dynamicRange" type="checkbox" />
+                        <label for="dynamicRange" class="field-label mb-0">Dynamic Range</label>
+                    </div>
                     <FormField label="Special Abilities" class="col-span-2">
-                        <div class="border border-gray-600 rounded p-2 max-h-32 overflow-y-auto">
-                            <label v-for="ability in allAbilities" :key="ability.id" class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-700 px-1 rounded">
+                        <div class="border border-gray-300 dark:border-gray-600 rounded p-2 max-h-32 overflow-y-auto">
+                            <label v-for="ability in allAbilities" :key="ability.id" class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-1 rounded">
                                 <input type="checkbox" :value="ability.id" v-model="form.weaponSpecialAbilityIds" />
                                 <span class="text-sm">{{ ability.name }}</span>
                             </label>
@@ -121,6 +125,7 @@ const emptyForm = () => ({
     longRangeDam: null,
     critFail: 20,
     dynamicDAM: false,
+    dynamicRange: false,
     weaponSpecialAbilityIds: [],
 })
 const form = ref(emptyForm())
@@ -143,6 +148,7 @@ function startEdit(w) {
         longRangeDam: w.longRangeDam,
         critFail: w.critFail,
         dynamicDAM: w.dynamicDAM,
+        dynamicRange: w.dynamicRange,
         weaponSpecialAbilityIds: w.weaponSpecialAbilities?.map(a => a.id) ?? [],
     }
 }

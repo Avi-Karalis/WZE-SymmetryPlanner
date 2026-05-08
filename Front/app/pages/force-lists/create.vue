@@ -7,7 +7,7 @@
 
         <LoadingError :loading="loadingFactions" />
 
-        <form v-if="!loadingFactions" @submit.prevent="submit" class="bg-gray-800 rounded-lg p-6 flex flex-col gap-4">
+        <form v-if="!loadingFactions" @submit.prevent="submit" class="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 flex flex-col gap-4 text-gray-800 dark:text-gray-100">
             <FormField label="List Name" :required="true">
                 <input v-model="form.name" class="field-input" placeholder="e.g. My Capitol Strike Force" required />
             </FormField>
@@ -24,12 +24,12 @@
                     <label class="flex items-center gap-2 cursor-pointer">
                         <input type="radio" :value="0" v-model="form.allegiance" />
                         <span class="text-sm">Agents of Light</span>
-                        <span class="text-xs text-gray-400">(+ Seconding &amp; Advisor allies)</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">(+ Seconding &amp; Advisor allies)</span>
                     </label>
                     <label class="flex items-center gap-2 cursor-pointer">
                         <input type="radio" :value="1" v-model="form.allegiance" />
                         <span class="text-sm">Servants of Darkness</span>
-                        <span class="text-xs text-gray-400">(+ Dark Cult allies)</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">(+ Dark Cult allies)</span>
                     </label>
                 </div>
             </FormField>

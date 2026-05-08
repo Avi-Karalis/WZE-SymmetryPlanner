@@ -3,7 +3,7 @@
      Emits : confirm, cancel -->
 <template>
     <AppModal title="Confirm Delete" max-width="max-w-sm" @close="$emit('cancel')">
-        <p class="text-gray-300 mb-6">
+        <p class="text-gray-600 dark:text-gray-300 mb-6">
             Delete <strong>{{ name }}</strong>? This cannot be undone.
         </p>
         <div class="flex justify-end gap-3">

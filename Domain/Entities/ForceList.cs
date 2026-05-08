@@ -139,15 +139,26 @@ namespace Domain.Entities {
 
                 return true;
             } else {
-                pool.TryGetValue(type, out int current);
-                if (current < count) return false;
-                pool[type] -= count;
+                // Support comma-separated multi-type (e.g. "Undead Legionnaire, Necromutant")
+                var types = type.Split(',').Select(t => t.Trim()).ToList();
+                int totalAvailable = types.Sum(t => pool.TryGetValue(t, out int c) ? c : 0);
+                if (totalAvailable < count) return false;
+
+                foreach (var t in types) {
+                    if (count <= 0) break;
+                    if (pool.TryGetValue(t, out int avail) && avail > 0) {
+                        int deduct = Math.Min(count, avail);
+                        pool[t] -= deduct;
+                        count -= deduct;
+                    }
+                }
+
                 return true;
             }
         }
         private void ValidateSupportPoints(List<string> errors) {
-            int spBudget = Units.Where(u => u.SPCost < 0).Sum(u => -u.SPCost); // SP granted by leaders
-            int spUsed = Units.Where(u => u.SPCost > 0).Sum(u => (int)u.SPCost); // SP consumed by support units
+            int spBudget = Units.Where(u => u.SPCost > 0).Sum(u => (int)u.SPCost); // SP granted by leaders
+            int spUsed = Units.Where(u => u.SPCost < 0).Sum(u => -(int)u.SPCost); // SP consumed by support units
             if (spUsed > spBudget)
                 errors.Add($"Support point total ({spUsed}) exceeds the allowed SP limit ({spBudget}).");
         }

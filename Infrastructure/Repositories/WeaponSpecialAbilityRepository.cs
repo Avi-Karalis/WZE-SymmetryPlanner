@@ -7,6 +7,7 @@ namespace Infrastructure.Repositories {
     public class WeaponSpecialAbilityRepository : GenericRepository<WeaponSpecialAbility>, IWeaponSpecialAbilityRepository {
         private readonly ApplicationDbContext _context;
         public WeaponSpecialAbilityRepository(ApplicationDbContext context) : base(context) {
+            _context = context;
         }
 
         public async Task<IEnumerable<WeaponSpecialAbility>> GetByNameAsync(string name) =>

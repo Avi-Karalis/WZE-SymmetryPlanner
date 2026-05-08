@@ -88,6 +88,8 @@ namespace Infrastructure.Repositories {
                 var existingCollection = (IList)prop.GetValue(existing);
                 var newCollection = (IEnumerable)prop.GetValue(entity);
 
+                if (existingCollection == null || newCollection == null) continue;
+
                 existingCollection.Clear();
                 foreach (var item in newCollection) {
                     existingCollection.Add(item);

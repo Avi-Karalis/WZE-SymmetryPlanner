@@ -51,8 +51,6 @@ namespace Application.Services {
             });
 
             forceList.CurrentDp = (sbyte)(forceList.ForceListUnits.Sum(f => f.Unit?.DPCost ?? 0) + unit.DPCost);
-            forceList.CurrentSp = (sbyte)(forceList.ForceListUnits.Where(f => f.Unit?.SPCost > 0).Sum(f => f.Unit.SPCost) + (unit.SPCost > 0 ? unit.SPCost : 0));
-            if (unit.SPCost < 0) forceList.MaxSp = (sbyte)(forceList.MaxSp + Math.Abs(unit.SPCost)); // leader grants SP budget
             forceList.UpdatedAt = DateTime.UtcNow;
 
             await _forceListRepository.SaveAsync();
@@ -65,8 +63,6 @@ namespace Application.Services {
             forceList.ForceListUnits.Remove(flu);
 
             forceList.CurrentDp = (sbyte)forceList.ForceListUnits.Sum(f => f.Unit?.DPCost ?? 0);
-            forceList.CurrentSp = (sbyte)forceList.ForceListUnits.Where(f => f.Unit?.SPCost > 0).Sum(f => f.Unit.SPCost);
-            if (flu.Unit.SPCost < 0) forceList.MaxSp = (sbyte)(forceList.MaxSp - Math.Abs(flu.Unit.SPCost)); // remove SP budget granted by leader
             forceList.UpdatedAt = DateTime.UtcNow;
 
             await _forceListRepository.SaveAsync();

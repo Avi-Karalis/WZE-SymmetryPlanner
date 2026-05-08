@@ -33,7 +33,7 @@ namespace Application.Services {
             return _mapper.Map<TReadDto>(await _repository.GetByIdAndDeleted(id));
         }
 
-        public async Task<TReadDto> UpdateAsync(Guid id, TUpdateDto dto) {
+        public virtual async Task<TReadDto> UpdateAsync(Guid id, TUpdateDto dto) {
             var entity = _mapper.Map<TEntity>(dto);
 
             // Ensure the entity ID matches

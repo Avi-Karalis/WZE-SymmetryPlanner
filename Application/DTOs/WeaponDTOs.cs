@@ -17,6 +17,7 @@ public class WeaponReadDto {
     public sbyte LRDamageMultiplier { get; set; }
     public sbyte CritFail { get; set; }
     public bool DynamicDAM { get; set; }
+    public bool DynamicRange { get; set; }
 
     public IEnumerable<WeaponSpecialAbilityReadDto> WeaponSpecialAbilities { get; set; } = new List<WeaponSpecialAbilityReadDto>();
 }
@@ -36,6 +37,7 @@ public class WeaponCreateDto {
     public sbyte? LRDamageMultiplier { get; set; }
     public sbyte CritFail { get; set; } = 20;
     public bool DynamicDAM { get; set; } = false;
+    public bool DynamicRange { get; set; } = false;
 
     public IEnumerable<Guid>? WeaponSpecialAbilityIds { get; set; }
 }

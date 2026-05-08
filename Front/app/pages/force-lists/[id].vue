@@ -27,7 +27,7 @@
 					>
 						<span
 							>Faction:
-							<span class="text-gray-200">{{
+							<span class="text-gray-700 dark:text-gray-300">{{
 								forceList.faction
 							}}</span></span
 						>
@@ -43,10 +43,10 @@
 								>{{ currentDp }} / {{ forceList.maxDp }}</span
 							></span
 						>
-						<span v-if="forceList.maxSp > 0"
+						<span
 							>SP:
 							<span :class="spClass"
-								>{{ currentSp }} / {{ forceList.maxSp }}</span
+								>{{ spUsed }} / {{ spAvailable }}</span
 							></span
 						>
 					</div>
@@ -58,6 +58,7 @@
 				>
 					{{ validating ? "Validating..." : "Validate List" }}
 				</button>
+				<button class="btn-secondary" @click="showRoster = true">View Roster</button>
 			</div>
 
 			<!-- DP progress bar -->
@@ -136,10 +137,12 @@
 									<span class="ml-2 text-xs text-gray-400">{{
 										unit.designation?.join(", ")
 									}}</span>
+									<span v-if="unit.designationTypeLimit" class="ml-1 text-xs text-yellow-500 dark:text-yellow-300">({{ unit.designationLimitValue }}: {{ unit.designationTypeLimit }})</span>
 								</div>
 								<div class="flex items-center gap-3">
-									<span class="text-xs bg-gray-700 px-2 py-0.5 rounded">{{ unit.dpCost }} DP</span>
-									<span v-if="unit.spCost" class="text-xs bg-gray-700 px-2 py-0.5 rounded text-yellow-300">{{ unit.spCost }} SP</span>
+								<span class="text-xs bg-gray-300 dark:bg-gray-700 px-2 py-0.5 rounded">{{ unit.dpCost }} DP</span>
+								<span v-if="unit.spCost > 0" class="text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-2 py-0.5 rounded">+{{ unit.spCost }} SP</span>
+							<span v-if="unit.spCost < 0" class="text-xs bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 px-2 py-0.5 rounded">{{ -unit.spCost }} SP cost</span>
 									<button
 										class="btn-sm btn-danger opacity-0 group-hover:opacity-100 transition"
 										@click.stop="removeUnit(unit)"
@@ -181,9 +184,9 @@
 								</div>
 								<div
 									v-if="unit.weapons?.length"
-									class="text-xs text-gray-300 mb-1"
+									class="text-xs text-gray-600 dark:text-gray-300 mb-1"
 								>
-									<span class="text-gray-400">Weapons: </span
+									<span class="text-gray-500 dark:text-gray-400">Weapons: </span
 									>{{
 										unit.weapons
 											.map((w) => w.name)
@@ -192,9 +195,9 @@
 								</div>
 								<div
 									v-if="unit.unitSpecialAbilities?.length"
-									class="text-xs text-gray-300"
+									class="text-xs text-gray-600 dark:text-gray-300"
 								>
-									<span class="text-gray-400"
+									<span class="text-gray-500 dark:text-gray-400"
 										>Abilities: </span
 									>{{
 										unit.unitSpecialAbilities
@@ -256,10 +259,12 @@
 											unit.designation?.join(", ")
 										}}</span
 									>
+								<span v-if="unit.designationTypeLimit" class="ml-1 text-xs text-yellow-500 dark:text-yellow-300">({{ unit.designationLimitValue }}: {{ unit.designationTypeLimit }})</span>
 								</div>
 								<div class="flex items-center gap-2">
-									<span class="text-xs bg-gray-700 px-2 py-0.5 rounded">{{ unit.dpCost }} DP</span>
-									<span v-if="unit.spCost" class="text-xs bg-gray-700 px-2 py-0.5 rounded text-yellow-300">{{ unit.spCost }} SP</span>
+								<span class="text-xs bg-gray-300 dark:bg-gray-700 px-2 py-0.5 rounded">{{ unit.dpCost }} DP</span>
+								<span v-if="unit.spCost > 0" class="text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-2 py-0.5 rounded">+{{ unit.spCost }} SP</span>
+								<span v-if="unit.spCost < 0" class="text-xs bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 px-2 py-0.5 rounded">{{ unit.spCost }} SP</span>
 									<span
 										class="text-xs text-green-400 opacity-0 group-hover:opacity-100 transition"
 										>+ Add</span
@@ -277,6 +282,104 @@
 					</div>
 			</div>
 		</template>
+
+		<!-- Roster View Modal -->
+		<Teleport to="body">
+			<div v-if="showRoster" class="fixed inset-0 z-50 flex items-start justify-center bg-black/70 overflow-y-auto py-8">
+				<div id="roster-print-area" class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 rounded-xl w-full max-w-4xl mx-4 p-6 shadow-2xl">
+					<div class="flex items-center justify-between mb-6">
+						<h2 class="text-xl font-bold">{{ forceList?.name }} — Roster</h2>
+						<div class="flex items-center gap-3">
+							<button class="btn-primary text-sm" @click="printRoster">Save as PDF</button>
+							<button class="text-gray-400 hover:text-gray-700 dark:hover:text-white text-2xl leading-none" @click="showRoster = false">✕</button>
+						</div>
+					</div>
+
+					<div class="flex flex-col gap-6">
+						<div v-for="unit in forceList.units" :key="unit.id" class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+							<!-- Unit header -->
+							<div class="flex items-center justify-between mb-3">
+								<div>
+									<span class="font-bold text-base">{{ unit.faction }} {{ unit.unitType }}</span>
+									<span class="ml-2 text-xs text-gray-500 dark:text-gray-400">{{ unit.designation?.join(', ') }}</span>								<span v-if="unit.designationTypeLimit" class="ml-1 text-xs text-yellow-600 dark:text-yellow-300">({{ unit.designationLimitValue }}: {{ unit.designationTypeLimit }})</span>								</div>
+								<div class="flex gap-2">
+									<span class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-0.5 rounded">{{ unit.dpCost }} DP</span>
+									<span v-if="unit.spCost > 0" class="text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-2 py-0.5 rounded">+{{ unit.spCost }} SP</span>
+								<span v-if="unit.spCost < 0" class="text-xs bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 px-2 py-0.5 rounded">{{ -unit.spCost }} SP cost</span>
+								</div>
+							</div>
+
+							<!-- Stat grid -->
+							<div class="grid grid-cols-9 gap-1 text-center text-xs mb-4">
+								<div v-for="stat in ['MV','MW','CC','ST','DEF','AR','W','PW','LD']" :key="stat" class="bg-gray-100 dark:bg-gray-800 rounded py-1">
+									<div class="text-gray-500 dark:text-gray-400">{{ stat }}</div>
+									<div class="font-bold">{{ unit[stat.toLowerCase()] }}</div>
+								</div>
+							</div>
+
+							<!-- Weapons -->
+							<div v-if="unit.weapons?.length" class="mb-3">
+								<div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Weapons</div>
+								<div class="flex flex-col gap-2">
+									<div v-for="w in unit.weapons" :key="w.id" class="bg-gray-50 dark:bg-gray-800 rounded p-2 text-xs">
+										<div class="font-semibold mb-1">{{ w.name }}<span v-if="w.dynamicDAM || w.dynamicRange" class="ml-2 text-yellow-600 dark:text-yellow-300">({{ [w.dynamicDAM ? 'Dynamic DAM' : '', w.dynamicRange ? 'Dynamic Range' : ''].filter(Boolean).join(' · ') }})</span></div>
+										<div class="flex flex-col gap-0.5">
+											<template v-if="w.ccMod != null || w.ccDam != null">
+												<div class="flex gap-4">
+													<span><span class="text-gray-500 dark:text-gray-400">CC Mod </span>{{ w.ccMod ?? '—' }}</span>
+													<span><span class="text-gray-500 dark:text-gray-400">CC DAM </span>{{ w.ccDam != null ? (w.dynamicDAM ? w.ccDam + unit.st : w.ccDam) : '—' }}</span>
+													<span><span class="text-gray-500 dark:text-gray-400">Crit Fail </span>{{ w.critFail }}</span>
+												</div>
+											</template>
+											<template v-if="w.shortRange != null">
+												<div class="flex gap-4">
+													<span><span class="text-gray-500 dark:text-gray-400">SR </span>{{ w.dynamicRange ? w.shortRange + unit.st : w.shortRange }}</span>
+													<span><span class="text-gray-500 dark:text-gray-400">SR Mod </span>{{ w.shortRangeMod ?? '—' }}</span>
+													<span><span class="text-gray-500 dark:text-gray-400">SR DAM </span>{{ w.shortRangeDam != null ? (w.dynamicDAM ? w.shortRangeDam + unit.st : w.shortRangeDam) : '—' }}</span>
+												</div>
+											</template>
+											<template v-if="w.longRange != null">
+												<div class="flex gap-4">
+													<span><span class="text-gray-500 dark:text-gray-400">LR </span>{{ w.dynamicRange ? w.longRange + unit.st : w.longRange }}</span>
+													<span><span class="text-gray-500 dark:text-gray-400">LR Mod </span>{{ w.longRangeMod ?? '—' }}</span>
+													<span><span class="text-gray-500 dark:text-gray-400">LR DAM </span>{{ w.longRangeDam != null ? (w.dynamicDAM ? w.longRangeDam + unit.st : w.longRangeDam) : '—' }}</span>
+												</div>
+											</template>
+											<template v-if="w.ccMod == null && w.ccDam == null">
+												<div><span class="text-gray-500 dark:text-gray-400">Crit Fail </span>{{ w.critFail }}</div>
+											</template>
+										</div>
+									<div v-if="w.weaponSpecialAbilities?.length" class="mt-2">
+										<div class="flex flex-wrap gap-1 mb-1">
+											<span v-for="sa in w.weaponSpecialAbilities" :key="sa.id" class="sa-badge">
+												{{ sa.name }}<span v-if="sa.valueX" class="text-yellow-600 dark:text-yellow-300 ml-1">({{ sa.valueX }})</span>
+											</span>
+										</div>
+										<div v-for="sa in w.weaponSpecialAbilities" :key="'wdesc-'+sa.id" class="text-gray-500 dark:text-gray-400 italic" style="font-size:10px; line-height:1.3;">
+											<span class="font-semibold not-italic text-gray-700 dark:text-gray-300">{{ sa.name }}<span v-if="sa.valueX"> ({{ sa.valueX }})</span>:</span> {{ sa.description }}
+										</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Special Abilities -->
+							<div v-if="unit.unitSpecialAbilities?.length">
+								<div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Special Abilities</div>
+								<div class="flex flex-wrap gap-1 mb-1">
+									<span v-for="sa in unit.unitSpecialAbilities" :key="sa.id" class="sa-badge">
+										{{ sa.name }}<span v-if="sa.valueX || sa.valueY" class="text-yellow-600 dark:text-yellow-300 ml-1">({{ [sa.valueX, sa.valueY].filter(Boolean).join(', ') }})</span>
+									</span>
+								</div>
+								<div v-for="sa in unit.unitSpecialAbilities" :key="'desc-'+sa.id" class="text-gray-500 dark:text-gray-400 italic" style="font-size:10px; line-height:1.3;">
+									<span class="font-semibold not-italic text-gray-700 dark:text-gray-300">{{ sa.name }}<span v-if="sa.valueX || sa.valueY"> ({{ [sa.valueX, sa.valueY].filter(Boolean).join(', ') }})</span>:</span> {{ sa.description }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</Teleport>
 	</div>
 </template>
 
@@ -296,6 +399,7 @@ const validating = ref(false)
 const loadingUnits = ref(false)
 const unitSearch = ref('')
 const filterDesignation = ref('')
+const showRoster = ref(false)
 
 onMounted(async () => {
   await loadForceList()
@@ -313,14 +417,15 @@ async function loadForceList() {
 }
 
 const currentDp = computed(() => forceList.value?.units?.reduce((s, u) => s + (u.dpCost ?? 0), 0) ?? 0)
-const currentSp = computed(() => forceList.value?.units?.reduce((s, u) => s + (u.spCost > 0 ? u.spCost : 0), 0) ?? 0)
+const spAvailable = computed(() => forceList.value?.units?.reduce((s, u) => s + (u.spCost > 0 ? u.spCost : 0), 0) ?? 0)
+const spUsed = computed(() => forceList.value?.units?.reduce((s, u) => s + (u.spCost < 0 ? -u.spCost : 0), 0) ?? 0)
 
 const dpClass = computed(() => currentDp.value > (forceList.value?.maxDp ?? 0) ? 'text-red-400 font-bold' : 'text-green-400')
-const spClass = computed(() => currentSp.value > (forceList.value?.maxSp ?? 0) ? 'text-red-400 font-bold' : 'text-yellow-300')
+const spClass = computed(() => spUsed.value > spAvailable.value ? 'text-red-400 font-bold' : 'text-yellow-400')
 const dpBarClass = computed(() => currentDp.value > (forceList.value?.maxDp ?? 0) ? 'bg-red-500' : 'bg-blue-500')
 const allegianceClass = computed(() => {
   const a = forceList.value?.allegiance?.toLowerCase() ?? ''
-  return a.includes('darkness') ? 'text-red-400' : 'text-yellow-300'
+  return a.includes('darkness') ? 'text-red-400' : 'text-yellow-400'
 })
 
 const ALLY_DESIGNATIONS = ['Advisor', 'Seconding', 'Dark Cult']
@@ -407,15 +512,106 @@ async function runValidation() {
 }
 
 definePageMeta({ layout: 'dark' })
+
+function printRoster() {
+  const el = document.getElementById('roster-print-area')
+  if (!el) return
+  const clone = el.cloneNode(true)
+  // Remove buttons from clone
+  clone.querySelectorAll('button').forEach(b => b.remove())
+  const win = window.open('', '_blank')
+  win.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>${forceList.value?.name ?? 'Roster'} - Roster</title>
+      <style>
+        body { font-family: system-ui, sans-serif; font-size: 12px; color: #111; margin: 24px; }
+        h2 { font-size: 18px; margin-bottom: 16px; }
+        .border { border: 1px solid #ccc; border-radius: 6px; padding: 12px; margin-bottom: 12px; }
+        .font-bold { font-weight: bold; }
+        .font-semibold { font-weight: 600; }
+        .text-gray-500, .text-gray-400 { color: #6b7280; }
+        .flex { display: flex; }
+        .gap-4 { gap: 16px; }
+        .gap-2 { gap: 8px; }
+        .gap-1 { gap: 4px; }
+        .grid { display: grid; }
+        .grid-cols-9 { grid-template-columns: repeat(9, 1fr); }
+        .text-center { text-align: center; }
+        .rounded { border-radius: 4px; }
+        .bg-gray-100 { background: #f3f4f6; }
+        .py-1 { padding-top: 2px; padding-bottom: 2px; }
+        .mb-1 { margin-bottom: 4px; }
+        .mb-2 { margin-bottom: 8px; }
+        .mb-3 { margin-bottom: 12px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mt-1 { margin-top: 4px; }
+        .px-2 { padding-left: 8px; padding-right: 8px; }
+        .py-0\.5 { padding-top: 2px; padding-bottom: 2px; }
+        .text-xs { font-size: 11px; }
+        .uppercase { text-transform: uppercase; }
+        .tracking-wider { letter-spacing: 0.05em; }
+        .flex-col { flex-direction: column; }
+        .flex-wrap { flex-wrap: wrap; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .border-gray-200 { border-color: #e5e7eb; }
+        .border-gray-700 { border-color: #374151; }
+        .bg-gray-50 { background: #f9fafb; }
+        .gap-0\.5 { gap: 2px; }
+        .p-2 { padding: 8px; }
+        .p-4 { padding: 16px; }
+        .p-6 { padding: 24px; }
+        .text-yellow-600 { color: #d97706; }
+        .ml-1 { margin-left: 4px; }
+        .ml-2 { margin-left: 8px; }
+        .ml-2 { margin-left: 8px; }
+      </style>
+    </head>
+    <body>${clone.innerHTML}</body>
+    </html>
+  `)
+  win.document.close()
+  win.focus()
+  setTimeout(() => { win.print(); win.close() }, 300)
+}
 </script>
 
 <style scoped>
 @reference "../../../assets/css/main.css";
 .unit-card {
-  @apply bg-gray-800 border border-gray-700 rounded-lg p-3 cursor-pointer hover:border-gray-500 transition;
+  @apply bg-gray-100 border border-gray-300 text-gray-800 rounded-lg p-3 cursor-pointer hover:border-gray-400 transition
+         dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 dark:hover:border-gray-500;
 }
 .unit-card-available {
-  @apply bg-gray-800 border border-gray-700 rounded px-3 py-2 hover:border-green-600 transition;
+  @apply bg-gray-100 border border-gray-300 text-gray-800 rounded px-3 py-2 hover:border-green-500 transition
+         dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 dark:hover:border-green-600;
+}
+
+.sa-badge {
+  position: relative;
+  @apply bg-gray-200 dark:bg-gray-600 rounded px-1.5 py-0.5 text-xs cursor-default;
+}
+
+.sa-badge::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14rem;
+  white-space: normal;
+  text-align: center;
+  @apply bg-gray-900 text-gray-100 text-xs rounded px-2 py-1 z-50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.sa-badge:hover::after {
+  opacity: 1;
 }
 </style>
 

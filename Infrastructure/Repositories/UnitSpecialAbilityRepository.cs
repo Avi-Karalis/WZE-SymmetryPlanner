@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.Repositories;
 public class UnitSpecialAbilityRepository : GenericRepository<UnitSpecialAbility>, IUnitSpecialAbilityRepository {
     private readonly ApplicationDbContext _context;
-    public UnitSpecialAbilityRepository(ApplicationDbContext context) : base(context) { }
+    public UnitSpecialAbilityRepository(ApplicationDbContext context) : base(context) { _context = context; }
 
     public async Task<IEnumerable<UnitSpecialAbility>> GetByNameAsync(string name) =>
         await _context.UnitSpecialAbilities

@@ -10,15 +10,15 @@
             <div
                 v-for="fl in forceLists"
                 :key="fl.id"
-                class="bg-gray-800 border border-gray-700 rounded-lg p-4 flex items-center justify-between hover:border-gray-500 transition"
+                class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-4 flex items-center justify-between hover:border-gray-400 dark:hover:border-gray-500 transition text-gray-800 dark:text-gray-100"
             >
                 <div>
                     <h2 class="text-lg font-semibold">{{ fl.name }}</h2>
                     <div class="text-sm text-gray-400 mt-1 flex gap-4">
-                        <span>Faction: <span class="text-gray-200">{{ fl.faction }}</span></span>
-                        <span>Allegiance: <span class="text-gray-200">{{ fl.allegiance }}</span></span>
-                        <span>Max DP: <span class="text-gray-200">{{ fl.maxDp }}</span></span>
-                        <span>Units: <span class="text-gray-200">{{ fl.units?.length ?? 0 }}</span></span>
+                        <span>Faction: <span class="text-gray-700 dark:text-gray-200">{{ fl.faction }}</span></span>
+                        <span>Allegiance: <span class="text-gray-700 dark:text-gray-200">{{ fl.allegiance }}</span></span>
+                        <span>Max DP: <span class="text-gray-700 dark:text-gray-200">{{ fl.maxDp }}</span></span>
+                        <span>Units: <span class="text-gray-700 dark:text-gray-200">{{ fl.units?.length ?? 0 }}</span></span>
                     </div>
                 </div>
                 <div class="flex items-center gap-2">

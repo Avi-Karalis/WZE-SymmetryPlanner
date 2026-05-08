@@ -66,7 +66,7 @@ export function useUnits() {
   const update = async (id, dto) => {
     if (process.server) return null
     try {
-      const res = await $axios.patch(`/Unit/update/${id}`, dto)
+      const res = await $axios.put(`/Unit/${id}`, dto)
       const idx = units.value.findIndex(u => u.id === id)
       if (idx !== -1) units.value[idx] = res.data
       return res.data

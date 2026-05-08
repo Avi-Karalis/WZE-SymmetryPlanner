@@ -42,6 +42,17 @@ namespace Infrastructure.Repositories {
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<ForceList>> GetAllDeletedAsync() {
+            return await _context.ForceLists
+                .Where(f => f.DeletedAt != null)
+                .Include(f => f.Allegiance)
+                .Include(f => f.User)
+                .Include(f => f.ForceListUnits)
+                    .ThenInclude(flu => flu.Unit)
+                .OrderByDescending(f => f.DeletedAt)
+                .ToListAsync();
+        }
+
         public async Task<Unit> GetUnitByIdAsync(Guid unitId) {
             return await _context.Units
                 .Include(u => u.UnitWeapon)

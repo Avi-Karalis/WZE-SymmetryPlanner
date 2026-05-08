@@ -1,19 +1,19 @@
 <template>
-    <div class="p-6 max-w-3xl mx-auto">
+    <div class="p-4 sm:p-6 max-w-3xl mx-auto">
         <div class="mb-4">
             <NuxtLink to="/units" class="text-gray-400 hover:text-white text-sm">← Units</NuxtLink>
         </div>
         <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">New Unit</h1>
 
-        <form @submit.prevent="saveUnit" class="bg-gray-100 dark:bg-gray-800 rounded-lg p-6">
-            <div class="grid grid-cols-2 gap-3">
+        <form @submit.prevent="saveUnit" class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 sm:p-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <FormField label="Faction" :required="true">
                     <input v-model="form.faction" class="field-input" required />
                 </FormField>
                 <FormField label="Unit Type" :required="true">
                     <input v-model="form.unitType" class="field-input" required />
                 </FormField>
-                <FormField label="Designations (comma-separated)" :required="true" class="col-span-2">
+                <FormField label="Designations (comma-separated)" :required="true" class="sm:col-span-2">
                     <input v-model="designationInput" class="field-input" placeholder="e.g. Trooper, Leader" required />
                 </FormField>
                 <FormField label="Designation Type Limit (comma-separated for multiple)">
@@ -38,10 +38,10 @@
                 <FormField label="PW"><input v-model.number="form.pw" type="number" class="field-input" /></FormField>
                 <FormField label="LD"><input v-model.number="form.ld" type="number" class="field-input" /></FormField>
                 <FormField label="Base"><input v-model.number="form.base" type="number" class="field-input" /></FormField>
-                <FormField label="Faction Availabilities (comma-separated)" class="col-span-2">
+                <FormField label="Faction Availabilities (comma-separated)" class="sm:col-span-2">
                     <input v-model="factionAvailInput" class="field-input" placeholder="e.g. Capitol, Bauhaus" />
                 </FormField>
-                <FormField label="Weapons" class="col-span-2">
+                <FormField label="Weapons" class="sm:col-span-2">
                     <div class="border border-gray-300 dark:border-gray-600 rounded p-2 max-h-48 overflow-y-auto bg-white dark:bg-gray-700">
                         <label v-for="w in sortedWeapons" :key="w.id" class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 px-1 rounded">
                             <input type="checkbox" :value="w.id" v-model="form.weaponIds" />
@@ -49,7 +49,7 @@
                         </label>
                     </div>
                 </FormField>
-                <FormField label="Unit Special Abilities" class="col-span-2">
+                <FormField label="Unit Special Abilities" class="sm:col-span-2">
                     <div class="border border-gray-300 dark:border-gray-600 rounded p-2 max-h-48 overflow-y-auto bg-white dark:bg-gray-700">
                         <label v-for="a in sortedAbilities" :key="a.id" class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 px-1 rounded">
                             <input type="checkbox" :value="a.id" v-model="form.unitSpecialAbilityIds" />

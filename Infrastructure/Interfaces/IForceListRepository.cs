@@ -11,5 +11,6 @@ namespace Infrastructure.Interfaces {
         Task<ForceList> GetByIdWithUnitsAsync(Guid id);
         Task<Unit> GetUnitByIdAsync(Guid unitId);
         Task<IEnumerable<ForceList>> GetAllWithUnitsAsync(Guid userId);
+        Task<IEnumerable<ForceList>> GetAllDeletedAsync();
     }
 }

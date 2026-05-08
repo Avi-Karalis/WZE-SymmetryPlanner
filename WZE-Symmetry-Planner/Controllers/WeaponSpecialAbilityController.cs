@@ -1,11 +1,13 @@
 ﻿using Application.Interfaces;
 using Application.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace WebAPI.Controllers {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class WeaponSpecialAbilityController : ControllerBase {
         private readonly IWeaponSpecialAbilityService _service;
 
@@ -24,18 +26,21 @@ namespace WebAPI.Controllers {
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<IActionResult> Create([FromBody] WeaponSpecialAbilityCreateDto ability) {
             var created = await _service.CreateAsync(ability);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<IActionResult> Delete(Guid id) {
             var result = await _service.DeleteAsync(id);
             return result ? NoContent() : NotFound();
         }
 
         [HttpPatch("restore/{id}")]
+        [Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<IActionResult> Restore(Guid id) {
             var restored = await _service.RestoreAsync(id);
             return Ok(restored);

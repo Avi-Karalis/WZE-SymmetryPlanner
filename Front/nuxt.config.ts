@@ -4,6 +4,11 @@ export default defineNuxtConfig({
 	devtools: { enabled: true },
 	css: ["@/../assets/css/main.css"],
 	modules: ["@nuxt/ui", "@nuxtjs/color-mode"],
+	app: {
+		head: {
+			viewport: "width=device-width, initial-scale=1",
+		},
+	},
 	colorMode: {
 		classSuffix: "",
 		preference: "dark",

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 max-w-2xl mx-auto">
+  <div class="p-4 sm:p-6 max-w-2xl mx-auto">
     <div class="mb-4">
       <NuxtLink to="/weapons" class="text-gray-400 hover:text-white text-sm">← Weapons</NuxtLink>
     </div>

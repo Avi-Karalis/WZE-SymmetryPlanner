@@ -1,5 +1,5 @@
 <template>
-	<div class="p-6 max-w-7xl mx-auto">
+	<div class="p-4 sm:p-6 max-w-7xl mx-auto">
 		<!-- Header -->
 		<div class="flex items-center gap-3 mb-2">
 			<NuxtLink
@@ -19,11 +19,11 @@
 
 		<template v-if="forceList">
 			<!-- Title bar -->
-			<div class="flex items-start justify-between mb-4">
-				<div>
-					<h1 class="text-2xl font-bold">{{ forceList.name }}</h1>
+			<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between mb-4">
+				<div class="flex-1 min-w-0">
+					<h1 class="text-xl sm:text-2xl font-bold truncate">{{ forceList.name }}</h1>
 					<div
-						class="text-sm text-gray-400 mt-1 flex flex-wrap gap-4"
+						class="text-sm text-gray-400 mt-1 flex flex-wrap gap-3"
 					>
 						<span
 							>Faction:
@@ -51,14 +51,16 @@
 						>
 					</div>
 				</div>
-				<button
-					class="btn-validate"
-					@click="runValidation"
-					:disabled="validating"
-				>
-					{{ validating ? "Validating..." : "Validate List" }}
-				</button>
-				<button class="btn-secondary" @click="showRoster = true">View Roster</button>
+				<div class="flex gap-2 shrink-0">
+					<button
+						class="btn-validate flex-1 sm:flex-none"
+						@click="runValidation"
+						:disabled="validating"
+					>
+						{{ validating ? "Validating..." : "Validate List" }}
+					</button>
+					<button class="btn-secondary flex-1 sm:flex-none" @click="showRoster = true">View Roster</button>
+				</div>
 			</div>
 
 			<!-- DP progress bar -->
@@ -144,7 +146,7 @@
 								<span v-if="unit.spCost > 0" class="text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-2 py-0.5 rounded">+{{ unit.spCost }} SP</span>
 							<span v-if="unit.spCost < 0" class="text-xs bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 px-2 py-0.5 rounded">{{ -unit.spCost }} SP cost</span>
 									<button
-										class="btn-sm btn-danger opacity-0 group-hover:opacity-100 transition"
+										class="btn-sm btn-danger transition opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
 										@click.stop="removeUnit(unit)"
 									>
 										Remove
@@ -158,7 +160,7 @@
 								class="mt-3 border-t border-gray-600 pt-3"
 							>
 								<div
-									class="grid grid-cols-9 gap-1 text-center text-xs mb-2"
+									class="grid grid-cols-5 sm:grid-cols-9 gap-1 text-center text-xs mb-2"
 								>
 									<div
 										v-for="stat in [
@@ -213,15 +215,15 @@
 				<!-- RIGHT: Available units to add -->
 				<div>
 					<h2 class="text-lg font-semibold mb-2">Available Units</h2>
-					<div class="flex gap-2 mb-3">
+					<div class="flex flex-col sm:flex-row gap-2 mb-3">
 						<input
 							v-model="unitSearch"
-							class="field-input text-sm"
+							class="field-input text-sm flex-1"
 							placeholder="Search..."
 						/>
 						<select
 							v-model="filterDesignation"
-							class="field-input text-sm max-w-36"
+							class="field-input text-sm sm:max-w-36"
 						>
 							<option value="">All</option>
 							<option value="Trooper">Troopers</option>
@@ -310,7 +312,7 @@
 							</div>
 
 							<!-- Stat grid -->
-							<div class="grid grid-cols-9 gap-1 text-center text-xs mb-4">
+							<div class="grid grid-cols-5 sm:grid-cols-9 gap-1 text-center text-xs mb-4">
 								<div v-for="stat in ['MV','MW','CC','ST','DEF','AR','W','PW','LD']" :key="stat" class="bg-gray-100 dark:bg-gray-800 rounded py-1">
 									<div class="text-gray-500 dark:text-gray-400">{{ stat }}</div>
 									<div class="font-bold">{{ unit[stat.toLowerCase()] }}</div>

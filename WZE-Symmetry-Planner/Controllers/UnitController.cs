@@ -1,11 +1,13 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace WebAPI.Controllers {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UnitController : ControllerBase {
         private readonly IUnitService _service;
 
@@ -27,12 +29,14 @@ namespace WebAPI.Controllers {
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<IActionResult> Create([FromBody] UnitCreateDto unit) {
             var created = await _service.CreateAsync(unit);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UnitUpdateDto dto) {
             var updated = await _service.UpdateAsync(id, dto);
             if (updated == null) return NotFound();
@@ -40,12 +44,14 @@ namespace WebAPI.Controllers {
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<IActionResult> Delete(Guid id) {
             var result = await _service.DeleteAsync(id);
             return result ? NoContent() : NotFound();
         }
 
         [HttpPatch("restore/{id}")]
+        [Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<IActionResult> Restore(Guid id) {
             var restored = await _service.RestoreAsync(id);
             return Ok(restored);

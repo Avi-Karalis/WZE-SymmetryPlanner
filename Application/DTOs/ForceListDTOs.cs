@@ -21,6 +21,21 @@ namespace Application.DTOs {
     ) {
         public ICollection<UnitReadDto> Units { get; set; } = new List<UnitReadDto>();
     };
+
+    public record ForceListDeletedReadDto(
+        Guid Id,
+        string Name,
+        string Faction,
+        string Allegiance,
+        int MaxDp,
+        Guid UserId,
+        string UserName,
+        string UserEmail,
+        DateTime DeletedAt
+    ) {
+        public ICollection<UnitReadDto> Units { get; set; } = new List<UnitReadDto>();
+    };
+
     public record ForceListUpdateDto(
         string Name,
         string Faction,

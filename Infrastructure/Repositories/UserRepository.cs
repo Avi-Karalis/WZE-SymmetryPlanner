@@ -20,6 +20,9 @@ namespace Infrastructure.Repositories {
         public Task<User?> GetByEmailAsync(string email) =>
             _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
+        public Task<IEnumerable<User>> GetAllAsync() =>
+            Task.FromResult<IEnumerable<User>>(_context.Users.AsEnumerable());
+
         public async Task AddAsync(User user) =>
             await _context.Users.AddAsync(user);
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="p-6 max-w-4xl mx-auto">
+    <div class="p-4 sm:p-6 max-w-4xl mx-auto">
         <PageHeader title="Force Lists">
             <NuxtLink to="/force-lists/create" class="btn-primary">+ New Force List</NuxtLink>
         </PageHeader>
@@ -10,18 +10,18 @@
             <div
                 v-for="fl in forceLists"
                 :key="fl.id"
-                class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-4 flex items-center justify-between hover:border-gray-400 dark:hover:border-gray-500 transition text-gray-800 dark:text-gray-100"
+                class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:border-gray-400 dark:hover:border-gray-500 transition text-gray-800 dark:text-gray-100"
             >
-                <div>
-                    <h2 class="text-lg font-semibold">{{ fl.name }}</h2>
-                    <div class="text-sm text-gray-400 mt-1 flex gap-4">
+                <div class="min-w-0">
+                    <h2 class="text-lg font-semibold truncate">{{ fl.name }}</h2>
+                    <div class="text-sm text-gray-400 mt-1 flex flex-wrap gap-3">
                         <span>Faction: <span class="text-gray-700 dark:text-gray-200">{{ fl.faction }}</span></span>
                         <span>Allegiance: <span class="text-gray-700 dark:text-gray-200">{{ fl.allegiance }}</span></span>
                         <span>Max DP: <span class="text-gray-700 dark:text-gray-200">{{ fl.maxDp }}</span></span>
                         <span>Units: <span class="text-gray-700 dark:text-gray-200">{{ fl.units?.length ?? 0 }}</span></span>
                     </div>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 shrink-0">
                     <NuxtLink :to="`/force-lists/${fl.id}`" class="btn-primary text-sm">Open</NuxtLink>
                     <button class="btn-danger text-sm" @click="confirmDelete(fl)">Delete</button>
                 </div>

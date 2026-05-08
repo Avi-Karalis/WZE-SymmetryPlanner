@@ -56,6 +56,21 @@ public class MappingProfile : Profile {
                                 .Select(flu => ctx.Mapper.Map<UnitReadDto>(flu.Unit))
                                 .ToList();
             });
+
+        // Domain → Deleted Read DTO (admin)
+        CreateMap<ForceList, ForceListDeletedReadDto>()
+            .ForCtorParam("allegiance", opt => opt.MapFrom(src => src.Allegiance != null ? src.Allegiance.Name : string.Empty))
+            .ForCtorParam("userName", opt => opt.MapFrom(src => src.User != null ? src.User.Name : string.Empty))
+            .ForCtorParam("userEmail", opt => opt.MapFrom(src => src.User != null ? src.User.Email : string.Empty))
+            .ForCtorParam("deletedAt", opt => opt.MapFrom(src => src.DeletedAt!.Value))
+            .ForMember(dest => dest.Units, opt => opt.Ignore())
+            .AfterMap((src, dest, ctx) => {
+                dest.Units = src.ForceListUnits
+                                .Where(flu => flu.Unit != null)
+                                .Select(flu => ctx.Mapper.Map<UnitReadDto>(flu.Unit))
+                                .ToList();
+            });
+
         CreateMap<ForceListReadDto, ForceListUpdateDto>();
 
     }

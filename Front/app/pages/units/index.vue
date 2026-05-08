@@ -1,57 +1,89 @@
 <template>
-    <div class="p-6 max-w-7xl mx-auto">
+    <div class="p-4 sm:p-6 max-w-7xl mx-auto">
         <PageHeader title="Units">
-            <NuxtLink to="/units/create" class="btn-primary">+ New Unit</NuxtLink>
+            <NuxtLink v-if="isAdmin" to="/units/create" class="btn-primary">+ New Unit</NuxtLink>
         </PageHeader>
 
         <LoadingError :loading="loading" :error="error" />
 
-        <div class="flex gap-3 mb-4">
-            <input v-model="filterText" class="field-input max-w-xs" placeholder="Filter by name or faction..." />
+        <div class="mb-4">
+            <input v-model="filterText" class="field-input w-full sm:max-w-xs" placeholder="Filter by name or faction..." />
         </div>
 
-        <table v-if="filteredUnits.length" class="w-full text-sm">
-            <thead>
-                <tr class="bg-gray-200 dark:bg-gray-700 text-left text-gray-700 dark:text-gray-100">
-                    <th class="px-3 py-2">Faction / Type</th>
-                    <th class="px-3 py-2">Designation</th>
-                    <th class="px-3 py-2 text-center">DP</th>
-                    <th class="px-3 py-2 text-center">SP</th>
-                    <th class="px-3 py-2 text-center">MV</th>
-                    <th class="px-3 py-2 text-center">MW</th>
-                    <th class="px-3 py-2 text-center">CC</th>
-                    <th class="px-3 py-2 text-center">ST</th>
-                    <th class="px-3 py-2 text-center">DEF</th>
-                    <th class="px-3 py-2 text-center">AR</th>
-                    <th class="px-3 py-2 text-center">W</th>
-                    <th class="px-3 py-2 text-center">LD</th>
-                    <th class="px-3 py-2">Weapons</th>
-                    <th class="px-3 py-2 text-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="u in filteredUnits" :key="u.id" class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <td class="px-3 py-2">
-                        <NuxtLink :to="`/units/${u.id}`" class="text-blue-400 hover:underline font-medium">{{ u.faction }} {{ u.unitType }}</NuxtLink>
-                    </td>
-                    <td class="px-3 py-2 text-xs text-gray-600 dark:text-gray-300">{{ u.designation?.join(', ') }}</td>
-                    <td class="px-3 py-2 text-center">{{ u.dpCost }}</td>
-                    <td class="px-3 py-2 text-center">{{ u.spCost }}</td>
-                    <td class="px-3 py-2 text-center">{{ u.mv }}</td>
-                    <td class="px-3 py-2 text-center">{{ u.mw }}</td>
-                    <td class="px-3 py-2 text-center">{{ u.cc }}</td>
-                    <td class="px-3 py-2 text-center">{{ u.st }}</td>
-                    <td class="px-3 py-2 text-center">{{ u.def }}</td>
-                    <td class="px-3 py-2 text-center">{{ u.ar }}</td>
-                    <td class="px-3 py-2 text-center">{{ u.w }}</td>
-                    <td class="px-3 py-2 text-center">{{ u.ld }}</td>
-                    <td class="px-3 py-2 text-xs text-gray-600 dark:text-gray-300">{{ u.weapons?.map(w => w.name).join(', ') || '—' }}</td>
-                    <td class="px-3 py-2 text-center">
-                        <RowActions @edit="startEdit(u)" @delete="confirmDelete(u)" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- Mobile card view -->
+        <div v-if="filteredUnits.length" class="md:hidden flex flex-col gap-3">
+            <div
+                v-for="u in filteredUnits" :key="u.id"
+                class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-3"
+            >
+                <div class="flex items-start justify-between gap-2 mb-2">
+                    <div>
+                        <NuxtLink :to="`/units/${u.id}`" class="text-blue-400 hover:underline font-semibold text-sm">{{ u.faction }} {{ u.unitType }}</NuxtLink>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ u.designation?.join(', ') }}</div>
+                    </div>
+                    <div class="flex gap-1 shrink-0">
+                        <button v-if="isAdmin" class="btn-sm btn-secondary" @click="startEdit(u)">Edit</button>
+                        <button v-if="isAdmin" class="btn-sm btn-danger" @click="confirmDelete(u)">Del</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-6 gap-1 text-center text-xs">
+                    <div v-for="[label, val] in [['DP', u.dpCost],['MV',u.mv],['CC',u.cc],['ST',u.st],['DEF',u.def],['W',u.w]]" :key="label"
+                        class="bg-gray-200 dark:bg-gray-700 rounded py-1">
+                        <div class="text-gray-500 dark:text-gray-400">{{ label }}</div>
+                        <div class="font-bold text-gray-800 dark:text-gray-100">{{ val }}</div>
+                    </div>
+                </div>
+                <div v-if="u.weapons?.length" class="text-xs text-gray-500 dark:text-gray-400 mt-2 truncate">
+                    {{ u.weapons.map(w => w.name).join(', ') }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop table -->
+        <div v-if="filteredUnits.length" class="hidden md:block overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="bg-gray-200 dark:bg-gray-700 text-left text-gray-700 dark:text-gray-100">
+                        <th class="px-3 py-2">Faction / Type</th>
+                        <th class="px-3 py-2">Designation</th>
+                        <th class="px-3 py-2 text-center">DP</th>
+                        <th class="px-3 py-2 text-center">SP</th>
+                        <th class="px-3 py-2 text-center">MV</th>
+                        <th class="px-3 py-2 text-center">MW</th>
+                        <th class="px-3 py-2 text-center">CC</th>
+                        <th class="px-3 py-2 text-center">ST</th>
+                        <th class="px-3 py-2 text-center">DEF</th>
+                        <th class="px-3 py-2 text-center">AR</th>
+                        <th class="px-3 py-2 text-center">W</th>
+                        <th class="px-3 py-2 text-center">LD</th>
+                        <th class="px-3 py-2">Weapons</th>
+                        <th class="px-3 py-2 text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="u in filteredUnits" :key="u.id" class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <td class="px-3 py-2">
+                            <NuxtLink :to="`/units/${u.id}`" class="text-blue-400 hover:underline font-medium">{{ u.faction }} {{ u.unitType }}</NuxtLink>
+                        </td>
+                        <td class="px-3 py-2 text-xs text-gray-600 dark:text-gray-300">{{ u.designation?.join(', ') }}</td>
+                        <td class="px-3 py-2 text-center">{{ u.dpCost }}</td>
+                        <td class="px-3 py-2 text-center">{{ u.spCost }}</td>
+                        <td class="px-3 py-2 text-center">{{ u.mv }}</td>
+                        <td class="px-3 py-2 text-center">{{ u.mw }}</td>
+                        <td class="px-3 py-2 text-center">{{ u.cc }}</td>
+                        <td class="px-3 py-2 text-center">{{ u.st }}</td>
+                        <td class="px-3 py-2 text-center">{{ u.def }}</td>
+                        <td class="px-3 py-2 text-center">{{ u.ar }}</td>
+                        <td class="px-3 py-2 text-center">{{ u.w }}</td>
+                        <td class="px-3 py-2 text-center">{{ u.ld }}</td>
+                        <td class="px-3 py-2 text-xs text-gray-600 dark:text-gray-300">{{ u.weapons?.map(w => w.name).join(', ') || '—' }}</td>
+                        <td class="px-3 py-2 text-center">
+                            <RowActions v-if="isAdmin" @edit="startEdit(u)" @delete="confirmDelete(u)" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <p v-else-if="!loading" class="text-gray-400">No units found.</p>
 
         <!-- Edit Modal -->
@@ -62,10 +94,10 @@
             @close="closeModal"
         >
             <form @submit.prevent="saveUnit">
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <FormField label="Faction" :required="true"><input v-model="form.faction" class="field-input" required /></FormField>
                     <FormField label="Unit Type" :required="true"><input v-model="form.unitType" class="field-input" required /></FormField>
-                    <FormField label="Designations (comma-separated)" :required="true" class="col-span-2">
+                    <FormField label="Designations (comma-separated)" :required="true" class="sm:col-span-2">
                         <input v-model="designationInput" class="field-input" placeholder="e.g. Trooper, Leader" required />
                     </FormField>
                     <FormField label="Designation Type Limit (comma-separated for multiple)">
@@ -86,10 +118,10 @@
                     <FormField label="PW"><input v-model.number="form.pw" type="number" class="field-input" /></FormField>
                     <FormField label="LD"><input v-model.number="form.ld" type="number" class="field-input" /></FormField>
                     <FormField label="Base"><input v-model.number="form.base" type="number" class="field-input" /></FormField>
-                    <FormField label="Faction Availabilities (comma-separated)" class="col-span-2">
+                    <FormField label="Faction Availabilities (comma-separated)" class="sm:col-span-2">
                         <input v-model="factionAvailInput" class="field-input" placeholder="e.g. Capitol, Bauhaus" />
                     </FormField>
-                    <FormField label="Weapons" class="col-span-2">
+                    <FormField label="Weapons" class="sm:col-span-2">
                         <div class="border border-gray-300 dark:border-gray-600 rounded p-2 max-h-48 overflow-y-auto">
                             <label v-for="w in sortedWeapons" :key="w.id" class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-1 rounded">
                                 <input type="checkbox" :value="w.id" v-model="form.weaponIds" />
@@ -97,7 +129,7 @@
                             </label>
                         </div>
                     </FormField>
-                    <FormField label="Unit Special Abilities" class="col-span-2">
+                    <FormField label="Unit Special Abilities" class="sm:col-span-2">
                         <div class="border border-gray-300 dark:border-gray-600 rounded p-2 max-h-48 overflow-y-auto">
                             <label v-for="a in sortedAbilities" :key="a.id" class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-1 rounded">
                                 <input type="checkbox" :value="a.id" v-model="form.unitSpecialAbilityIds" />
@@ -126,6 +158,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
+const { isAdmin } = useAuth()
 const { units, loading, error, fetchAll, create, update, remove } = useUnits()
 const { weapons: allWeapons, fetchAll: fetchWeapons } = useWeapons()
 const { abilities: allUnitAbilities, fetchAll: fetchUnitAbilities } = useUnitSpecialAbilities()

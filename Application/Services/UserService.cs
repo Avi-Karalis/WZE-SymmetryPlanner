@@ -13,6 +13,19 @@ namespace Application.Services {
 
         public Task<User?> GetByIdAsync(Guid id) => _userRepository.GetByIdAsync(id);
 
+        public Task<IEnumerable<User>> GetAllAsync() => _userRepository.GetAllAsync();
+
+        public async Task<User> UpdateRoleAsync(Guid userId, RoleType role) {
+            var user = await _userRepository.GetByIdAsync(userId)
+                ?? throw new KeyNotFoundException("User not found.");
+            // Prevent changing the SuperAdmin's role
+            if (user.Email.Equals(SuperAdminEmail, StringComparison.OrdinalIgnoreCase))
+                throw new InvalidOperationException("Cannot change the role of the super admin.");
+            user.Role = role;
+            await _userRepository.SaveAsync();
+            return user;
+        }
+
         public async Task<User> GetOrCreateAsync(string providerUserId, string email, string name, string? pictureUrl) {
             var user = await _userRepository.GetByProviderIdAsync(providerUserId);
 

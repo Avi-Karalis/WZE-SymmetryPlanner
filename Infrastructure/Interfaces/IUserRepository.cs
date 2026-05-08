@@ -5,6 +5,7 @@ namespace Infrastructure.Interfaces {
         Task<User?> GetByIdAsync(Guid id);
         Task<User?> GetByProviderIdAsync(string providerUserId);
         Task<User?> GetByEmailAsync(string email);
+        Task<IEnumerable<User>> GetAllAsync();
         Task AddAsync(User user);
         Task SaveAsync();
     }

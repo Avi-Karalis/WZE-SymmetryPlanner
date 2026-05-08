@@ -1,5 +1,5 @@
 <template>
-    <div class="p-6 max-w-lg mx-auto">
+    <div class="p-4 sm:p-6 max-w-lg mx-auto">
         <div class="flex items-center gap-3 mb-6">
             <NuxtLink to="/force-lists" class="text-gray-400 hover:text-white text-sm">← Force Lists</NuxtLink>
             <h1 class="text-2xl font-bold">New Force List</h1>
@@ -20,7 +20,7 @@
             </FormField>
 
             <FormField label="Allegiance" :required="true">
-                <div class="flex gap-4 mt-1">
+                <div class="flex flex-col sm:flex-row gap-3 mt-1">
                     <label class="flex items-center gap-2 cursor-pointer">
                         <input type="radio" :value="0" v-model="form.allegiance" />
                         <span class="text-sm">Agents of Light</span>

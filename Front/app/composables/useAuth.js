@@ -17,6 +17,8 @@ export function useAuth() {
     const router = useRouter()
 
     const isLoggedIn = computed(() => !!token.value)
+    const isAdmin = computed(() => ['Admin', 'SuperAdmin'].includes(user.value?.role))
+    const isSuperAdmin = computed(() => user.value?.role === 'SuperAdmin')
 
     async function login(googleIdToken) {
         const { data } = await $axios.post('/auth/google-login', { idToken: googleIdToken })
@@ -43,5 +45,5 @@ export function useAuth() {
         return token.value
     }
 
-    return { token, user, isLoggedIn, login, logout, getToken }
+    return { token, user, isLoggedIn, isAdmin, isSuperAdmin, login, logout, getToken }
 }

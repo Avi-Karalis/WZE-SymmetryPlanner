@@ -1,12 +1,13 @@
 <template>
-    <div class="p-6 max-w-4xl mx-auto">
+    <div class="p-4 sm:p-6 max-w-4xl mx-auto">
         <PageHeader title="Weapon Special Abilities">
-            <button class="btn-primary" @click="showCreate = true">+ New Ability</button>
+            <button v-if="isAdmin" class="btn-primary" @click="showCreate = true">+ New Ability</button>
         </PageHeader>
 
         <LoadingError :loading="loading" :error="error" />
 
-        <table v-if="abilities.length" class="w-full text-sm">
+        <div v-if="abilities.length" class="overflow-x-auto">
+        <table class="w-full text-sm min-w-[480px]">
             <thead>
                 <tr class="bg-gray-200 dark:bg-gray-700 text-left text-gray-700 dark:text-gray-100">
                     <th class="px-3 py-2">Name</th>
@@ -23,11 +24,12 @@
                     <td class="px-3 py-2 text-gray-600 dark:text-gray-300">{{ a.valueY ?? '—' }}</td>
                     <td class="px-3 py-2 text-gray-600 dark:text-gray-300 text-xs max-w-xs truncate" :title="a.description">{{ a.description }}</td>
                     <td class="px-3 py-2 text-center">
-                        <RowActions @edit="startEdit(a)" @delete="confirmDelete(a)" />
+                        <RowActions v-if="isAdmin" @edit="startEdit(a)" @delete="confirmDelete(a)" />
                     </td>
                 </tr>
             </tbody>
         </table>
+        </div>
         <p v-else-if="!loading" class="text-gray-400">No weapon special abilities found.</p>
 
         <!-- Create / Edit Modal -->
@@ -69,6 +71,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
+const { isAdmin } = useAuth()
 const { abilities, loading, error, fetchAll, create, update, remove } = useWeaponSpecialAbilities()
 
 const showCreate = ref(false)

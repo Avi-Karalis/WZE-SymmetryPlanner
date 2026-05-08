@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 max-w-2xl mx-auto">
+  <div class="p-4 sm:p-6 max-w-2xl mx-auto">
     <div class="mb-4">
       <NuxtLink to="/units" class="text-gray-400 hover:text-white text-sm">← Units</NuxtLink>
     </div>
@@ -15,7 +15,7 @@
       </p>
 
       <!-- Stat grid -->
-      <div class="grid grid-cols-9 gap-2 text-center text-sm mb-6">
+      <div class="grid grid-cols-5 sm:grid-cols-9 gap-2 text-center text-sm mb-6">
         <div v-for="stat in ['MV','MW','CC','ST','DEF','AR','W','PW','LD']" :key="stat" class="bg-gray-200 dark:bg-gray-900 rounded py-1">
           <div class="text-gray-400 text-xs">{{ stat }}</div>
           <div class="font-bold text-base text-gray-900 dark:text-white">{{ unit[stat.toLowerCase()] }}</div>

@@ -25,6 +25,11 @@ namespace Application.Services {
             return _mapper.Map<IEnumerable<ForceListReadDto>>(lists);
         }
 
+        public async Task<IEnumerable<ForceListDeletedReadDto>> GetAllDeletedAsync() {
+            var lists = await _forceListRepository.GetAllDeletedAsync();
+            return _mapper.Map<IEnumerable<ForceListDeletedReadDto>>(lists);
+        }
+
         public async Task<ForceListReadDto> GetByIdAsync(Guid id) {
             var forceList = await _forceListRepository.GetByIdWithUnitsAsync(id);
             return _mapper.Map<ForceListReadDto>(forceList);

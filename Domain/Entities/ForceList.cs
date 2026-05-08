@@ -89,33 +89,48 @@ namespace Domain.Entities {
 
 
         private void ValidateLeaderAndSpecialistTrooperConsumption(List<string> errors) {
-            // Build a read-only trooper pool — each requirement checks against it independently
-            // (a single trooper satisfies both a Leader and a Specialist of the same type)
+            // Pool: only units with "Trooper" designation, keyed by (UnitType, "Trooper") so a
+            // Venusian Ranger Trooper and a Blitzer Trooper are counted separately.
             var trooperPool = Units
                 .Where(u => HasEffectiveDesignation(u, "Trooper"))
                 .GroupBy(u => u.UnitType, StringComparer.OrdinalIgnoreCase)
                 .ToDictionary(g => g.Key, g => g.Count(), StringComparer.OrdinalIgnoreCase);
 
-            foreach (var group in Units
-                .Where(u => HasEffectiveDesignation(u, "Leader") || HasEffectiveDesignation(u, "Specialist"))
-                .GroupBy(u => (u.UnitType, u.DesignationTypeLimit, u.DesignationLimitValue), (key, _) => key)
-                .Distinct()) {
+            // Leaders and Specialists are checked independently against the same pool
+            // (one Trooper can satisfy both a Leader AND a Specialist of the same type).
+            // Within each role, every unit counts toward the required Trooper total.
+            foreach (string role in new[] { "Leader", "Specialist" }) {
+                var groups = Units
+                    .Where(u => HasEffectiveDesignation(u, role)
+                             && !string.IsNullOrWhiteSpace(u.DesignationTypeLimit)
+                             && u.DesignationLimitValue > 0)
+                    .GroupBy(u => (
+                        UnitType: u.UnitType.ToLowerInvariant(),
+                        TrooperType: u.DesignationTypeLimit!.ToLowerInvariant(),
+                        LimitValue: (int)u.DesignationLimitValue));
 
-                var matchingUnits = Units
-                    .Where(u => u.UnitType.Equals(group.UnitType, StringComparison.OrdinalIgnoreCase)
-                             && (HasEffectiveDesignation(u, "Leader") || HasEffectiveDesignation(u, "Specialist")))
-                    .ToList();
+                foreach (var group in groups) {
+                    int unitCount = group.Count();
+                    int required = unitCount * group.Key.LimitValue;
 
-                if (!matchingUnits.Any()) continue;
+                    // Preserve original casing for error messages
+                    Unit sample = group.First();
+                    string unitType = sample.UnitType;
+                    string trooperType = sample.DesignationTypeLimit!;
 
-                Unit sample = matchingUnits.First();
-                int required = sample.DesignationLimitValue; // per unit, same for all in group
-                string trooperType = string.IsNullOrWhiteSpace(sample.DesignationTypeLimit) ? "Any" : sample.DesignationTypeLimit;
-                string designationLabel = HasEffectiveDesignation(sample, "Leader") ? "Leaders" : "Specialists";
-
-                if (!HasEnoughTroopers(trooperPool, trooperType, required))
-                    errors.Add($"{sample.UnitType} {designationLabel} require {required} {trooperType} Troopers, but not enough available.");
+                    // Troopers must match both UnitType (via DesignationTypeLimit) AND
+                    // have the "Trooper" designation (enforced by the pool filter above).
+                    int available = CountAvailableTroopers(trooperPool, trooperType);
+                    if (available < required)
+                        errors.Add(
+                            $"{unitCount} {unitType} {role}(s) require {required} '{trooperType}' Trooper(s), but only {available} available.");
+                }
             }
+        }
+
+        private int CountAvailableTroopers(Dictionary<string, int> pool, string type) {
+            var types = type.Split(',').Select(t => t.Trim());
+            return types.Sum(t => pool.TryGetValue(t, out int c) ? c : 0);
         }
 
         private bool HasEnoughTroopers(Dictionary<string, int> pool, string type, int count) {

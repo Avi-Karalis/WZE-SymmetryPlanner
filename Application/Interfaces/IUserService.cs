@@ -4,5 +4,7 @@ namespace Application.Interfaces {
     public interface IUserService {
         Task<User> GetOrCreateAsync(string providerUserId, string email, string name, string? pictureUrl);
         Task<User?> GetByIdAsync(Guid id);
+        Task<IEnumerable<User>> GetAllAsync();
+        Task<User> UpdateRoleAsync(Guid userId, RoleType role);
     }
 }

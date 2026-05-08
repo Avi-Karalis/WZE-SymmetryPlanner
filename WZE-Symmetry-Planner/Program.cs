@@ -12,7 +12,11 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 Env.Load();
 
 string? password = Environment.GetEnvironmentVariable("POSTGRESPSW");
-string? connectionString = $"Host=localhost;Port=5433;Database=WZE-Symmetry-Planner;Username=postgres;Password={password}";
+string dbHost = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
+string dbPort = Environment.GetEnvironmentVariable("DB_PORT") ?? "5433";
+string dbName = Environment.GetEnvironmentVariable("DB_NAME") ?? "WZE-Symmetry-Planner";
+string dbUser = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
+string? connectionString = $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUser};Password={password}";
 Console.WriteLine($"📡 Connection string: {connectionString}");
 builder.Configuration["ConnectionStrings:DefaultConnection"] = connectionString;
 builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile));
@@ -32,7 +36,9 @@ builder.Services.AddSwaggerGen();
 // TODO: check this when it's time to deploy properly
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowLocalhost", policy => {
-        policy.WithOrigins("http://localhost:3000")
+        var allowedOrigins = (Environment.GetEnvironmentVariable("ALLOWED_ORIGINS") ?? "http://localhost:3000")
+            .Split(',', StringSplitOptions.RemoveEmptyEntries);
+        policy.WithOrigins(allowedOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod();
     });

@@ -1,30 +1,46 @@
-# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-# This stage is used when running from VS in fast mode (Default for Debug configuration)
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
-
-# This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
+# Build stage
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
+
+# Copy solution and all project files first (for layer caching)
+COPY ["WZE-Symmetry-Planner.sln", "."]
 COPY ["WZE-Symmetry-Planner/WZE-Symmetry-Planner.csproj", "WZE-Symmetry-Planner/"]
-RUN dotnet restore "./WZE-Symmetry-Planner/WZE-Symmetry-Planner.csproj"
+COPY ["Application/Application.csproj", "Application/"]
+COPY ["Domain/Domain.csproj", "Domain/"]
+COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
+
+RUN dotnet restore "WZE-Symmetry-Planner/WZE-Symmetry-Planner.csproj"
+
+# Copy all source
 COPY . .
-WORKDIR "/src/WZE-Symmetry-Planner"
-RUN dotnet build "./WZE-Symmetry-Planner.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# This stage is used to publish the service project to be copied to the final stage
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./WZE-Symmetry-Planner.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "WZE-Symmetry-Planner/WZE-Symmetry-Planner.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
-FROM base AS final
+# Install EF tools in build stage so migrations can run at startup
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+
+# Copy published app
+COPY --from=build /app/publish .
+
+# Copy EF tools
+COPY --from=build /root/.dotnet/tools /root/.dotnet/tools
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+# Copy SDK for running EF migrations at startup (needed by RunCommand in Program.cs)
+COPY --from=build /usr/share/dotnet /usr/share/dotnet
+ENV DOTNET_ROOT=/usr/share/dotnet
+
+# Copy source for migrations (ef needs the project files)
+COPY --from=build /src/Infrastructure /src/Infrastructure
+COPY --from=build /src/WZE-Symmetry-Planner /src/WZE-Symmetry-Planner
+COPY --from=build /src/Domain /src/Domain
+COPY --from=build /src/Application /src/Application
+
+EXPOSE 8080
+
 ENTRYPOINT ["dotnet", "WZE-Symmetry-Planner.dll"]

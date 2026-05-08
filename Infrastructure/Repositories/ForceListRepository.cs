@@ -33,9 +33,9 @@ namespace Infrastructure.Repositories {
                 .FirstOrDefaultAsync(f => f.Id == id && f.DeletedAt == null)
                 ?? throw new KeyNotFoundException("Force list not found");
         }
-        public async Task<IEnumerable<ForceList>> GetAllWithUnitsAsync() {
+        public async Task<IEnumerable<ForceList>> GetAllWithUnitsAsync(Guid userId) {
             return await _context.ForceLists
-                .Where(f => f.DeletedAt == null)
+                .Where(f => f.DeletedAt == null && f.UserId == userId)
                 .Include(f => f.Allegiance)
                 .Include(f => f.ForceListUnits)
                     .ThenInclude(flu => flu.Unit)

@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using static WZE_Symmetry_Planner.Utilities.CommandHelper;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -19,6 +22,29 @@ string dbUser = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
 string? connectionString = $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUser};Password={password}";
 Console.WriteLine($"📡 Connection string: {connectionString}");
 builder.Configuration["ConnectionStrings:DefaultConnection"] = connectionString;
+
+// JWT config from env (fallback to appsettings)
+string jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET") ?? builder.Configuration["Jwt:Secret"]!;
+string jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? builder.Configuration["Jwt:Issuer"] ?? "wze-api";
+string jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? builder.Configuration["Jwt:Audience"] ?? "wze-front";
+builder.Configuration["Jwt:Secret"] = jwtSecret;
+builder.Configuration["Jwt:Issuer"] = jwtIssuer;
+builder.Configuration["Jwt:Audience"] = jwtAudience;
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options => {
+        options.TokenValidationParameters = new TokenValidationParameters {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtIssuer,
+            ValidAudience = jwtAudience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
+        };
+    });
+builder.Services.AddAuthorization();
+
 builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile));
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddRepositories();
@@ -27,13 +53,10 @@ builder.Services.AddControllers().AddJsonOptions(o => {
         ReferenceHandler.IgnoreCycles;
 });
 builder.Services.AddServices();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
-// TODO: check this when it's time to deploy properly
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowLocalhost", policy => {
         var allowedOrigins = (Environment.GetEnvironmentVariable("ALLOWED_ORIGINS") ?? "http://localhost:3000")
@@ -43,10 +66,10 @@ builder.Services.AddCors(options => {
               .AllowAnyMethod();
     });
 });
+
 WebApplication app = builder.Build();
 app.UseCors("AllowLocalhost");
 
-// until here
 using (IServiceScope scope = app.Services.CreateScope()) {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
@@ -74,7 +97,7 @@ using (IServiceScope scope = app.Services.CreateScope()) {
         Console.WriteLine($"An error occurred while migrating or initializing the database: {ex.Message}");
     }
 }
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -82,7 +105,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

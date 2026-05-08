@@ -89,72 +89,42 @@ namespace Domain.Entities {
 
 
         private void ValidateLeaderAndSpecialistTrooperConsumption(List<string> errors) {
-            // Build a shared trooper pool (Troopers + Allies-as-Trooper)
-            var availableTroopers = Units
+            // Build a read-only trooper pool — each requirement checks against it independently
+            // (a single trooper satisfies both a Leader and a Specialist of the same type)
+            var trooperPool = Units
                 .Where(u => HasEffectiveDesignation(u, "Trooper"))
                 .GroupBy(u => u.UnitType, StringComparer.OrdinalIgnoreCase)
                 .ToDictionary(g => g.Key, g => g.Count(), StringComparer.OrdinalIgnoreCase);
 
-            // -----------------------------
-            // Leaders first
-            // -----------------------------
-            foreach (var leaderGroup in Units
-                .Where(u => HasEffectiveDesignation(u, "Leader"))
-                .GroupBy(u => u.UnitType, StringComparer.OrdinalIgnoreCase)) {
-                Unit leader = leaderGroup.First();
-                int required = leaderGroup.Count() * leader.DesignationLimitValue;
-                string trooperType = string.IsNullOrWhiteSpace(leader.DesignationTypeLimit) ? "Any" : leader.DesignationTypeLimit;
+            foreach (var group in Units
+                .Where(u => HasEffectiveDesignation(u, "Leader") || HasEffectiveDesignation(u, "Specialist"))
+                .GroupBy(u => (u.UnitType, u.DesignationTypeLimit, u.DesignationLimitValue), (key, _) => key)
+                .Distinct()) {
 
-                if (!ConsumeTroopers(availableTroopers, trooperType, required))
-                    errors.Add($"{leader.UnitType} Leaders require {required} {trooperType} Troopers, but not enough available.");
-            }
+                var matchingUnits = Units
+                    .Where(u => u.UnitType.Equals(group.UnitType, StringComparison.OrdinalIgnoreCase)
+                             && (HasEffectiveDesignation(u, "Leader") || HasEffectiveDesignation(u, "Specialist")))
+                    .ToList();
 
-            // -----------------------------
-            // Specialists next
-            // -----------------------------
-            foreach (var specialistGroup in Units
-                .Where(u => HasEffectiveDesignation(u, "Specialist"))
-                .GroupBy(u => u.UnitType, StringComparer.OrdinalIgnoreCase)) {
-                Unit specialist = specialistGroup.First();
-                int required = specialistGroup.Count() * specialist.DesignationLimitValue;
-                string trooperType = string.IsNullOrWhiteSpace(specialist.DesignationTypeLimit) ? "Any" : specialist.DesignationTypeLimit;
+                if (!matchingUnits.Any()) continue;
 
-                if (!ConsumeTroopers(availableTroopers, trooperType, required))
-                    errors.Add($"{specialist.UnitType} Specialists require {required} {trooperType} Troopers, but not enough available.");
+                Unit sample = matchingUnits.First();
+                int required = sample.DesignationLimitValue; // per unit, same for all in group
+                string trooperType = string.IsNullOrWhiteSpace(sample.DesignationTypeLimit) ? "Any" : sample.DesignationTypeLimit;
+                string designationLabel = HasEffectiveDesignation(sample, "Leader") ? "Leaders" : "Specialists";
+
+                if (!HasEnoughTroopers(trooperPool, trooperType, required))
+                    errors.Add($"{sample.UnitType} {designationLabel} require {required} {trooperType} Troopers, but not enough available.");
             }
         }
 
+        private bool HasEnoughTroopers(Dictionary<string, int> pool, string type, int count) {
+            if (type.Equals("Any", StringComparison.OrdinalIgnoreCase))
+                return pool.Values.Sum() >= count;
 
-        private bool ConsumeTroopers(Dictionary<string, int> pool, string type, int count) {
-            if (type.Equals("Any", StringComparison.OrdinalIgnoreCase)) {
-                int totalAvailable = pool.Values.Sum();
-                if (totalAvailable < count) return false;
-
-                foreach (var key in pool.Keys.ToList()) {
-                    if (count <= 0) break;
-                    int deduct = Math.Min(count, pool[key]);
-                    pool[key] -= deduct;
-                    count -= deduct;
-                }
-
-                return true;
-            } else {
-                // Support comma-separated multi-type (e.g. "Undead Legionnaire, Necromutant")
-                var types = type.Split(',').Select(t => t.Trim()).ToList();
-                int totalAvailable = types.Sum(t => pool.TryGetValue(t, out int c) ? c : 0);
-                if (totalAvailable < count) return false;
-
-                foreach (var t in types) {
-                    if (count <= 0) break;
-                    if (pool.TryGetValue(t, out int avail) && avail > 0) {
-                        int deduct = Math.Min(count, avail);
-                        pool[t] -= deduct;
-                        count -= deduct;
-                    }
-                }
-
-                return true;
-            }
+            var types = type.Split(',').Select(t => t.Trim()).ToList();
+            int totalAvailable = types.Sum(t => pool.TryGetValue(t, out int c) ? c : 0);
+            return totalAvailable >= count;
         }
         private void ValidateSupportPoints(List<string> errors) {
             int spBudget = Units.Where(u => u.SPCost > 0).Sum(u => (int)u.SPCost); // SP granted by leaders

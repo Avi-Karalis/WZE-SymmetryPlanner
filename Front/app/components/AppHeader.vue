@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
+const { user, logout, isLoggedIn } = useAuth();
 
 const isActive = (path) => route.path.startsWith(path);
 </script>
@@ -54,7 +55,25 @@ const isActive = (path) => route.path.startsWith(path);
           Weapon Abilities
         </NuxtLink>
       </div>
-      <Switch />
+
+      <div class="flex items-center gap-3">
+        <Switch />
+        <template v-if="isLoggedIn && user">
+          <img
+            v-if="user.pictureUrl"
+            :src="user.pictureUrl"
+            :alt="user.name"
+            class="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600"
+          />
+          <span class="text-sm text-gray-600 dark:text-gray-300 hidden sm:inline">{{ user.name }}</span>
+          <button
+            @click="logout"
+            class="text-sm text-red-500 hover:text-red-400 transition-colors"
+          >
+            Logout
+          </button>
+        </template>
+      </div>
     </nav>
   </header>
 </template>

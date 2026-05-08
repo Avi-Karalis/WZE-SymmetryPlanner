@@ -479,10 +479,6 @@ namespace Infrastructure.Data
 
             context.Units.AddRange(units);
 
-            if (!context.Users.Any()) {
-                User user = new("ID", "Averkkaralis@gmail.com", "Avi") { Id = Guid.Parse("00000000-0000-0000-0000-000000000001") };
-                context.Users.Add(user);
-            }
             context.SaveChanges();
             // Seed data for Weapons
 

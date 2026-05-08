@@ -20,8 +20,8 @@ namespace Application.Services {
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ForceListReadDto>> GetAllAsync() {
-            var lists = await _forceListRepository.GetAllWithUnitsAsync();
+        public async Task<IEnumerable<ForceListReadDto>> GetAllAsync(Guid userId) {
+            var lists = await _forceListRepository.GetAllWithUnitsAsync(userId);
             return _mapper.Map<IEnumerable<ForceListReadDto>>(lists);
         }
 

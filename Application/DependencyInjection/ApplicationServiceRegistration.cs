@@ -12,6 +12,7 @@ namespace Application.DependencyInjection {
             serviceCollection.AddScoped(typeof(IWeaponSpecialAbilityService), typeof(WeaponSpecialAbilityService));
             serviceCollection.AddScoped(typeof(IUnitSpecialAbilityService), typeof(UnitSpecialAbilityService));
             serviceCollection.AddScoped(typeof(IForceListService), typeof(ForceListService));
+            serviceCollection.AddScoped(typeof(IUserService), typeof(UserService));
 
             return serviceCollection;
         }

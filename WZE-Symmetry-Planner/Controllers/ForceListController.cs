@@ -1,19 +1,27 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace WZE_Symmetry_Planner.Controllers {
     [ApiController]
     [Route("api/force-lists")]
-    public class ForceListController : ControllerBase{
+    [Authorize]
+    public class ForceListController : ControllerBase {
         private readonly IForceListService _service;
-        public ForceListController(IForceListService service) {
+        private readonly IUserService _userService;
+        public ForceListController(IForceListService service, IUserService userService) {
             _service = service;
+            _userService = userService;
         }
+
+        private Guid CurrentUserId =>
+            Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
         [HttpGet]
         public async Task<IActionResult> GetAll() {
-            return Ok(await _service.GetAllAsync());
+            return Ok(await _service.GetAllAsync(CurrentUserId));
         }
 
         [HttpGet("factions")]
@@ -28,7 +36,12 @@ namespace WZE_Symmetry_Planner.Controllers {
 
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] ForceListCreateDto dto) {
-            var id = await _service.CreateForceListAsync(dto);
+            var userId = CurrentUserId;
+            var user = await _userService.GetByIdAsync(userId);
+            if (user is null)
+                return Unauthorized(new { message = "User session expired. Please log in again." });
+            var dtoWithUser = dto with { UserId = userId };
+            var id = await _service.CreateForceListAsync(dtoWithUser);
             return Ok(new { ForceListId = id });
         }
 
@@ -49,14 +62,18 @@ namespace WZE_Symmetry_Planner.Controllers {
             var (isValid, errors) = await _service.ValidateAsync(id);
             return Ok(new { isValid, errors });
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id) {
             var result = await _service.GetByIdAsync(id);
+            if (result.UserId != CurrentUserId) return Forbid();
             return Ok(result);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id) {
+            var result = await _service.GetByIdAsync(id);
+            if (result.UserId != CurrentUserId) return Forbid();
             await _service.DeleteAsync(id);
             return NoContent();
         }

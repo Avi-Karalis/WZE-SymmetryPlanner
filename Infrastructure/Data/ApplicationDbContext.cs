@@ -99,6 +99,14 @@ namespace Infrastructure.Data {
 
             // Apply any additional configurations
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+            // -------------------
+            // Users
+            // -------------------
+            modelBuilder.Entity<User>(entity => {
+                entity.HasIndex(u => u.ProviderUserId).IsUnique();
+                entity.HasIndex(u => u.Email).IsUnique();
+            });
   
             // Optional: soft delete filters
             // modelBuilder.Entity<SpecialAbility>().HasQueryFilter(w => w.DeletedAt == null);

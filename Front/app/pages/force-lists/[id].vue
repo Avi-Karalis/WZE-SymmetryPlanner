@@ -539,7 +539,9 @@ function printRoster() {
         .gap-2 { gap: 8px; }
         .gap-1 { gap: 4px; }
         .grid { display: grid; }
-        .grid-cols-9 { grid-template-columns: repeat(9, 1fr); }
+        .grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+        .grid-cols-9 { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+        .grid > div { white-space: nowrap; }
         .text-center { text-align: center; }
         .rounded { border-radius: 4px; }
         .bg-gray-100 { background: #f3f4f6; }

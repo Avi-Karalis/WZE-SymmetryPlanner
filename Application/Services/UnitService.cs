@@ -25,8 +25,8 @@ namespace Application.Services {
         public async Task<UnitReadDto> GetFullByIdAsync(Guid id) {
             return _mapper.Map<UnitReadDto>(await _unitRepository.GetFullByIdAsync(id));
         }
-        public async Task<IEnumerable<UnitReadDto>> GetAllByFactionAsync(string faction) { 
-           return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAllByFactionAsync(faction));
+        public async Task<IEnumerable<UnitReadDto>> GetAllByFactionAsync(string faction) {
+            return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAllByFactionAsync(faction));
         }
         public async Task<IEnumerable<UnitReadDto>> GetAllFullAsync() {
             return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAllFullAsync());
@@ -34,39 +34,44 @@ namespace Application.Services {
 
         public override async Task<UnitReadDto> CreateAsync(UnitCreateDto unitDto) {
             Unit unitEntity = _mapper.Map<Unit>(unitDto);
-            var newAbilities = new List<UnitSpecialAbility>();
-            foreach (Guid abilityEntry in unitDto.UnitSpecialAbilityIds) {
-                UnitSpecialAbility ability;
+            unitEntity.UnitUnitSpecialAbilities = new List<UnitUnitSpecialAbility>();
+            unitEntity.UnitWeapon = new List<UnitWeapon>();
 
-                if (abilityEntry != Guid.Empty) {
-                    ability = _mapper.Map<UnitSpecialAbility>( await _unitAbilityService.GetByIdAsync(abilityEntry))
-                              ?? throw new Exception("UnitSpecialAbility not found");
-                } else {
-                    ability = null!;
+            foreach (var abilityId in unitDto.UnitSpecialAbilityIds ?? Enumerable.Empty<Guid>()) {
+                if (abilityId == Guid.Empty) {
+                    continue;
+                }
+                var ability = await _unitAbilityService.GetEntityByIdAsync(abilityId)
+                              ?? throw new Exception($"UnitSpecialAbility {abilityId} not found");
+                if (ability == null) {
+                    throw new Exception($"UnitSpecialAbility with ID {abilityId} not found");
+
                 }
 
-                newAbilities.Add(ability);
+
+                unitEntity.UnitUnitSpecialAbilities.Add(new UnitUnitSpecialAbility {
+                    Unit = unitEntity,
+                    UnitSpecialAbility = ability
+                });
             }
 
-            unitEntity.AddUnitSpecialAbility(newAbilities);
+            // Add weapons
+            foreach (var weaponId in unitDto.WeaponIds ?? Enumerable.Empty<Guid>()) {
+                if (weaponId == Guid.Empty)
+                    continue;
 
+                var weapon = await _weaponService.GetEntityByIdAsync(weaponId);
 
-            foreach (var weaponEntry in unitDto.WeaponIds ) {
-                WeaponReadDto weapon;
+                if (weapon == null)
+                    throw new Exception($"Weapon {weaponId} not found");
 
-                if (weaponEntry != Guid.Empty) {
-                    weapon = _mapper.Map<WeaponReadDto>(await _weaponService.GetByIdAsync(weaponEntry))
-                             ?? throw new Exception("Weapon not found");
-                } else {
-                    weapon = await _weaponService.CreateAsync(_mapper.Map<WeaponCreateDto>(weaponEntry));
-                }
-
-                unitEntity.AddWeapon(_mapper.Map<Weapon>(weapon));
+                unitEntity.UnitWeapon.Add(new UnitWeapon {
+                    Unit = unitEntity,
+                    Weapon = weapon
+                });
             }
-
 
             var createdUnit = await _unitRepository.CreateAsync(unitEntity);
-
 
             return _mapper.Map<UnitReadDto>(createdUnit);
         }

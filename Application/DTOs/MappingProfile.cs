@@ -17,7 +17,7 @@ public class MappingProfile : Profile {
         CreateMap<UnitSpecialAbility, UnitSpecialAbilityReadDto>();
         CreateMap<UnitSpecialAbilityCreateDto, UnitSpecialAbility>();
         CreateMap<UnitSpecialAbilityUpdateDto, UnitSpecialAbility>();
-
+        CreateMap<UnitSpecialAbilityReadDto, UnitSpecialAbility>();
         // ===== Weapon =====
         CreateMap<Weapon, WeaponReadDto>()
             .ForMember(dest => dest.WeaponSpecialAbilities,
@@ -25,7 +25,7 @@ public class MappingProfile : Profile {
 
         CreateMap<WeaponCreateDto, Weapon>();
         CreateMap<WeaponUpdateDto, Weapon>();
-
+        CreateMap<WeaponReadDto, Weapon>();
         // ===== WeaponSpecialAbility =====
         CreateMap<WeaponSpecialAbility, WeaponSpecialAbilityReadDto>();
         CreateMap<WeaponSpecialAbilityCreateDto, WeaponSpecialAbility>();

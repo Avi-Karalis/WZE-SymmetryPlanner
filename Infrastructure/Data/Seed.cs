@@ -336,7 +336,7 @@ namespace Infrastructure.Data
             Unit attillaSupportHMG = new("Cybertronic", "Attilla Mk III Cuirassier", ["Support"], 8, -3, 3, 13, 12, 12, 1, 25, 3, 10, 10, 40, null, 0, new List<UnitSpecialAbility> { aggressive, firingStance, nervesOfSteel, networked }, ["Cybertronic"]);
             attillaSupportHMG.AddWeapons([sSW4200PHMG]);
             Unit attillaSupportFT = new("Cybertronic", "Attilla Mk III Cuirassier", ["Support"], 8, -1, 3, 13, 12, 12, 1, 25, 3, 10, 10, 40, null, 0, new List<UnitSpecialAbility> { aggressive, firingStance, nervesOfSteel, networked }, ["Cybertronic"]);
-            attillaSupportHMG.AddWeapons([gehennaPuker]);
+            attillaSupportFT.AddWeapons([gehennaPuker]);
             units.AddRange([attillaTrooper, attillaSupportHMG, attillaSupportFT]);
 
             // Seed data for IM Units

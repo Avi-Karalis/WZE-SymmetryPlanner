@@ -13,7 +13,7 @@ namespace Application.DependencyInjection {
             serviceCollection.AddScoped(typeof(IUnitSpecialAbilityService), typeof(UnitSpecialAbilityService));
             serviceCollection.AddScoped(typeof(IForceListService), typeof(ForceListService));
             serviceCollection.AddScoped(typeof(IUserService), typeof(UserService));
-
+            serviceCollection.AddScoped(typeof(IAssetService), typeof(AssetService));
             return serviceCollection;
         }
     }

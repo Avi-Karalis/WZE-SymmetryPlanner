@@ -45,7 +45,10 @@ export function useForceLists() {
         const res = await $axios.get(`/force-lists/units/${encodeURIComponent(faction)}`)
         return res.data
     }
-
+    const getAssetsForFaction = async (faction) => {
+        const res = await $axios.get(`/force-lists/assets/${encodeURIComponent(faction)}`)
+        return res.data
+    }
     const create = async (dto) => {
         loading.value = true
         error.value = null
@@ -71,6 +74,13 @@ export function useForceLists() {
     const removeUnit = async (forceListId, unitId) => {
         await $axios.post(`/force-lists/${forceListId}/units/rem`, null, { params: { unitId } })
     }
+    const addAsset = async (forceListId, assetId) => {
+        await $axios.post(`/force-lists/${forceListId}/assets`, null, { params: { assetId } })
+    }
+
+    const removeAsset = async (forceListId, assetId) => {
+        await $axios.post(`/force-lists/${forceListId}/assets/rem`, null, { params: { assetId } })
+    }
 
     const validate = async (forceListId) => {
         const res = await $axios.post(`/force-lists/${forceListId}/validate`)
@@ -90,5 +100,7 @@ export function useForceLists() {
         addUnit,
         removeUnit,
         validate,
+        addAsset,
+        removeAsset,getAssetsForFaction
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197
+# Visual Studio Version 18
+VisualStudioVersion = 18.5.11723.231 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WZE-Symmetry-Planner", "WZE-Symmetry-Planner\WZE-Symmetry-Planner.csproj", "{0EFAC5C6-16B0-4C83-8888-3271E2AECFBD}"
 EndProject

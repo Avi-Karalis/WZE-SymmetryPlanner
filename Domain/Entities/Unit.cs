@@ -1,6 +1,5 @@
 ﻿
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace Domain.Entities {
 
@@ -14,7 +13,7 @@ namespace Domain.Entities {
         public ICollection<UnitUnitSpecialAbility> UnitUnitSpecialAbilities { get; set; } = new List<UnitUnitSpecialAbility>();
         public sbyte DPCost { get; set; }
         public sbyte SPCost { get; set; }
-        public sbyte MV {  get; set; }
+        public sbyte MV { get; set; }
         public sbyte MW { get; set; }
         public sbyte CC { get; set; }
         public sbyte ST { get; set; }
@@ -30,27 +29,27 @@ namespace Domain.Entities {
 
         public Unit() { }
         public Unit(
-    string faction,
-    string unitType,
-    IEnumerable<string> designation,
-    sbyte dpCost,
-    sbyte spCost,
-    sbyte mv,
-    sbyte mw,
-    sbyte cc,
-    sbyte st,
-    sbyte def,
-    sbyte ar,
-    sbyte w,
-    sbyte pw,
-    sbyte ld,
-    sbyte @base,
-    string? designationTypeLimit = null,
-    sbyte designationLimitValue = 0,
-    ICollection<UnitSpecialAbility>? unitSpecialAbilities = null,
-    ICollection<string>? factionAvailabilities = null,
-    ICollection<UnitWeapon>? unitWeapon = null
-) {
+            string faction,
+            string unitType,
+            IEnumerable<string> designation,
+            sbyte dpCost,
+            sbyte spCost,
+            sbyte mv,
+            sbyte mw,
+            sbyte cc,
+            sbyte st,
+            sbyte def,
+            sbyte ar,
+            sbyte w,
+            sbyte pw,
+            sbyte ld,
+            sbyte @base,
+            string? designationTypeLimit = null,
+            sbyte designationLimitValue = 0,
+            ICollection<UnitSpecialAbility>? unitSpecialAbilities = null,
+            ICollection<string>? factionAvailabilities = null,
+            ICollection<UnitWeapon>? unitWeapon = null
+           ) {
             Faction = faction;
             UnitType = unitType;
             Designation = designation;

@@ -14,6 +14,7 @@ namespace Infrastructure.Data {
         public DbSet<ForceList> ForceLists { get; set; }
         public DbSet<ForceListUnit> ForceListUnits { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Asset> Assets { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
@@ -108,6 +109,7 @@ namespace Infrastructure.Data {
                 entity.HasIndex(u => u.Email).IsUnique();
             });
   
+
             // Optional: soft delete filters
             // modelBuilder.Entity<SpecialAbility>().HasQueryFilter(w => w.DeletedAt == null);
             // modelBuilder.Entity<Unit>().HasQueryFilter(u => u.DeletedAt == null);

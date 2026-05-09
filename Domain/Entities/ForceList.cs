@@ -11,11 +11,12 @@ namespace Domain.Entities {
         public sbyte? CurrentSp { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
+        public ICollection<ForceListAsset> ForceListAssets { get; set; } = new List<ForceListAsset>();
         public ICollection<ForceListUnit> ForceListUnits { get; set; } = new List<ForceListUnit>();
         private static readonly string[] AllyDesignations ={"Advisor","Seconding","Dark Cult"};
 
         private IEnumerable<Unit> Units =>
-    ForceListUnits.Select(flu => flu.Unit);
+            ForceListUnits.Select(flu => flu.Unit);
         public bool Validate(out List<string> errors) {
             errors = new List<string>();
 
@@ -26,6 +27,7 @@ namespace Domain.Entities {
             ValidateSupportPoints(errors);
             ValidateDeploymentPoints(errors);
             ValidateAllyDpLimit(errors);
+            ValidateAssets(errors);
 
             return errors.Count == 0;
         }
@@ -45,7 +47,14 @@ namespace Domain.Entities {
             if (!Units.Any(u => HasEffectiveDesignation(u, "Leader")))
                 errors.Add("Force must include at least one Leader.");
         }
-
+        private void ValidateAssets(List<string> errors) {
+            var duplicateAssets = ForceListAssets.Where(fla => fla.Asset != null)
+                .GroupBy(fla => fla.Asset!.Name, StringComparer.OrdinalIgnoreCase)
+                .Where(g => g.Count() > 1)
+                .Select(g => g.Key);
+            foreach(string dupe in duplicateAssets)
+                errors.Add($"Asset '{dupe}' appears more than once in the Force.");
+        }
         private void ValidateUniqueUnits(List<string> errors) {
             var duplicateUniques = Units
                 .Where(u => HasEffectiveDesignation(u, "Unique"))

@@ -30,6 +30,8 @@ namespace Infrastructure.Repositories {
                     .ThenInclude(flu => flu.Unit)
                         .ThenInclude(u => u.UnitUnitSpecialAbilities)
                             .ThenInclude(uusa => uusa.UnitSpecialAbility)
+                .Include(f=> f.ForceListAssets)
+                    .ThenInclude(fla => fla.Asset)
                 .FirstOrDefaultAsync(f => f.Id == id && f.DeletedAt == null)
                 ?? throw new KeyNotFoundException("Force list not found");
         }
@@ -37,6 +39,8 @@ namespace Infrastructure.Repositories {
             return await _context.ForceLists
                 .Where(f => f.DeletedAt == null && f.UserId == userId)
                 .Include(f => f.Allegiance)
+                .Include(f => f.ForceListAssets)
+                    .ThenInclude(fla => fla.Asset)
                 .Include(f => f.ForceListUnits)
                     .ThenInclude(flu => flu.Unit)
                 .ToListAsync();
@@ -47,6 +51,8 @@ namespace Infrastructure.Repositories {
                 .Where(f => f.DeletedAt != null)
                 .Include(f => f.Allegiance)
                 .Include(f => f.User)
+                .Include(f=> f.ForceListAssets)
+                    .ThenInclude(fla => fla.Asset)
                 .Include(f => f.ForceListUnits)
                     .ThenInclude(flu => flu.Unit)
                 .OrderByDescending(f => f.DeletedAt)

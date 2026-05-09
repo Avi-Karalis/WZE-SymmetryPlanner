@@ -12,5 +12,8 @@ namespace Application.Interfaces {
         Task RemoveUnitAsync(Guid forceListId, Guid unitId);
         Task<ForceListReadDto> GetByIdAsync(Guid id);
         Task<(bool isValid, List<string> errors)> ValidateAsync(Guid forceListId);
+        Task<List<AssetReadDTO>> GetAssetsForFactionAsync(string faction);
+        Task AddAsset(Guid forceListId, Guid assetId);
+        Task RemoveAsset(Guid forceListId, Guid assetId);
     }
 }

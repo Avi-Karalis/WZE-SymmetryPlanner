@@ -22,6 +22,7 @@ namespace Application.DTOs {
         Guid UserId
     ) {
         public ICollection<UnitReadDto> Units { get; set; } = new List<UnitReadDto>();
+        public ICollection<AssetReadDTO> Assets { get; set; } = new List<AssetReadDTO>();
     };
 
     public record ForceListDeletedReadDto(
@@ -37,6 +38,7 @@ namespace Application.DTOs {
         DateTime DeletedAt
     ) {
         public ICollection<UnitReadDto> Units { get; set; } = new List<UnitReadDto>();
+        public ICollection<AssetReadDTO> Assets { get; set; } = new List<AssetReadDTO>();
     };
 
     public record ForceListUpdateDto(

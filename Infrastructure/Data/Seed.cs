@@ -478,7 +478,48 @@ namespace Infrastructure.Data
 
 
             context.Units.AddRange(units);
+            Asset commandHelm = new("General", "Command Helmet", 1, "Designate a Unit with the Command (X) Unit Special Ability. That Unit Special Ability’s range is increased by +4 Inches.");
+            Asset cyberneticPowerArm = new("General", "Cybernetic Power Arm", 1, "Designate a Unit. That Unit’s ST Rating increases by +2.");
+            Asset extraKit = new("General", "Extra Kit", 1, "The Crit Fail Rating for all of that Unit’s Weapons are increased by +1, to a maximum of 20.");
+            Asset hyperactivator = new("General", "Hyperactivator", 1, "Designate a Unit. That Unit’s Reposition movement distance is increased to 4 Inches.");
+            Asset intelMisdirection = new("General", "Intel Misdirection", 1, "Once per game, when rolling for Initiative in the Start Turn Phase, the opposing player may be forced to re-roll their result.");
+            Asset missionCritical = new("General", "Mission Critical", 1, "For one Turn per game, selected in the Start Turn Phase of that Turn, Friendly Units may perform Interact Actions even when Engaged with an Enemy Unit.");
 
+            Asset fireSupport = new("Bauhaus", "Fire Support", 1, "Once per game, designate up to two Enemy Units within 12 Inches of each other and at least 8 Inches from any Friendly Unit. Those Units may not perform Ambush or Counterattack Reactions that Turn.");
+            Asset reliability = new("Bauhaus", "Reliability", 1, "For one Turn per game, Friendly Units do not receive a Reload Counter when their Shoot Action results in a Critical Failure.");
+            Asset theMomentHasCome = new("Bauhaus", "The Moment Has Come!", 1, "Once per game, before rolling for Initiative after the first Turn, this Force is considered to have rolled a 1 regardless of actual result.");
+            
+            Asset airStrike = new("Capitol", "Air Strike", 1, "Once per game, a Friendly Leader Unit may perform a Shoot Action using LD instead of MW with the Air Strike Weapon Profile.");
+            Asset helicopterDeployment = new("Capitol", "Helicopter Deployment", 1, "Designate a Unit. During the first Turn, it enters the Battlefield from an edge other than Side A or Side B and outside the opposing Deployment Area.");
+            Asset supplyDrop = new("Capitol", "Supply Drop", 1, "Once per game, remove all Reload Counters from Friendly Units within 8 Inches of a selected spot.");
+
+            Asset arcaneImmunity = new("Cybertronic", "Arcane Immunity", 1, "Designate a Unit. That Unit cannot be targeted by Strike or Shoot Actions with the Divine or Symmetry Weapon Special Abilities.");
+            Asset networkHub = new("Cybertronic", "Network Hub", 1, "Designate a Unit with the Networked Unit Special Ability. Friendly Networked Units may relocate Reaction Counters to this Unit even if it already has one.");
+            Asset subrealLink = new("Cybertronic", "Subreal Link", 1, "Designate a Unit. This Unit may re-roll failed TN(LD) Tests performed as part of an Interact Action.");
+
+            Asset clanRivalry = new("Imperial", "Clan Rivalry", 1, "Once per game, after a Friendly Unit rolls a 20 on a Shoot or Strike Action Test, designate a Unit that ignores Critical Failure effects for the rest of the game.");
+            Asset seizeTheInitiative = new("Imperial", "Seize the Initiative", 1, "This Force does not include its current VPs when calculating Initiative Score.");
+            Asset toTheLastWarrior = new("Imperial", "To the Last Warrior", 1, "Each Turn, one Friendly Unit may perform a TN(LD) Test to remove a Pinned Counter.");
+
+            Asset heirloomBlade = new("Mishima", "Heirloom Blade", 1, "Designate a Unit armed with Ceremonial Blades. Those Weapons receive a x1 Damage Multiplier.");
+            Asset honoredCharge = new("Mishima", "Honored Charge", 1, "For one Turn per game, Friendly Units that Charge as their first Action gain +1 CC and +1 ST.");
+            Asset daimyo = new("Mishima", "Daimyo", 1, "A Leader with Command (X) may select two Friendly Trooper Units when using Command.");
+
+            Asset f214Flamer = new("Brotherhood", "F-214 Flamer", 1, "Designate a Unit equipped with a Handgun Weapon. Shoot Actions gain Continuous and Projected at Short Range.");
+            Asset devotionAndZeal = new("Brotherhood", "Devotion and Zeal", 1, "Designate a Unit to receive Faith (1), or increase existing Faith (X) by +1.");
+            Asset wordOfTheCardinal = new("Brotherhood", "Word of the Cardinal", 1, "A Leader with Faith (X) may spend a Faith token to automatically succeed TN(LD) Tests.");
+
+            Asset carcassSuit = new("Necrotech", "Carcass Suit", 1, "When this Unit Charges, one Engaged Enemy Unit suffers an automatic DAM 7 hit.");
+            Asset selfRepair = new("Necrotech", "Self Repair", 1, "When Activated with Wound Counters, this Unit may make a TN(10) Test to remove one Wound Counter once per game.");
+            Asset subdermalImplants = new("Necrotech", "Subdermal Implants", 1, "Designate a Unit with AR 22 or less. That Unit’s AR increases by +1.");
+
+            Asset invokeFrenzy = new("Algeroth", "Invoke Frenzy", 1, "A Unit with Command (X) may grant Fierce Charge to a Friendly Unit within 12 Inches and LOS.");
+            Asset distort = new("Algeroth", "Distort", 1, "For one Turn, Enemy Units within 2 Inches suffer -2 CC, ST, and LD.");
+            Asset alphaLegionnaire = new("Algeroth", "Alpha Legionnaire", 1, "An Undead Legionnaire gains +1 CC, +1 MW, and Controller (3).");
+            Asset centurionSpecialForces = new("Algeroth", "Centurion Special Forces", 1, "For each Alpha Nassal Unit, up to two Centurion Units may replace Leader with Trooper.");
+            
+            List<Asset> assets = new List<Asset> { fireSupport, reliability, theMomentHasCome, commandHelm, cyberneticPowerArm, extraKit, hyperactivator, intelMisdirection, missionCritical, airStrike, helicopterDeployment, supplyDrop, arcaneImmunity, networkHub, subrealLink, clanRivalry, seizeTheInitiative, toTheLastWarrior, heirloomBlade, honoredCharge, daimyo, f214Flamer, devotionAndZeal, wordOfTheCardinal, carcassSuit, selfRepair, subdermalImplants, invokeFrenzy, distort, alphaLegionnaire, centurionSpecialForces };
+            context.Assets.AddRange(assets);
             context.SaveChanges();
             // Seed data for Weapons
 

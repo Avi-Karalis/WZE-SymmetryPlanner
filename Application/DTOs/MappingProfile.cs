@@ -12,7 +12,10 @@ public class MappingProfile : Profile {
                        opt => opt.MapFrom(src => src.UnitWeapon.Select(uw => uw.Weapon)));
         CreateMap<UnitCreateDto, Unit>();
         CreateMap<UnitUpdateDto, Unit>();
-
+        CreateMap<Asset, AssetReadDTO>();
+        CreateMap<AssetCreateDTO, Asset>();
+        CreateMap<AssetUpdateDTO, Asset>();
+        CreateMap<AssetReadDTO, Asset>();
         // ===== UnitSpecialAbility =====
         CreateMap<UnitSpecialAbility, UnitSpecialAbilityReadDto>();
         CreateMap<UnitSpecialAbilityCreateDto, UnitSpecialAbility>();
@@ -45,17 +48,27 @@ public class MappingProfile : Profile {
 
         // Domain → Read DTO
         CreateMap<ForceList, ForceListReadDto>()
-            .ForCtorParam("allegiance", opt => opt.MapFrom(src => src.Allegiance.Name))
-            .ForCtorParam("maxSp", opt => opt.MapFrom(src =>
-                src.ForceListUnits.Where(flu => flu.Unit != null && flu.Unit.SPCost < 0)
-                                  .Sum(flu => (int)Math.Abs(flu.Unit.SPCost))))
-            .ForMember(dest => dest.Units, opt => opt.Ignore())
-            .AfterMap((src, dest, ctx) => {
-                dest.Units = src.ForceListUnits
-                                .Where(flu => flu.Unit != null)
-                                .Select(flu => ctx.Mapper.Map<UnitReadDto>(flu.Unit))
-                                .ToList();
-            });
+            .ForCtorParam("allegiance", opt =>
+                opt.MapFrom(src => src.Allegiance.Name))
+
+            .ForCtorParam("maxSp", opt =>
+                opt.MapFrom(src =>
+                    src.ForceListUnits
+                        .Where(flu => flu.Unit != null && flu.Unit.SPCost < 0)
+                        .Sum(flu => Math.Abs((int)flu.Unit.SPCost))
+                ))
+
+            .ForMember(dest => dest.Assets, opt => opt.MapFrom(src =>
+                src.ForceListAssets
+                    .Where(fla => fla.Asset != null)
+                    .Select(fla => fla.Asset)
+            ))
+
+            .ForMember(dest => dest.Units, opt => opt.MapFrom(src =>
+                src.ForceListUnits
+                    .Where(flu => flu.Unit != null)
+                    .Select(flu => flu.Unit)
+            ));
 
         // Domain → Deleted Read DTO (admin)
         CreateMap<ForceList, ForceListDeletedReadDto>()
@@ -72,6 +85,6 @@ public class MappingProfile : Profile {
             });
 
         CreateMap<ForceListReadDto, ForceListUpdateDto>();
-
+       
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -34,6 +35,10 @@ namespace WZE_Symmetry_Planner.Controllers {
             return Ok(await _service.GetUnitsForFactionAsync(faction));
         }
 
+        [HttpGet("assets/{faction}")]
+        public async Task<IActionResult> GetAssets(string faction) {
+            return Ok(await _service.GetAssetsForFactionAsync(faction));
+        }
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] ForceListCreateDto dto) {
             var userId = CurrentUserId;
@@ -57,6 +62,17 @@ namespace WZE_Symmetry_Planner.Controllers {
             return NoContent();
         }
 
+        [HttpPost("{id}/assets")]
+        public async Task<IActionResult> AddAsset(Guid id, Guid assetId) {
+            await _service.AddAsset(id, assetId);
+            return NoContent();
+        }
+
+        [HttpPost("{id}/assets/rem")]
+        public async Task<IActionResult> RemoveAsset(Guid id, Guid assetId) {
+            await _service.RemoveAsset( id, assetId);
+            return NoContent();
+        }
         [HttpPost("{id}/validate")]
         public async Task<IActionResult> Validate(Guid id) {
             var (isValid, errors) = await _service.ValidateAsync(id);

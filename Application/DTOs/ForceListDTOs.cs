@@ -14,9 +14,11 @@ namespace Application.DTOs {
         Guid Id,
         string Name,
         string Faction,
-        string Allegiance,          // string for UI
+        string Allegiance,         
         int MaxDp,
         int MaxSp,
+        int CurrentDp,
+        int CurrentSp,
         Guid UserId
     ) {
         public ICollection<UnitReadDto> Units { get; set; } = new List<UnitReadDto>();
@@ -28,6 +30,7 @@ namespace Application.DTOs {
         string Faction,
         string Allegiance,
         int MaxDp,
+        int CurrentDp,
         Guid UserId,
         string UserName,
         string UserEmail,
@@ -41,7 +44,9 @@ namespace Application.DTOs {
         string Faction,
         AllegianceType Allegiance,
         int MaxDp,
-        int MaxSp
+        int MaxSp,
+        int CurrentDp,
+        int CurrentSp
     );
     public record ForceListAddUnitDto(Guid UnitId);
     public record ForceListRemoveUnitDto(Guid UnitId);

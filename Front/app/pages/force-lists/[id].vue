@@ -421,7 +421,6 @@ async function loadForceList() {
 const currentDp = computed(() => forceList.value?.units?.reduce((s, u) => s + (u.dpCost ?? 0), 0) ?? 0)
 const spAvailable = computed(() => forceList.value?.units?.reduce((s, u) => s + (u.spCost > 0 ? u.spCost : 0), 0) ?? 0)
 const spUsed = computed(() => forceList.value?.units?.reduce((s, u) => s + (u.spCost < 0 ? -u.spCost : 0), 0) ?? 0)
-
 const dpClass = computed(() => currentDp.value > (forceList.value?.maxDp ?? 0) ? 'text-red-400 font-bold' : 'text-green-400')
 const spClass = computed(() => spUsed.value > spAvailable.value ? 'text-red-400 font-bold' : 'text-yellow-400')
 const dpBarClass = computed(() => currentDp.value > (forceList.value?.maxDp ?? 0) ? 'bg-red-500' : 'bg-blue-500')

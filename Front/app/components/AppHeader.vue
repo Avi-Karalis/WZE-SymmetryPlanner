@@ -23,6 +23,7 @@ watch(() => route.path, () => { menuOpen.value = false });
       <div class="hidden md:flex gap-5 flex-1 justify-center">
         <NuxtLink to="/force-lists" class="nav-link" :class="{ active: isActive('/force-lists') }">Force Lists</NuxtLink>
         <NuxtLink to="/units" class="nav-link" :class="{ active: isActive('/units') }">Units</NuxtLink>
+        <NuxtLink to="/assets" class="nav-link" :class="{ active: isActive('/assets') }">Assets</NuxtLink>
         <NuxtLink to="/weapons" class="nav-link" :class="{ active: isActive('/weapons') }">Weapons</NuxtLink>
         <NuxtLink to="/unit-special-abilities" class="nav-link" :class="{ active: isActive('/unit-special-abilities') }">Unit Abilities</NuxtLink>
         <NuxtLink to="/weapon-special-abilities" class="nav-link" :class="{ active: isActive('/weapon-special-abilities') }">Weapon Abilities</NuxtLink>
@@ -74,6 +75,7 @@ watch(() => route.path, () => { menuOpen.value = false });
       <div class="flex flex-col gap-1 pt-2">
         <NuxtLink to="/force-lists" class="mobile-nav-link" :class="{ active: isActive('/force-lists') }">Force Lists</NuxtLink>
         <NuxtLink to="/units" class="mobile-nav-link" :class="{ active: isActive('/units') }">Units</NuxtLink>
+        <NuxtLink to="/assets" class="mobile-nav-link" :class="{ active: isActive('/assets') }">Assets</NuxtLink>
         <NuxtLink to="/weapons" class="mobile-nav-link" :class="{ active: isActive('/weapons') }">Weapons</NuxtLink>
         <NuxtLink to="/unit-special-abilities" class="mobile-nav-link" :class="{ active: isActive('/unit-special-abilities') }">Unit Abilities</NuxtLink>
         <NuxtLink to="/weapon-special-abilities" class="mobile-nav-link" :class="{ active: isActive('/weapon-special-abilities') }">Weapon Abilities</NuxtLink>

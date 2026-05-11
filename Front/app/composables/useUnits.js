@@ -22,6 +22,30 @@ export function useUnits() {
     }
   }
 
+  const fetchByFaction = async (faction) => {
+    if (process.server) return []
+    try {
+      const res = await $axios.get(`/Unit/by-faction/${encodeURIComponent(faction)}`)
+      return res.data
+    } catch (err) {
+      error.value = err
+      console.error(`Failed to fetch units for faction ${faction}`, err)
+      return []
+    }
+  }
+
+  const fetchAllies = async (allegianceType) => {
+    if (process.server) return []
+    try {
+      const res = await $axios.get(`/Unit/allies/${allegianceType}`)
+      return res.data
+    } catch (err) {
+      error.value = err
+      console.error(`Failed to fetch allies for allegianceType ${allegianceType}`, err)
+      return []
+    }
+  }
+
   const getById = async (id) => {
     if (process.server) return null
     loading.value = true
@@ -81,6 +105,8 @@ export function useUnits() {
     loading,
     error,
     fetchAll,
+    fetchByFaction,
+    fetchAllies,
     create,
     getById,
     remove,

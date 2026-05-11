@@ -19,6 +19,8 @@ namespace WZE_Symmetry_Planner.Controllers {
         public async Task<IActionResult> GetAll() => Ok(await _service.GetAllFullAsync());
         [HttpGet("by-faction/{faction}")]
         public async Task<IActionResult> GetByFactionAll(string faction) => Ok(await _service.GetAllByFactionAsync(faction));
+        [HttpGet("allies/{allegianceType}")]
+        public async Task<IActionResult> GetAllies(int allegianceType) => Ok(await _service.GetAlliesAsync(allegianceType));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id) {

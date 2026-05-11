@@ -34,6 +34,25 @@ namespace Infrastructure.Repositories {
                             .ThenInclude(wwsa => wwsa.WeaponSpecialAbility)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Unit>> GetAlliesAsync(int allegianceType) {
+            // allegianceType 0 = Light: Seconding or Advisor designations
+            // allegianceType 1 = Darkness: Dark Cult designation
+            var units = await _context.Units
+                .Where(u => u.DeletedAt == null && u.Status == 0)
+                .Include(u => u.UnitUnitSpecialAbilities)
+                    .ThenInclude(uusa => uusa.UnitSpecialAbility)
+                .Include(u => u.UnitWeapon)
+                    .ThenInclude(uw => uw.Weapon)
+                        .ThenInclude(w => w.WeaponWeaponSpecialAbility)
+                            .ThenInclude(wwsa => wwsa.WeaponSpecialAbility)
+                .ToListAsync();
+
+            return allegianceType == 1
+                ? units.Where(u => u.Designation != null && u.Designation.Any(d => d.ToLower() == "dark cult"))
+                : units.Where(u => u.Designation != null && u.Designation.Any(d =>
+                      d.ToLower() == "seconding" || d.ToLower() == "advisor"));
+        }
         public async Task<IEnumerable<Unit>> GetAllFullAsync() {
             return await _context.Units
                 .Where(u => u.DeletedAt == null && u.Status == 0)

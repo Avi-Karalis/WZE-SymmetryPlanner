@@ -429,34 +429,28 @@
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</Teleport>
-	</div>
-	<div v-if="selectedAssets.length" class="mt-6">
-		<div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
-			Assets
-		</div>
-
-		<div class="flex flex-col gap-2">
-			<div v-for="asset in selectedAssets" :key="asset.id"
-				class="border border-gray-200 dark:border-gray-700 rounded p-3">
-				<div class="flex items-center justify-between mb-1">
-					<div class="font-semibold">
-						{{ asset.name }}
+					<div v-if="selectedAssets.length" class="mt-6">
+						<div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+							Assets
+						</div>
+						<div class="flex flex-col gap-2">
+							<div v-for="asset in selectedAssets" :key="asset.id"
+								class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+								<div class="flex items-center justify-between mb-1">
+									<div class="font-semibold">{{ asset.name }}</div>
+									<span class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-0.5 rounded">{{ asset.dpCost }} DP</span>
+								</div>
+								<div class="text-xs text-gray-500 dark:text-gray-400">{{ asset.description }}</div>
+							</div>
+						</div>
 					</div>
-
-					<span class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-0.5 rounded">
-						{{ asset.dpCost }} DP
-					</span>
 				</div>
 
-				<div class="text-xs text-gray-500 dark:text-gray-400">
-					{{ asset.description }}
+					<!-- Assets -->
 				</div>
-			</div>
+			</Teleport>
 		</div>
-	</div>
+
 </template>
 
 <script setup>
@@ -464,9 +458,8 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const { getById, addUnit: apiAddUnit, removeUnit: apiRemoveUnit, addAsset: apiAddAsset, removeAsset: apiRemoveAsset, validate, loading, getAssetsForFaction, getUnitsForFaction } = useForceLists()
-const { units: allUnits, fetchAll: fetchAllUnits } = useUnits()
-const { fetchAll: fetchAllAssets, getById: getAssetById } = useAssets()
+const { getById, addUnit: apiAddUnit, removeUnit: apiRemoveUnit, addAsset: apiAddAsset, removeAsset: apiRemoveAsset, validate, loading, getAssetsForFaction } = useForceLists()
+const { fetchByFaction, fetchAllies } = useUnits()
 const forceList = ref(null)
 const loadError = ref(null)
 const selectedUnit = ref(null)
@@ -477,18 +470,25 @@ const loadingAssets = ref(false)
 const unitSearch = ref('')
 const filterDesignation = ref('')
 const showRoster = ref(false)
+const factionUnits = ref([])
+const allyUnits = ref([])
 
 const selectedAssets = computed(() => forceList.value?.assets ?? [])
 console.log(selectedAssets.value	)
 onMounted(async () => {
 	await loadForceList()
 
+	if (!forceList.value) return
+
 	loadingUnits.value = true
 	loadingAssets.value = true
 
 	try {
-		await fetchAllUnits()
-		await fetchAllAssets()
+		const allegianceType = forceList.value.allegiance?.toLowerCase().includes('darkness') ? 1 : 0
+		;[factionUnits.value, allyUnits.value] = await Promise.all([
+			fetchByFaction(forceList.value.faction),
+			fetchAllies(allegianceType),
+		])
 		await loadAvailableAssets()
 	} finally {
 		loadingUnits.value = false
@@ -531,46 +531,29 @@ function allyBadgeClass(unit) {
 	return 'text-gray-400'
 }
 
-const allegianceType = computed(() => {
-	const a = forceList.value?.allegiance?.toLowerCase() ?? ''
-	if (a.includes('darkness')) return 1
-	return 0
-})
-
 const availableUnits = computed(() => {
-	if (!forceList.value) return []
-	if (!allUnits.value?.length) return []
-
-	const faction = forceList.value.faction
-
-	return allUnits.value.filter((unit) => {
-		if (unit.faction?.toLowerCase() === faction?.toLowerCase()) return true
-		if (!isAlly(unit)) return false
-
-		const hasDarkCult = unit.designation?.some(d => d.toLowerCase() === 'dark cult')
-		const hasSeconding = unit.designation?.some(d => d.toLowerCase() === 'seconding')
-		const hasAdvisor = unit.designation?.some(d => d.toLowerCase() === 'advisor')
-
-		if (allegianceType.value === 1) return hasDarkCult
-		if (allegianceType.value === 0) return hasSeconding || hasAdvisor
-		return false
-	})
+	return [...factionUnits.value, ...allyUnits.value]
 })
-const availableAssets = ref([])
+const allFactionAssets = ref([])
 
 async function loadAvailableAssets() {
 	if (!forceList.value) {
-		availableAssets.value = []
+		allFactionAssets.value = []
 		return
 	}
 
 	try {
-		availableAssets.value = await getAssetsForFaction(forceList.value.faction)
+		allFactionAssets.value = await getAssetsForFaction(forceList.value.faction)
 	} catch (e) {
 		console.error('Failed to load assets', e)
-		availableAssets.value = []
+		allFactionAssets.value = []
 	}
 }
+
+const availableAssets = computed(() => {
+	const selectedIds = new Set(selectedAssets.value.map((a) => a.id))
+	return allFactionAssets.value.filter((a) => !selectedIds.has(a.id))
+})
 const filteredAvailable = computed(() => {
 	let list = availableUnits.value
 	if (unitSearch.value) {
@@ -696,7 +679,8 @@ function printRoster() {
         .text-yellow-600 { color: #d97706; }
         .ml-1 { margin-left: 4px; }
         .ml-2 { margin-left: 8px; }
-        .ml-2 { margin-left: 8px; }
+        .mt-6 { margin-top: 24px; }
+        .p-3 { padding: 12px; }
       </style>
     </head>
     <body>${clone.innerHTML}</body>

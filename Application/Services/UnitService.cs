@@ -28,6 +28,9 @@ namespace Application.Services {
         public async Task<IEnumerable<UnitReadDto>> GetAllByFactionAsync(string faction) {
             return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAllByFactionAsync(faction));
         }
+        public async Task<IEnumerable<UnitReadDto>> GetAlliesAsync(int allegianceType) {
+            return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAlliesAsync(allegianceType));
+        }
         public async Task<IEnumerable<UnitReadDto>> GetAllFullAsync() {
             return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAllFullAsync());
         }

@@ -29,7 +29,7 @@
                 <div
                     v-for="fl in deletedLists"
                     :key="fl.id"
-                    class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-4 flex items-start justify-between"
+                    class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-4 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3"
                 >
                     <div>
                         <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ fl.name }}</h2>
@@ -45,7 +45,7 @@
                             Deleted: {{ formatDate(fl.deletedAt) }}
                         </div>
                     </div>
-                    <button class="btn-primary text-sm ml-4 shrink-0" @click="restore(fl.id)">Restore</button>
+                    <button class="btn-primary text-sm shrink-0 self-start" @click="restore(fl.id)">Restore</button>
                 </div>
             </div>
             <p v-else-if="!loading" class="text-gray-400">No deleted force lists.</p>
@@ -57,7 +57,7 @@
                 <div
                     v-for="u in users"
                     :key="u.id"
-                    class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-4 flex items-center justify-between gap-4"
+                    class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
                 >
                     <div class="flex items-center gap-3">
                         <img

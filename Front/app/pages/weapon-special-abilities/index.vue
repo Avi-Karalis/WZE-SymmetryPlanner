@@ -6,7 +6,32 @@
 
         <LoadingError :loading="loading" :error="error" />
 
-        <div v-if="abilities.length" class="overflow-x-auto">
+        <!-- Mobile card view -->
+        <div v-if="abilities.length" class="md:hidden flex flex-col gap-3">
+            <div
+                v-for="a in abilities" :key="a.id"
+                class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-3"
+            >
+                <div class="flex items-start justify-between gap-2">
+                    <div class="min-w-0">
+                        <div class="font-semibold text-gray-800 dark:text-gray-100">{{ a.name }}</div>
+                        <div v-if="a.valueX || a.valueY" class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            <span v-if="a.valueX">X: {{ a.valueX }}</span>
+                            <span v-if="a.valueX && a.valueY"> · </span>
+                            <span v-if="a.valueY">Y: {{ a.valueY }}</span>
+                        </div>
+                        <div class="text-xs text-gray-600 dark:text-gray-300 mt-1">{{ a.description }}</div>
+                    </div>
+                    <div v-if="isAdmin" class="flex gap-1 shrink-0">
+                        <button class="btn-sm btn-secondary" @click="startEdit(a)">Edit</button>
+                        <button class="btn-sm btn-danger" @click="confirmDelete(a)">Del</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop table -->
+        <div v-if="abilities.length" class="hidden md:block overflow-x-auto">
         <table class="w-full text-sm min-w-[480px]">
             <thead>
                 <tr class="bg-gray-200 dark:bg-gray-700 text-left text-gray-700 dark:text-gray-100">

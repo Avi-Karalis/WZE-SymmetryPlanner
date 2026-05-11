@@ -281,8 +281,8 @@
 			<div v-if="showRoster"
 				class="fixed inset-0 z-50 flex items-start justify-center bg-black/70 overflow-y-auto py-8">
 				<div id="roster-print-area"
-					class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 rounded-xl w-full max-w-4xl mx-4 p-6 shadow-2xl">
-					<div class="flex items-center justify-between mb-6">
+					class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 rounded-xl w-full max-w-4xl mx-3 sm:mx-4 p-4 sm:p-6 shadow-2xl">
+					<div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-0 sm:justify-between mb-6">
 						<h2 class="text-xl font-bold">{{ forceList?.name }} — Roster</h2>
 						<div class="flex items-center gap-3">
 							<button class="btn-primary text-sm" @click="printRoster">Save as PDF</button>

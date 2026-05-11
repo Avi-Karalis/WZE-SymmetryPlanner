@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-10 flex flex-col items-center gap-6 w-full max-w-sm">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 sm:p-10 flex flex-col items-center gap-6 w-full max-w-sm mx-4">
             <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">WZE Symmetry Planner</h1>
             <p class="text-sm text-gray-500 dark:text-gray-400 text-center">Sign in to access your army lists</p>
 

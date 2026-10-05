@@ -16,7 +16,7 @@ Env.Load();
 
 string? password = Environment.GetEnvironmentVariable("POSTGRESPSW");
 string dbHost = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
-string dbPort = Environment.GetEnvironmentVariable("DB_PORT") ?? "5433";
+string dbPort = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
 string dbName = Environment.GetEnvironmentVariable("DB_NAME") ?? "WZE-Symmetry-Planner";
 string dbUser = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
 string? connectionString = $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUser};Password={password}";
@@ -91,7 +91,9 @@ using (IServiceScope scope = app.Services.CreateScope()) {
             RunCommand("dotnet", "ef database update --project ../Infrastructure --startup-project .");
         }
         if (!context.Units.Any()){
+            Console.WriteLine("🌱 Seeding initial data...");
             SeedData.Seed(context);
+            Console.WriteLine("✅ Initial data seeded successfully.");
         }
     } catch (Exception ex){
         Console.WriteLine($"An error occurred while migrating or initializing the database: {ex.Message}");

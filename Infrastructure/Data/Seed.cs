@@ -100,6 +100,7 @@ namespace Infrastructure.Data
             UnitSpecialAbility commandMT = new() { Name = "Command", ValueX = "Mortificator", Description = "Once per Turn, if this Unit is neither Engaged nor has a Pinned Counter, it may spend an Action to perform a TN (LD) Test. On a Success, a Friendly Unit of Unit Type {X} within 12” and non-Blocked LOS may perform one Action when this Unit completes its Activation." };
             UnitSpecialAbility commandAB = new() { Name = "Command", ValueX = "Any Brotherhood", Description = "Once per Turn, if this Unit is neither Engaged nor has a Pinned Counter, it may spend an Action to perform a TN (LD) Test. On a Success, a Friendly Unit of Unit Type {X} within 12” and non-Blocked LOS may perform one Action when this Unit completes its Activation." };
             UnitSpecialAbility commandUL = new() { Name = "Command", ValueX = "Undead Legionnaire", Description = "Once per Turn, if this Unit is neither Engaged nor has a Pinned Counter, it may spend an Action to perform a TN (LD) Test. On a Success, a Friendly Unit of Unit Type {X} within 12” and non-Blocked LOS may perform one Action when this Unit completes its Activation." };
+            UnitSpecialAbility commandCommando = new() { Name = "Command", ValueX = "Commandos", Description = "Once per Turn, if this Unit is neither Engaged nor has a Pinned Counter, it may spend an Action to perform a TN (LD) Test. On a Success, a Friendly Unit of Unit Type {X} within 12” and non-Blocked LOS may perform one Action when this Unit completes its Activation." };
             UnitSpecialAbility commandNM = new() { Name = "Command", ValueX = "Necromutant", Description = "Once per Turn, if this Unit is neither Engaged nor has a Pinned Counter, it may spend an Action to perform a TN (LD) Test. On a Success, a Friendly Unit of Unit Type {X} within 12” and non-Blocked LOS may perform one Action when this Unit completes its Activation." };
             UnitSpecialAbility commandULNM1 = new() { Name = "Command", ValueX = "Undead Legionnaire, Necromutant", Description = "Once per Turn, if this Unit is neither Engaged nor has a Pinned Counter, it may spend an Action to perform a TN (LD) Test. On a Success, a Friendly Unit of Unit Type {X} within 12” and non-Blocked LOS may perform one Action when this Unit completes its Activation." };
             UnitSpecialAbility commandAA = new() { Name = "Command", ValueX = "Any Algeroth", Description = "Once per Turn, if this Unit is neither Engaged nor has a Pinned Counter, it may spend an Action to perform a TN (LD) Test. On a Success, a Friendly Unit of Unit Type {X} within 12” and non-Blocked LOS may perform one Action when this Unit completes its Activation." };
@@ -161,9 +162,15 @@ namespace Infrastructure.Data
             UnitSpecialAbility zombie = new() { Name = "Zombie", Description = "This Unit may never receive a Reaction Counter. Additionally, unless this Unit is within range of a Friendly Unit with the Controller Unit Special Ability when Activated, this Unit may perform only the Charge, Move, Shoot, and Strike Actions and may not Reposition." };
             UnitSpecialAbility intimidate6 = new() { Name = "Intimidate", ValueX = "6", Description = "All Enemy Units within {X} inches must roll a TN(LD) Test to remove a Pinned Counter as part of a Rally Action." };
             UnitSpecialAbility advancedDeploy = new() { Name = "Advanced Deploy", Description = "In the Start Turn phase of the 1st Turn, this Unit may be relocated to anywhere within 6\", includng outside this Force's Deployment Area" };
+            UnitSpecialAbility unstoppable = new() { Name = "Unstoppable", Description = "This Unit cannot be targeted by an Ambush Reaction during a Charge Action." };
+            UnitSpecialAbility commandCentAndNecro = new() { Name = "Command", ValueX = "Centurions, Necromutants", Description = "Once per Turn, if this Unit is neither Engaged nor has a Pinned Counter, it may spend an Action to perform a TN (LD) Test. On a Success, a Friendly Unit of Unit Type {X} within 12” and non-Blocked LOS may perform one Action when this Unit completes its Activation." };
+            UnitSpecialAbility trainingDeterminationNecro = new() { Name = "Training", ValueX = "Determination", ValueY = "Necromutants", Description = "This Unit adds the {X} Unit Special Ability to all other Friendly Units of Y Unit Type(s)." };
+            UnitSpecialAbility commandNecroLegion = new() { Name = "Command", ValueX = "Centurions, Necromutants", Description = "Once per Turn, if this Unit is neither Engaged nor has a Pinned Counter, it may spend an Action to perform a TN (LD) Test. On a Success, a Friendly Unit of Unit Type {X} within 12” and non-Blocked LOS may perform one Action when this Unit completes its Activation." };
+            UnitSpecialAbility trainingFearlessCent = new() { Name = "Training", ValueX = "Fearless", ValueY = "Centurions", Description = "This Unit adds the {X} Unit Special Ability to all other Friendly Units of Y Unit Type(s)." };
 
-            List<UnitSpecialAbility> unitSpecialAbilities = [advancedDeploy, rebreather3, intimidate6, aggressive, art2, art4, awareness, blitz, blur2, blur3, camaraderie, camouflage1, camouflage2, commandVR, commandBL, commandEM, commandHS, commandFM, commandSS, commandMB, commandFB, commandCS, commandMM, commandBB, commandGL, commandTR, commandWC, commandHM, commandSB, commandSM, commandMT, commandAB, commandUL, commandNM, commandULNM1,  commandAA,
-                controller3, controller6, controller9, controller12, determination, dodge, driven, duelist1, duelist2, duelist3, dutiful, entrenched, evasive2, executioner1, executioner2, executioner4, executioner5, faith1, faith2, fearless, fierceCharge, firingStance, firstAid8, firstAid10, firstAid11, firstAid12, firstAid13, firstStrike, flight, focusedFire, group2, group3, guerilla5, gymnastic, honorbound, impact2, inspire, nervesOfSteel, networked, packHunterPS, preciseSenses, rebreather0, rebreather2, rebreather5, recruit, relentless, scoutAhead, shadowed, shakeItOff, shift, tactical, trailblaze, trainingC1VR, volatileEnd18, zombie];
+
+            List<UnitSpecialAbility> unitSpecialAbilities = [trainingDeterminationNecro, commandNecroLegion,commandCentAndNecro, trainingFearlessCent,advancedDeploy, rebreather3, intimidate6, aggressive, art2, art4, awareness, blitz, blur2, blur3, camaraderie, camouflage1, camouflage2, commandVR, commandBL, commandEM, commandHS, commandFM, commandSS, commandMB, commandFB, commandCS, commandMM, commandBB, commandGL, commandTR, commandWC, commandHM, commandSB, commandSM, commandMT, commandAB, commandUL, commandNM, commandULNM1,  commandAA,
+                controller3, controller6, controller9, controller12, determination, dodge, driven, duelist1, duelist2, duelist3, dutiful, entrenched, evasive2, executioner1, executioner2, executioner4, executioner5, faith1, faith2, fearless, fierceCharge, firingStance, firstAid8, firstAid10, firstAid11, firstAid12, firstAid13, firstStrike, flight, focusedFire, group2, group3, guerilla5, gymnastic, honorbound, impact2, inspire, nervesOfSteel, networked, packHunterPS, preciseSenses, rebreather0, rebreather2, rebreather5, recruit, relentless, scoutAhead, shadowed, shakeItOff, shift, tactical, trailblaze, trainingC1VR, volatileEnd18, zombie,unstoppable];
             context.UnitSpecialAbilities.AddRange(unitSpecialAbilities);
 
             Weapon punisherShortSword = new() { Name = "Punisher Shortsword", CCMod = 1, CCDam = 7, DynamicDAM = true, CritFail = 20, WeaponWeaponSpecialAbility = Weapon.CreateAbilities(reach1, vicious )};
@@ -245,8 +252,9 @@ namespace Infrastructure.Data
             Weapon heavyTemplarBlade = new() { Name = "Heavy Templar Blade", CCMod = -1, DynamicDAM = true, CCDam = 8, CritFail = 20, WeaponWeaponSpecialAbility = Weapon.CreateAbilities(multiStrike3, reach2) };
             Weapon templarMartialis = new() { Name = "Templar Martialis", CCMod = 0, CCDam = 6, DynamicDAM = true, CritFail = 20, WeaponWeaponSpecialAbility = Weapon.CreateAbilities(multiStrike2, reach1) };
             Weapon metaCannon = new() { Name = "Meta Cannon", ShortRange = 18, ShortRangeMod = 0, ShortRangeDam = 12, SRDamageMultiplier = 2, LongRange = 36, LongRangeMod = -2, LongRangeDam = 12, LRDamageMultiplier = 2, CritFail = 19, WeaponWeaponSpecialAbility = Weapon.CreateAbilities(concussive, explosive1, vicious) };
-
-            List<Weapon> weapons = [punisherShortSword, mp105HG, punisherHandgun, mp103SMG, hg14SG, ag17AR, psg99SR, mg80HMG, gehennaPuker, frags, smokes, mg40LMG, ceremonialBlades, m13HG, car24SMG, m516SSG, m50AR, dpat9RL, underslungGL, chainripper, bootknife, M606LMG, csa404Sword, p1000HG, sasG72001Shotgun, ar3000, sSW4200PHMG, flashGrenades, bladeBayonet, aggressorHG, interceptorSMG, mandibleSG, invaderAR, plasmaCB, destroyerLMG, chargerHMG, southpawRPG, plasmaGrenade, battleAx, claymore, poisonedPunisherShortSword, silencedPunisherHandgun, windriderSMG, airbrushSG, shogunAR, dragonfireHMG, archerSR, mortisBlade, avengerSword, delivererBattleBlade, silencedNemesisHG, avalanceHG, r75RetributorCB, eruptorLMG, eruptorFT, ac40Justifier, sectionerBayonet, skalakSword, azogar, voricheHG, kratachAR, belzarachAR, tormetorFT, incinerator, scytheOfSemai, nazgarothHMG, ashnazgarothHMG, hellblasterLauncher, carcassGrenadeLauncher, gasGrenade, devouringDarkness, necrotalons, BlutarchHC, soulshearer, soullessShriek, handOfDeath, heavyTemplarBlade, templarMartialis, metaCannon];
+            Weapon groganach = new() { Name = "Groganach Assault Pistol", CCMod = -2, CCDam = 13, ShortRange = 8, ShortRangeMod = 1, ShortRangeDam = 13, LongRange = 18, LongRangeMod =0, LongRangeDam = 12, CritFail = 19, WeaponWeaponSpecialAbility = Weapon.CreateAbilities(burst2) };
+            Weapon underslungGrenadeAlg = new() { Name = "Underslung Gas Launcher", ShortRange = 12, ShortRangeMod = 0, ShortRangeDam = 9, LongRange = 36, LongRangeMod = -2, LongRangeDam = 9, CritFail = 18, WeaponWeaponSpecialAbility = Weapon.CreateAbilities(cloud2, continuous, indirect, smoke) };
+            List<Weapon> weapons = [groganach, underslungGrenadeAlg, punisherShortSword, mp105HG, punisherHandgun, mp103SMG, hg14SG, ag17AR, psg99SR, mg80HMG, gehennaPuker, frags, smokes, mg40LMG, ceremonialBlades, m13HG, car24SMG, m516SSG, m50AR, dpat9RL, underslungGL, chainripper, bootknife, M606LMG, csa404Sword, p1000HG, sasG72001Shotgun, ar3000, sSW4200PHMG, flashGrenades, bladeBayonet, aggressorHG, interceptorSMG, mandibleSG, invaderAR, plasmaCB, destroyerLMG, chargerHMG, southpawRPG, plasmaGrenade, battleAx, claymore, poisonedPunisherShortSword, silencedPunisherHandgun, windriderSMG, airbrushSG, shogunAR, dragonfireHMG, archerSR, mortisBlade, avengerSword, delivererBattleBlade, silencedNemesisHG, avalanceHG, r75RetributorCB, eruptorLMG, eruptorFT, ac40Justifier, sectionerBayonet, skalakSword, azogar, voricheHG, kratachAR, belzarachAR, tormetorFT, incinerator, scytheOfSemai, nazgarothHMG, ashnazgarothHMG, hellblasterLauncher, carcassGrenadeLauncher, gasGrenade, devouringDarkness, necrotalons, BlutarchHC, soulshearer, soullessShriek, handOfDeath, heavyTemplarBlade, templarMartialis, metaCannon];
 
             context.Weapons.AddRange(weapons);
 
@@ -285,6 +293,15 @@ namespace Infrastructure.Data
             etoilesMortantLeader.AddWeapons([punisherHandgun, punisherShortSword]);
             units.AddRange([etoilesMortantTrooper, etoilesMortantSupport, etoilesMortantLeader]);
 
+            Unit hussarTrooper = new("Bauhaus", "Hussar", ["Trooper"], 3, 0, 4, 12, 10, 4, 0, 22, 2, 10, 12, 30, null, 0, new List<UnitSpecialAbility> {group2, recruit}, ["Bauhaus"]);
+            hussarTrooper.AddWeapons([ag17AR,mp105HG]);
+            Unit hussarMedic = new("Bauhaus", "Hussar", ["Medic", "Specialist"], 3, 0, 4, 12, 10, 4, 0, 22, 2, 10, 12, 30, "Hussar", 2, new List<UnitSpecialAbility> { group2, recruit, firstAid11 }, ["Bauhaus"]);
+            hussarMedic.AddWeapons([ag17AR, mp105HG]);
+            Unit hussarLMG = new("Bauhaus", "Hussar", ["Support"], 3, -2, 4, 12, 10, 4, 0, 22, 2, 10, 12, 30, null, 0, new List<UnitSpecialAbility> { group2, recruit }, ["Bauhaus"]);
+            hussarLMG.AddWeapons([mg40LMG, mp105HG]);
+            Unit hussarLeader = new("Bauhaus", "Hussar", ["Leader"], 5, 2, 4, 12, 10, 4, 0, 22, 2, 10, 12, 30, "Hussar", 2, new List<UnitSpecialAbility> { group2, recruit, inspire, commandHS }, ["Bauhaus"]);
+            hussarLeader.AddWeapons([mp105HG,hg14SG]);
+            units.AddRange([hussarTrooper, hussarMedic, hussarLMG, hussarLeader]);
             // Seed data for CL Units
             Unit freeMarineTrooper = new("Capitol", "Free Marine", ["Trooper"], 4, 0, 4, 13, 13, 6, 0, 21, 2, 11, 12, 30, null, 0, new List<UnitSpecialAbility> { camouflage2, guerilla5}, ["Capitol"]);
             freeMarineTrooper.AddWeapons([m50AR, punisherShortSword]);
@@ -314,6 +331,15 @@ namespace Infrastructure.Data
             martianBansheeLeader.AddWeapons([car24SMG, m13HG, frags]);
             units.AddRange([martianBansheeTrooper, martianBansheeSupport, martianBansheeLeader]);
 
+            Unit freedomBrigadeTrooper = new("Capitol", "Freedom Brigade", ["Trooper"], 3, 0, 4, 11, 10, 4, -1, 20, 2, 10, 13, 30, null, 0, new List<UnitSpecialAbility> { camaraderie, group2, rebreather5 }, ["Capitol"]);
+            freedomBrigadeTrooper.AddWeapons([bootknife, m50AR]);
+            Unit freedomBrigadeMedic = new("Capitol", "Freedom Brigade", ["Trooper"], 3, 0, 4, 11, 10, 4, -1, 20, 2, 10, 13, 30, "Freedom Brigade", 1, new List<UnitSpecialAbility> { camaraderie, group2, rebreather5, firstAid8 }, ["Capitol"]);
+            freedomBrigadeMedic.AddWeapons([bootknife, m50AR]);
+            Unit freedomBrigadeLeader = new("Capitol", "Freedom Brigade", ["Leader"], 4, 3, 4, 11, 10, 4, -1, 20, 2, 10, 13, 30, "Freedom Brigade", 2, new List<UnitSpecialAbility> { camaraderie, group2, rebreather5, inspire, commandFB }, ["Capitol"]);
+            freedomBrigadeLeader.AddWeapons([chainripper, m50AR]);
+            Unit freedomBrigadeSupport = new("Capitol", "Freedom Brigade", ["Support"], 3, -2, 4, 11, 10, 4, -1, 20, 2, 10, 13, 30, null, 0, new List<UnitSpecialAbility> { camaraderie, group2, rebreather5 }, ["Capitol"]);
+            freedomBrigadeSupport.AddWeapons([M606LMG, bootknife]);
+            units.AddRange([freedomBrigadeTrooper, freedomBrigadeMedic, freedomBrigadeLeader, freedomBrigadeSupport]);  
             // Seed data for CT Units
             Unit chasseurTrooper = new("Cybertronic", "Chasseur", ["Trooper"], 4, 0, 4, 13, 13, 9, 1, 24, 2, 10, 11, 30, null, 0, new List<UnitSpecialAbility> { networked}, ["Cybertronic"]);
             chasseurTrooper.AddWeapons([ar3000]);
@@ -339,6 +365,11 @@ namespace Infrastructure.Data
             attillaSupportFT.AddWeapons([gehennaPuker]);
             units.AddRange([attillaTrooper, attillaSupportHMG, attillaSupportFT]);
 
+            Unit dianaTrooper = new("Cybertronic", "Dr. Diana", ["Specialist"], 4, 0, 6, 12, 11, 6, -1, 22, 2, 11, 13, 30, "Chasseur", 1, new List<UnitSpecialAbility> { awareness, firstAid13, shakeItOff, networked }, ["Cybertronic"]);
+            dianaTrooper.AddWeapons([p1000HG]);
+            Unit dianaLeader = new("Cybertronic", "Dr. Diana", ["Leader"], 4, 0, 6, 11, 10, 6, -1, 22, 2, 11, 11, 30, "Chasseur", 2, new List<UnitSpecialAbility> { awareness, firstAid13, shakeItOff, networked, inspire }, ["Cybertronic"]);
+            dianaLeader.AddWeapons([p1000HG]);
+            units.AddRange([dianaTrooper, dianaLeader]);
             // Seed data for IM Units
             Unit bloodBerretTrooper = new("Imperial", "Blood Beret", ["Trooper"], 4, 0, 4, 13, 13, 6, -1, 22, 2, 10, 12, 30, null, 0, new List<UnitSpecialAbility> { camouflage1, shakeItOff, rebreather3}, ["Imperial"]);
             bloodBerretTrooper.AddWeapons([aggressorHG, bladeBayonet, invaderAR]);
@@ -368,6 +399,15 @@ namespace Infrastructure.Data
             trencherLeader.AddWeapons([aggressorHG, bladeBayonet, invaderAR]);
             units.AddRange([trencherTrooper, trencherSupport, trencherLeader]);
 
+            Unit commando = new("Imperial", "Wolfbane Commando", ["Trooper"], 4, 0, 5, 12, 14, 6, -1, 21, 2, 10, 12, 30, null, 0, new List<UnitSpecialAbility> { fierceCharge, unstoppable }, ["Imperial"]);
+            commando.AddWeapons([aggressorHG, punisherShortSword]);
+            Unit commandoSup = new("Imperial", "Wolfbane Commando", ["Support"], 4, -3, 5, 12, 14, 6, -1, 21, 2, 10, 12, 30, null, 0, new List<UnitSpecialAbility> { fierceCharge, unstoppable }, ["Imperial"]);
+            commandoSup.AddWeapons([chargerHMG, aggressorHG]);
+            Unit commandoChiefton = new("Imperial", "Wolfbane Chieftain", ["Leader"], 6, 3, 5, 12, 15, 6, -2, 22, 3, 12, 12, 30, "Wolfbane Commando", 1, new List<UnitSpecialAbility> { fierceCharge, unstoppable, inspire, commandCommando }, ["Imperial"]);
+            commandoChiefton.AddWeapons([aggressorHG, claymore]);
+            Unit headHunter = new("Imperial", "Headhunter", ["Trooper"], 5, 0, 5, 11, 14, 7, -1, 21, 2, 10, 13, 30, null, 0, new List<UnitSpecialAbility> {executioner5, fierceCharge, unstoppable }, ["Imperial"]);
+            headHunter.AddWeapons([aggressorHG, battleAx]);
+            units.AddRange([commando, commandoSup, commandoChiefton, headHunter]);  
             // Seed data for MI Units
             Unit hatamotoTrooper = new("Mishima", "Hatamoto", ["Trooper"], 4, 0, 4, 13, 16, 6, 0, 23, 2, 11, 13, 30, null, 0, new List<UnitSpecialAbility> { duelist3, executioner2, fearless, honorbound}, ["Mishima"]);
             hatamotoTrooper.AddWeapons([ceremonialBlades, shogunAR]);
@@ -393,6 +433,13 @@ namespace Infrastructure.Data
             shadowWalker.AddWeapons([poisonedPunisherShortSword, silencedPunisherHandgun, smokes]);
             units.AddRange([shadowWalker]);
 
+            Unit samuraiTrooper = new("Mishima", "Samurai", ["Trooper"], 3, 0, 4, 10, 12, 5, 0, 21, 2, 10, 11, 30, null, 0, new List<UnitSpecialAbility> { group2 }, ["Mishima"]);
+            samuraiTrooper.AddWeapons([ceremonialBlades, shogunAR]);
+            Unit samuraiSupp = new("Mishima", "Samurai", ["Support"], 3, -1, 4, 10, 12, 5, 0, 21, 2, 10, 11, 30, null, 0, new List<UnitSpecialAbility> { group2 }, ["Mishima"]);
+            samuraiSupp.AddWeapons([ceremonialBlades, gehennaPuker]);
+            Unit samuraiLD = new("Mishima", "Samurai", ["Leader"], 3, -1, 4, 10, 12, 5, 0, 21, 2, 10, 11, 30, "Samurai", 1, new List<UnitSpecialAbility> { group2, inspire, commandSM }, ["Mishima"]);
+            samuraiLD.AddWeapons([ceremonialBlades, shogunAR]);
+            units.AddRange([samuraiTrooper, samuraiSupp, samuraiLD]);
             // Seed data for BH Units
             Unit mortificatorTrooper = new("Brotherhood", "Mortificator", ["Trooper", "Seconding"], 6, 0, 6, 14, 16, 6, -2, 20, 2, 13, 13, 30, null, 0, new List<UnitSpecialAbility> { camouflage2, dodge, executioner2, firstStrike, gymnastic, shadowed }, ["Brotherhood", "Seconding"]);
             mortificatorTrooper.AddWeapons([silencedNemesisHG, mortisBlade, smokes]);
@@ -469,12 +516,29 @@ namespace Infrastructure.Data
                 "Undead Legionnaire, Necromutant", 4,
                 new List<UnitSpecialAbility> {awareness, commandAA, controller12, inspire, nervesOfSteel, shakeItOff }, ["Dark Legion - Algeroth"]);
             nepharite.AddWeapons([azogar, devouringDarkness]);
+            Unit immaculate = new("Dark Legion - Algeroth", "Immaculate Fury", ["Support"],
+                8, -1, 4, 13, 12, 6, 1, 23, 3, 14, 12, 40,
+                null, 0,
+                new List<UnitSpecialAbility> { aggressive, fearless, rebreather0}, ["Dark Legion - Algeroth"]);
+            immaculate.AddWeapons([soullessShriek, soulshearer]);
+
+            Unit nassal = new("Dark Legion - Algeroth", "Nassal", ["Leader"],
+                7, 1, 5, 13, 15, 7, -1, 22, 3, 10, 14, 30,
+                "Necromutant", 1,
+                new List<UnitSpecialAbility> { determination, fearless, rebreather5, commandCentAndNecro, trainingDeterminationNecro }, ["Dark Legion - Algeroth"]);
+            nassal.AddWeapons([belzarachAR, skalakSword, frags]);
+
+            Unit nassalAlpha = new("Dark Legion - Algeroth", "Nassal Alpha", ["Leader"],
+                7, 1, 5, 13, 15, 7, -1, 22, 3, 10, 14, 30,
+                "Centurion", 1,
+                new List<UnitSpecialAbility> { determination, fearless, rebreather5, commandCentAndNecro, trainingFearlessCent }, ["Dark Legion - Algeroth"]);
+            nassalAlpha.AddWeapons([groganach, underslungGrenadeAlg, skalakSword, frags]);
 
             Unit cartelAgent = new ("Cartel", "Cartel Agent", ["Trooper", "Advisor"],
                 7,0,5,13,13,5,-1,21,3,13,13,30,null,0,
                 new List<UnitSpecialAbility> { nervesOfSteel, scoutAhead, tactical }, ["Bauhaus","Capitol","Cybetronic","Brotherhood","Imperial","Mishima","Cartel"]);
             cartelAgent.AddWeapons([punisherHandgun,frags,smokes]);
-            units.AddRange([cartelAgent,undeadLeagionnarie, necromutantTrooper, necromutantSupport, necromutantLeader, centurion, stalkers, razideHMG1, razideHMG2, razideHellblaster, nepharite]);
+            units.AddRange([nassal, nassalAlpha, cartelAgent, undeadLeagionnarie, necromutantTrooper, necromutantSupport, necromutantLeader, centurion, stalkers, razideHMG1, razideHMG2, razideHellblaster, nepharite, immaculate]);
 
 
             context.Units.AddRange(units);

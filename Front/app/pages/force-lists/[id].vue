@@ -287,7 +287,7 @@
 						<div class="flex items-center gap-3">
 							<button class="btn-primary text-sm" @click="printRoster">Save as PDF</button>
 							<button
-								class="text-gray-400 hover:text-gray-700 dark:hover:text-white text-2xl leading-none"
+								class="theme-icon-button text-gray-400 hover:text-gray-700 dark:hover:text-white text-2xl leading-none"
 								@click="showRoster = false">✕</button>
 						</div>
 					</div>

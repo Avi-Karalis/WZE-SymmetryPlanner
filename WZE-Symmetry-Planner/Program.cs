@@ -9,18 +9,35 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Npgsql;
 
+
+DirectoryInfo? solutionDirectory = new(Directory.GetCurrentDirectory());
+while (solutionDirectory is not null && !solutionDirectory.EnumerateFiles("*.sln").Any())
+{
+    solutionDirectory = solutionDirectory.Parent;
+}
+
+string envFile = Path.Combine(solutionDirectory?.FullName ?? Directory.GetCurrentDirectory(), ".env");
+if (File.Exists(envFile))
+{
+    Env.Load(envFile);
+}
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-Env.Load();
 
-string? password = Environment.GetEnvironmentVariable("POSTGRESPSW");
-string dbHost = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
-string dbPort = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
-string dbName = Environment.GetEnvironmentVariable("DB_NAME") ?? "WZE-Symmetry-Planner";
-string dbUser = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
-string? connectionString = $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUser};Password={password}";
-Console.WriteLine($"📡 Connection string: {connectionString}");
+string GetRequiredEnvironmentVariable(string name) =>
+    Environment.GetEnvironmentVariable(name)
+    ?? throw new InvalidOperationException($"The required environment variable '{name}' is not set.");
+
+string connectionString = new NpgsqlConnectionStringBuilder
+{
+    Host = GetRequiredEnvironmentVariable("DB_HOST"),
+    Port = int.Parse(GetRequiredEnvironmentVariable("DB_PORT")),
+    Database = GetRequiredEnvironmentVariable("DB_NAME"),
+    Username = GetRequiredEnvironmentVariable("DB_USER"),
+    Password = GetRequiredEnvironmentVariable("POSTGRESPSW")
+}.ConnectionString;
 builder.Configuration["ConnectionStrings:DefaultConnection"] = connectionString;
 
 // JWT config from env (fallback to appsettings)

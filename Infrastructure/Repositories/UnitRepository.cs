@@ -12,7 +12,7 @@ namespace Infrastructure.Repositories {
             _context = context;
         }
 
-        public async Task<Unit> GetFullByIdAsync(Guid id) {
+        public async Task<Unit> GetFullByIdAsync(Guid id, bool includeTesting = false) {
             return await _context.Units
                 .Include(u => u.UnitUnitSpecialAbilities)
                     .ThenInclude(uusa => uusa.UnitSpecialAbility)
@@ -20,12 +20,12 @@ namespace Infrastructure.Repositories {
                     .ThenInclude(uw => uw.Weapon)
                         .ThenInclude(w => w.WeaponWeaponSpecialAbility)
                             .ThenInclude(wwsa => wwsa.WeaponSpecialAbility)
-                .FirstOrDefaultAsync(u => u.Id == id && u.DeletedAt == null && u.Status == 0)
+                .FirstOrDefaultAsync(u => u.Id == id && u.DeletedAt == null && (u.Status == 0 || (includeTesting && u.Status == 1)))
                 ?? throw new KeyNotFoundException($"Unit {id} not found");
         }
-        public async Task<IEnumerable<Unit>> GetAllByFactionAsync(string faction) {
+        public async Task<IEnumerable<Unit>> GetAllByFactionAsync(string faction, bool includeTesting = false) {
             return await _context.Units
-                .Where(u => u.DeletedAt == null && u.Status == 0 && u.Faction == faction)
+                .Where(u => u.DeletedAt == null && (u.Status == 0 || (includeTesting && u.Status == 1)) && u.Faction == faction)
                 .Include(u => u.UnitUnitSpecialAbilities)
                     .ThenInclude(uusa => uusa.UnitSpecialAbility)
                 .Include(u => u.UnitWeapon)
@@ -35,11 +35,11 @@ namespace Infrastructure.Repositories {
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Unit>> GetAlliesAsync(int allegianceType) {
+        public async Task<IEnumerable<Unit>> GetAlliesAsync(int allegianceType, bool includeTesting = false) {
             // allegianceType 0 = Light: Seconding or Advisor designations
             // allegianceType 1 = Darkness: Dark Cult designation
             var units = await _context.Units
-                .Where(u => u.DeletedAt == null && u.Status == 0)
+                .Where(u => u.DeletedAt == null && (u.Status == 0 || (includeTesting && u.Status == 1)))
                 .Include(u => u.UnitUnitSpecialAbilities)
                     .ThenInclude(uusa => uusa.UnitSpecialAbility)
                 .Include(u => u.UnitWeapon)
@@ -53,9 +53,9 @@ namespace Infrastructure.Repositories {
                 : units.Where(u => u.Designation != null && u.Designation.Any(d =>
                       d.ToLower() == "seconding" || d.ToLower() == "advisor"));
         }
-        public async Task<IEnumerable<Unit>> GetAllFullAsync() {
+        public async Task<IEnumerable<Unit>> GetAllFullAsync(bool includeTesting = false) {
             return await _context.Units
-                .Where(u => u.DeletedAt == null && u.Status == 0)
+                .Where(u => u.DeletedAt == null && (u.Status == 0 || (includeTesting && u.Status == 1)))
                 .Include(u => u.UnitUnitSpecialAbilities)
                     .ThenInclude(uusa => uusa.UnitSpecialAbility)
                 .Include(u => u.UnitWeapon)
@@ -64,16 +64,16 @@ namespace Infrastructure.Repositories {
                             .ThenInclude(wwsa => wwsa.WeaponSpecialAbility)
                 .ToListAsync();
         }
-        public async Task<List<string>> GetAvailableFactionsAsync() {
-            return await _context.Units.Where(u => u.DeletedAt == null && u.Status ==0)
+        public async Task<List<string>> GetAvailableFactionsAsync(bool includeTesting = false) {
+            return await _context.Units.Where(u => u.DeletedAt == null && (u.Status == 0 || (includeTesting && u.Status == 1)))
                 .Select(u => u.Faction)
                 .Distinct()
                 .OrderBy(f => f)
                 .ToListAsync();
         }
 
-        public async Task<List<Unit>> GetUnitsByFactionAsync(string faction) {
-            return await _context.Units.Where(u => u.DeletedAt == null && u.Status == 0 && u.Faction == faction)
+        public async Task<List<Unit>> GetUnitsByFactionAsync(string faction, bool includeTesting = false) {
+            return await _context.Units.Where(u => u.DeletedAt == null && (u.Status == 0 || (includeTesting && u.Status == 1)) && u.Faction == faction)
                 .ToListAsync();
         }
         public async Task<Unit> GetUnitTrackedAsync(Guid unitId) {

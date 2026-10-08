@@ -32,8 +32,8 @@ watch(() => props.modelValue, (val) => selected.value = [...val]);
         :key="ability.id"
         type="button"
         @click="toggleAbility(ability)"
-        :class="selected.find(a => a.id === ability.id) ? 'bg-blue-500 text-white' : 'bg-gray-200'"
-        class="px-2 py-1 rounded"
+        :class="{ 'is-selected': selected.find(a => a.id === ability.id) }"
+        class="faction-choice px-2 py-1 rounded"
       >
         {{ ability.name }}
       </button>

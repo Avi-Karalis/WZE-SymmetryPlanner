@@ -15,16 +15,18 @@ namespace WZE_Symmetry_Planner.Controllers {
             _service = service;
         }
 
+        private bool CanSeeTestingUnits => User.IsInRole("Admin") || User.IsInRole("SuperAdmin");
+
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(await _service.GetAllFullAsync());
+        public async Task<IActionResult> GetAll() => Ok(await _service.GetAllFullAsync(CanSeeTestingUnits));
         [HttpGet("by-faction/{faction}")]
-        public async Task<IActionResult> GetByFactionAll(string faction) => Ok(await _service.GetAllByFactionAsync(faction));
+        public async Task<IActionResult> GetByFactionAll(string faction) => Ok(await _service.GetAllByFactionAsync(faction, CanSeeTestingUnits));
         [HttpGet("allies/{allegianceType}")]
-        public async Task<IActionResult> GetAllies(int allegianceType) => Ok(await _service.GetAlliesAsync(allegianceType));
+        public async Task<IActionResult> GetAllies(int allegianceType) => Ok(await _service.GetAlliesAsync(allegianceType, CanSeeTestingUnits));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id) {
-            var unit = await _service.GetFullByIdAsync(id);
+            var unit = await _service.GetFullByIdAsync(id, CanSeeTestingUnits);
             if (unit == null) return NotFound();
             return Ok(unit);
         }

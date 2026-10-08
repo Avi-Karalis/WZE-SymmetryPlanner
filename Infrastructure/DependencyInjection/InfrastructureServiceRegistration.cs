@@ -10,7 +10,7 @@ namespace Infrastructure.DependencyInjection;
 public static class InfrastructureServiceRegistration {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) {
         services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Infrastructure")).EnableSensitiveDataLogging()
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Infrastructure"))
         );
 
         return services;

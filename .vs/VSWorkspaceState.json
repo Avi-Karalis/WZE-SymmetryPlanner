@@ -1,7 +1,14 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Application",
+    "\\Application\\Interfaces",
+    "\\Application\\Services",
+    "\\Domain",
+    "\\Infrastructure\\Migrations",
+    "\\WZE-Symmetry-Planner",
+    "\\WZE-Symmetry-Planner\\Controllers"
   ],
-  "SelectedNode": "\\WZE-Symmetry-Planner.sln",
+  "SelectedNode": "\\Application\\Services\\UserService.cs",
   "PreviewInSolutionExplorer": false
 }

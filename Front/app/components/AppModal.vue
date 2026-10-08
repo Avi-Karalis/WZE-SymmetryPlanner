@@ -7,7 +7,7 @@
         <div class="modal-box" :class="maxWidth">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-lg font-bold">{{ title }}</h2>
-                <button type="button" class="text-gray-400 hover:text-gray-900 dark:hover:text-white text-xl leading-none" @click="$emit('close')">&times;</button>
+                <button type="button" class="theme-icon-button text-gray-400 hover:text-gray-900 dark:hover:text-white text-xl leading-none" @click="$emit('close')">&times;</button>
             </div>
             <slot />
         </div>

@@ -19,6 +19,7 @@
                 <div class="flex items-start justify-between gap-2 mb-2">
                     <div>
                         <NuxtLink :to="`/units/${u.id}`" class="text-blue-400 hover:underline font-semibold text-sm">{{ u.faction }} {{ u.unitType }}</NuxtLink>
+                        <span v-if="isAdmin && u.status === 1" class="ml-2 text-xs text-amber-600 dark:text-amber-400">Testing</span>
                         <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ u.designation?.join(', ') }}</div>
                     </div>
                     <div class="flex gap-1 shrink-0">
@@ -64,6 +65,7 @@
                     <tr v-for="u in filteredUnits" :key="u.id" class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800">
                         <td class="px-3 py-2">
                             <NuxtLink :to="`/units/${u.id}`" class="text-blue-400 hover:underline font-medium">{{ u.faction }} {{ u.unitType }}</NuxtLink>
+                            <span v-if="isAdmin && u.status === 1" class="ml-2 text-xs text-amber-600 dark:text-amber-400">Testing</span>
                         </td>
                         <td class="px-3 py-2 text-xs text-gray-600 dark:text-gray-300">{{ u.designation?.join(', ') }}</td>
                         <td class="px-3 py-2 text-center">{{ u.dpCost }}</td>

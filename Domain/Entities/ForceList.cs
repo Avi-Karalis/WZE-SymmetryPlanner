@@ -7,7 +7,7 @@ namespace Domain.Entities {
         public Allegiance Allegiance { get; set; }
         public sbyte MaxDp { get; set; }
         public sbyte MaxSp { get; set; }
-        public sbyte? CurrentDp { get; set; }
+        public int? CurrentDp { get; set; }
         public sbyte? CurrentSp { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
@@ -158,7 +158,8 @@ namespace Domain.Entities {
         }
 
         private void ValidateDeploymentPoints(List<string> errors) {
-            int totalDP = Units.Sum(u => u.DPCost);
+            int totalDP = Units.Sum(u => u.DPCost)
+                + ForceListAssets.Sum(fla => fla.Asset?.DpCost ?? 0);
             if (totalDP > MaxDp)
                 errors.Add($"Deployment Point limit exceeded: {totalDP}/{MaxDp} DP used.");
         }

@@ -5,16 +5,16 @@
         <!-- Tab nav -->
         <div class="flex gap-2 mb-6 border-b border-gray-300 dark:border-gray-700">
             <button
-                class="px-4 py-2 text-sm font-medium transition-colors"
-                :class="tab === 'deleted' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'"
+                class="admin-tab px-4 py-2 text-sm font-medium transition-colors"
+                :class="{ 'is-active': tab === 'deleted', 'border-b-2 border-blue-500 text-blue-500': tab === 'deleted', 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300': tab !== 'deleted' }"
                 @click="tab = 'deleted'"
             >
                 Deleted Lists
             </button>
             <button
                 v-if="isSuperAdmin"
-                class="px-4 py-2 text-sm font-medium transition-colors"
-                :class="tab === 'users' ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'"
+                class="admin-tab px-4 py-2 text-sm font-medium transition-colors"
+                :class="{ 'is-active': tab === 'users', 'border-b-2 border-blue-500 text-blue-500': tab === 'users', 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300': tab !== 'users' }"
                 @click="switchToUsers"
             >
                 Users

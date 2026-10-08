@@ -8,10 +8,19 @@
         <form @submit.prevent="saveUnit" class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 sm:p-6">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <FormField label="Faction" :required="true">
-                    <input v-model="form.faction" class="field-input" required />
+                    <select v-model="form.faction" class="field-input" :disabled="loadingFactions || factions.length === 0" required>
+                        <option value="" disabled>Select a faction...</option>
+                        <option v-for="faction in factions" :key="faction" :value="faction">{{ faction }}</option>
+                    </select>
                 </FormField>
                 <FormField label="Unit Type" :required="true">
                     <input v-model="form.unitType" class="field-input" required />
+                </FormField>
+                <FormField label="Unit Status" :required="true">
+                    <select v-model.number="form.status" class="field-input" required>
+                        <option :value="0">Public</option>
+                        <option :value="1">Playtest</option>
+                    </select>
                 </FormField>
                 <FormField label="Designations (comma-separated)" :required="true" class="sm:col-span-2">
                     <input v-model="designationInput" class="field-input" placeholder="e.g. Trooper, Leader" required />
@@ -58,9 +67,12 @@
                     </div>
                 </FormField>
             </div>
+            <div v-if="loadingFactions" class="text-sm text-gray-500 dark:text-gray-400 mt-3">Loading factions...</div>
+            <div v-else-if="factionsError" class="text-sm text-red-500 mt-3">{{ factionsError }}</div>
+            <div v-else-if="factions.length === 0" class="text-sm text-gray-500 dark:text-gray-400 mt-3">No factions are available.</div>
             <div class="flex justify-end gap-3 mt-6">
                 <NuxtLink to="/units" class="btn-secondary">Cancel</NuxtLink>
-                <button type="submit" class="btn-primary" :disabled="saving">{{ saving ? 'Saving...' : 'Create Unit' }}</button>
+                <button type="submit" class="btn-primary" :disabled="saving || loadingFactions || factions.length === 0">{{ saving ? 'Saving...' : 'Create Unit' }}</button>
             </div>
         </form>
     </div>
@@ -73,14 +85,19 @@ const router = useRouter()
 const { create } = useUnits()
 const { weapons: allWeapons, fetchAll: fetchWeapons } = useWeapons()
 const { abilities: allUnitAbilities, fetchAll: fetchUnitAbilities } = useUnitSpecialAbilities()
+const { getFactions } = useForceLists()
 
 const saving = ref(false)
+const factions = ref([])
+const loadingFactions = ref(true)
+const factionsError = ref('')
 const designationInput = ref('')
 const factionAvailInput = ref('')
 
 const form = ref({
     faction: '',
     unitType: '',
+    status: 0,
     designation: [],
     designationTypeLimit: '',
     designationLimitValue: 0,
@@ -115,7 +132,18 @@ function abilityLabel(a) {
 }
 
 onMounted(async () => {
-    await Promise.all([fetchWeapons(), fetchUnitAbilities()])
+    try {
+        const [, , availableFactions] = await Promise.all([
+            fetchWeapons(),
+            fetchUnitAbilities(),
+            getFactions(),
+        ])
+        factions.value = availableFactions
+    } catch (e) {
+        factionsError.value = e.response?.data || e.message || 'Failed to load factions'
+    } finally {
+        loadingFactions.value = false
+    }
 })
 
 async function saveUnit() {

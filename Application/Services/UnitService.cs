@@ -22,17 +22,17 @@ namespace Application.Services {
             _weaponService = weaponService;
             _mapper = mapper;
         }
-        public async Task<UnitReadDto> GetFullByIdAsync(Guid id) {
-            return _mapper.Map<UnitReadDto>(await _unitRepository.GetFullByIdAsync(id));
+        public async Task<UnitReadDto> GetFullByIdAsync(Guid id, bool includeTesting = false) {
+            return _mapper.Map<UnitReadDto>(await _unitRepository.GetFullByIdAsync(id, includeTesting));
         }
-        public async Task<IEnumerable<UnitReadDto>> GetAllByFactionAsync(string faction) {
-            return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAllByFactionAsync(faction));
+        public async Task<IEnumerable<UnitReadDto>> GetAllByFactionAsync(string faction, bool includeTesting = false) {
+            return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAllByFactionAsync(faction, includeTesting));
         }
-        public async Task<IEnumerable<UnitReadDto>> GetAlliesAsync(int allegianceType) {
-            return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAlliesAsync(allegianceType));
+        public async Task<IEnumerable<UnitReadDto>> GetAlliesAsync(int allegianceType, bool includeTesting = false) {
+            return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAlliesAsync(allegianceType, includeTesting));
         }
-        public async Task<IEnumerable<UnitReadDto>> GetAllFullAsync() {
-            return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAllFullAsync());
+        public async Task<IEnumerable<UnitReadDto>> GetAllFullAsync(bool includeTesting = false) {
+            return _mapper.Map<IEnumerable<UnitReadDto>>(await _unitRepository.GetAllFullAsync(includeTesting));
         }
 
         public override async Task<UnitReadDto> CreateAsync(UnitCreateDto unitDto) {
@@ -80,18 +80,18 @@ namespace Application.Services {
         }
 
 
-        public async Task<List<string>> GetAvailableFactionsAsync() {
-            return await _unitRepository.GetAvailableFactionsAsync();
+        public async Task<List<string>> GetAvailableFactionsAsync(bool includeTesting = false) {
+            return await _unitRepository.GetAvailableFactionsAsync(includeTesting);
         }
-        public async Task<List<Unit>> GetUnitsByFactionAsync(string faction) {
-            return await _unitRepository.GetUnitsByFactionAsync(faction);
+        public async Task<List<Unit>> GetUnitsByFactionAsync(string faction, bool includeTesting = false) {
+            return await _unitRepository.GetUnitsByFactionAsync(faction, includeTesting);
         }
 
         public async Task<Unit> GetUnitTrackedAsync(Guid unitId) => await _unitRepository.GetUnitTrackedAsync(unitId);
 
         public override async Task<UnitReadDto> UpdateAsync(Guid id, UnitUpdateDto dto) {
             // Fetch tracked unit with all relationships loaded
-            var unit = await _unitRepository.GetFullByIdAsync(id);
+            var unit = await _unitRepository.GetFullByIdAsync(id, includeTesting: true);
 
             // Update scalar properties
             unit.Faction = dto.Faction;

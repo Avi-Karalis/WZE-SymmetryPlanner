@@ -54,8 +54,8 @@ public class MappingProfile : Profile {
             .ForCtorParam("maxSp", opt =>
                 opt.MapFrom(src =>
                     src.ForceListUnits
-                        .Where(flu => flu.Unit != null && flu.Unit.SPCost < 0)
-                        .Sum(flu => Math.Abs((int)flu.Unit.SPCost))
+                        .Where(flu => flu.Unit != null && flu.Unit.SPCost > 0)
+                        .Sum(flu => (int)flu.Unit.SPCost)
                 ))
 
             .ForMember(dest => dest.Assets, opt => opt.MapFrom(src =>

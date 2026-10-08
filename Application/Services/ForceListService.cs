@@ -43,11 +43,11 @@ namespace Application.Services
             var forceList = await _forceListRepository.GetByIdWithUnitsAsync(id);
             return _mapper.Map<ForceListReadDto>(forceList);
         }
-        public Task<List<string>> GetAvailableFactionsAsync()
-            => _unitService.GetAvailableFactionsAsync();
+        public Task<List<string>> GetAvailableFactionsAsync(bool includeTesting = false)
+            => _unitService.GetAvailableFactionsAsync(includeTesting);
 
-        public Task<List<Unit>> GetUnitsForFactionAsync(string faction)
-            => _unitService.GetUnitsByFactionAsync(faction);
+        public Task<List<Unit>> GetUnitsForFactionAsync(string faction, bool includeTesting = false)
+            => _unitService.GetUnitsByFactionAsync(faction, includeTesting);
 
         public async Task<List<AssetReadDTO>> GetAssetsForFactionAsync(string faction)
         {
@@ -61,6 +61,8 @@ namespace Application.Services
             await _forceListRepository.AddAsync(forceList);
             return forceList.Id;
         }
+        public Task<Guid?> GetOwnerIdAsync(Guid forceListId)
+            => _forceListRepository.GetOwnerIdAsync(forceListId);
         private static (sbyte usedSp, sbyte maxSp) CalculateSp(IEnumerable<ForceListUnit> units)
         {
             int maxSp = units
@@ -73,10 +75,18 @@ namespace Application.Services
 
             return ((sbyte)usedSp, (sbyte)maxSp);
         }
-        public async Task AddUnitAsync(Guid forceListId, Guid unitId)
+        private static int CalculateDp(ForceList forceList)
+        {
+            return forceList.ForceListUnits.Sum(f => f.Unit?.DPCost ?? 0)
+                + forceList.ForceListAssets.Sum(f => f.Asset?.DpCost ?? 0);
+        }
+        public async Task<bool> AddUnitAsync(Guid forceListId, Guid unitId, bool includeTesting = false)
         {
             var forceList = await _forceListRepository.GetByIdWithUnitsAsync(forceListId);
-            var unit = await _unitService.GetEntityByIdAsync(unitId);
+            var unit = await _unitService.GetUnitTrackedAsync(unitId);
+
+            if (unit.Status != 0 && !(includeTesting && unit.Status == 1))
+                return false;
 
             forceList.ForceListUnits.Add(new ForceListUnit
             {
@@ -85,7 +95,7 @@ namespace Application.Services
                 Unit = unit
             });
 
-            forceList.CurrentDp = (sbyte)forceList.ForceListUnits.Sum(f => f.Unit?.DPCost ?? 0);
+            forceList.CurrentDp = CalculateDp(forceList);
 
             var (usedSp, maxSp) = CalculateSp(forceList.ForceListUnits);
 
@@ -96,6 +106,7 @@ namespace Application.Services
             forceList.UpdatedAt = DateTime.UtcNow;
 
             await _forceListRepository.SaveAsync();
+            return true;
         }
 
         public async Task RemoveUnitAsync(Guid forceListId, Guid unitId)
@@ -109,7 +120,7 @@ namespace Application.Services
 
             forceList.ForceListUnits.Remove(flu);
 
-            forceList.CurrentDp = (sbyte)forceList.ForceListUnits.Sum(f => f.Unit?.DPCost ?? 0);
+            forceList.CurrentDp = CalculateDp(forceList);
 
             var (usedSp, maxSp) = CalculateSp(forceList.ForceListUnits);
 
@@ -131,7 +142,7 @@ namespace Application.Services
                 AssetId = assetId,
                 Asset = asset
             });
-            forceList.CurrentDp = (sbyte)(forceList.CurrentDp + (asset?.DpCost ?? 0));
+            forceList.CurrentDp = CalculateDp(forceList);
             forceList.UpdatedAt = DateTime.UtcNow;
             await _forceListRepository.SaveAsync();
         }
@@ -143,7 +154,7 @@ namespace Application.Services
             if (fla == null)
                 return;
             forceList.ForceListAssets.Remove(fla);
-            forceList.CurrentDp = (sbyte)(forceList.CurrentDp - (fla.Asset?.DpCost ?? 0));
+            forceList.CurrentDp = CalculateDp(forceList);
             forceList.UpdatedAt = DateTime.UtcNow;
             await _forceListRepository.SaveAsync();
         }

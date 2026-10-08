@@ -23,3 +23,83 @@ body {
 /* Form fields */
 .field-label { @apply block text-xs text-gray-500 dark:text-gray-400 mb-1; }
 .field-input { @apply w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-blue-500; }
+
+html[data-faction-theme] body {
+  background-color: var(--theme-background);
+  color: var(--theme-text);
+}
+
+html[data-faction-theme] .bg-white,
+html[data-faction-theme] .bg-gray-100 { background-color: var(--theme-surface); }
+html[data-faction-theme] .bg-gray-200,
+html[data-faction-theme] .bg-gray-300 { background-color: var(--theme-surface-alt); }
+html[data-faction-theme] .text-gray-900,
+html[data-faction-theme] .text-gray-800,
+html[data-faction-theme] .text-gray-700 { color: var(--theme-text); }
+html[data-faction-theme] .text-gray-600,
+html[data-faction-theme] .text-gray-500,
+html[data-faction-theme] .text-gray-400 { color: var(--theme-muted-text); }
+html[data-faction-theme] .border-gray-300,
+html[data-faction-theme] .border-gray-200,
+html[data-faction-theme] .border-gray-100,
+html[data-faction-theme] .border-gray-700,
+html[data-faction-theme] .border-gray-600 { border-color: var(--theme-border); }
+html[data-faction-theme] .btn-primary {
+  background-color: var(--theme-primary);
+  color: #fff;
+}
+html[data-faction-theme] .btn-primary:hover { background-color: var(--theme-accent); }
+html[data-faction-theme] .btn-secondary {
+  background-color: var(--theme-surface-alt);
+  color: var(--theme-text);
+}
+html[data-faction-theme] .btn-secondary:hover { background-color: var(--theme-border); }
+html[data-faction-theme] .btn-danger {
+  background-color: var(--theme-accent);
+  color: var(--theme-text);
+}
+html[data-faction-theme] .btn-danger:hover { background-color: var(--theme-primary); }
+html[data-faction-theme] .btn-validate {
+  background-color: var(--theme-primary);
+  color: #fff;
+}
+html[data-faction-theme] .btn-validate:hover { background-color: var(--theme-accent); }
+html[data-faction-theme] button:not(.btn-primary):not(.btn-secondary):not(.btn-danger):not(.btn-validate):not(.faction-choice):not(.admin-tab):not(.text-red-500) {
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+html[data-faction-theme] button:not(.btn-primary):not(.btn-secondary):not(.btn-danger):not(.btn-validate):not(.faction-choice):not(.admin-tab):not(.text-red-500):hover {
+  color: var(--theme-primary);
+}
+html[data-faction-theme] button.text-red-500 { color: var(--theme-accent); }
+html[data-faction-theme] button.text-red-500:hover { color: var(--theme-primary); }
+html[data-faction-theme] .theme-icon-button:hover { background-color: var(--theme-surface-alt); color: var(--theme-primary); }
+html[data-faction-theme] .faction-choice { background-color: var(--theme-surface-alt); color: var(--theme-text); }
+html[data-faction-theme] .faction-choice:hover { background-color: var(--theme-border); }
+html[data-faction-theme] .faction-choice.is-selected { background-color: var(--theme-primary); color: #fff; }
+html[data-faction-theme] .faction-choice.is-selected:hover { background-color: var(--theme-accent); }
+html[data-faction-theme] .admin-tab.is-active { border-color: var(--theme-primary); color: var(--theme-primary); }
+html[data-faction-theme] .theme-switch .slider { background-color: var(--theme-surface-alt); }
+html[data-faction-theme] .theme-switch input:checked + .slider { background-color: var(--theme-primary); }
+html[data-faction-theme] .theme-switch .slider::after,
+html[data-faction-theme] .theme-switch .slider::before { background-color: var(--theme-surface); }
+html[data-faction-theme] .field-input:focus { border-color: var(--theme-primary); }
+html[data-faction-theme] .nav-link.active,
+html[data-faction-theme] .mobile-nav-link.active { color: var(--theme-primary); }
+
+html.dark[data-faction-theme] .dark\:bg-gray-950 { background-color: var(--theme-background); }
+html.dark[data-faction-theme] .dark\:bg-gray-900,
+html.dark[data-faction-theme] .dark\:bg-gray-800 { background-color: var(--theme-surface); }
+html.dark[data-faction-theme] .dark\:bg-gray-700,
+html.dark[data-faction-theme] .dark\:bg-gray-600 { background-color: var(--theme-surface-alt); }
+html.dark[data-faction-theme] .dark\:text-gray-100,
+html.dark[data-faction-theme] .dark\:text-white,
+html.dark[data-faction-theme] .dark\:text-gray-200 { color: var(--theme-text); }
+html.dark[data-faction-theme] .dark\:text-gray-300,
+html.dark[data-faction-theme] .dark\:text-gray-400 { color: var(--theme-muted-text); }
+html.dark[data-faction-theme] .dark\:border-gray-700,
+html.dark[data-faction-theme] .dark\:border-gray-600 { border-color: var(--theme-border); }
+html.dark[data-faction-theme] .btn-primary,
+html.dark[data-faction-theme] .btn-validate,
+html.dark[data-faction-theme] .faction-choice.is-selected { color: var(--theme-text); }
+html.dark[data-faction-theme] .btn-danger,
+html.dark[data-faction-theme] .faction-choice.is-selected:hover { color: var(--theme-text); }

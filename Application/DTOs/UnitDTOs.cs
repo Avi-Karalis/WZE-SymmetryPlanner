@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace Application.DTOs;
 public class UnitReadDto {
     public Guid Id { get; set; }
@@ -44,6 +46,8 @@ public class UnitCreateDto {
     public sbyte PW { get; set; }
     public sbyte LD { get; set; }
     public sbyte Base { get; set; }
+    [Range(0, 1)]
+    public sbyte Status { get; set; } = 0;
 
     public IEnumerable<Guid>? UnitSpecialAbilityIds { get; set; }
     public IEnumerable<Guid>? WeaponIds { get; set; }

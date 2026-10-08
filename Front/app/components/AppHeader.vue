@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
-
+import logoUrl from '@/../assets/images/wzesymmetryplanner.png';
 const route = useRoute();
 const { user, logout, isLoggedIn, isAdmin, isSuperAdmin } = useAuth();
 
@@ -14,10 +14,9 @@ watch(() => route.path, () => { menuOpen.value = false });
 <template>
   <header class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow border-b border-gray-200 dark:border-gray-700 relative z-40">
     <nav class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-4">
-      <!-- App title -->
-      <div class="text-base sm:text-xl font-bold tracking-wide shrink-0">
-        WZE Symmetry Planner
-      </div>
+      <NuxtLink to="/" class="shrink-0" aria-label="WZE Symmetry Planner home">
+        <img :src="logoUrl" alt="Mutant Chronicles Warzone Eternal Symmetry Planner" class="h-10 w-auto max-w-[150px] object-contain sm:max-w-[190px]" />
+      </NuxtLink>
 
       <!-- Desktop nav links -->
       <div class="hidden md:flex gap-5 flex-1 justify-center">
@@ -32,6 +31,7 @@ watch(() => route.path, () => { menuOpen.value = false });
 
       <!-- Right side: dark mode + user + hamburger -->
       <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <FactionThemePicker class="hidden sm:flex" />
         <Switch />
         <template v-if="isLoggedIn && user">
           <img
@@ -53,7 +53,7 @@ watch(() => route.path, () => { menuOpen.value = false });
 
         <!-- Hamburger button (mobile) -->
         <button
-          class="md:hidden p-2 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          class="theme-icon-button md:hidden p-2 rounded text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
           aria-label="Toggle menu"
           @click="menuOpen = !menuOpen"
         >
@@ -73,6 +73,9 @@ watch(() => route.path, () => { menuOpen.value = false });
       class="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 px-4 pb-4"
     >
       <div class="flex flex-col gap-1 pt-2">
+        <div class="pb-2">
+          <FactionThemePicker />
+        </div>
         <NuxtLink to="/force-lists" class="mobile-nav-link" :class="{ active: isActive('/force-lists') }">Force Lists</NuxtLink>
         <NuxtLink to="/units" class="mobile-nav-link" :class="{ active: isActive('/units') }">Units</NuxtLink>
         <NuxtLink to="/assets" class="mobile-nav-link" :class="{ active: isActive('/assets') }">Assets</NuxtLink>

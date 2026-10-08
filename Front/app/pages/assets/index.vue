@@ -76,7 +76,10 @@
             <form @submit.prevent="saveAsset">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <FormField label="Faction" :required="true">
-                        <input v-model="form.faction" class="field-input" required />
+                        <select v-model="form.faction" class="field-input" :disabled="loadingFactions || factions.length === 0" required>
+                            <option value="" disabled>Select a faction...</option>
+                            <option v-for="faction in availableFormFactions" :key="faction" :value="faction">{{ faction }}</option>
+                        </select>
                     </FormField>
                     <FormField label="Name" :required="true">
                         <input v-model="form.name" class="field-input" required />
@@ -88,9 +91,12 @@
                         <textarea v-model="form.description" class="field-input" rows="3" />
                     </FormField>
                 </div>
+                <div v-if="loadingFactions" class="text-sm text-gray-500 dark:text-gray-400 mt-3">Loading factions...</div>
+                <div v-else-if="factionsError" class="text-sm text-red-500 mt-3">{{ factionsError }}</div>
+                <div v-else-if="factions.length === 0" class="text-sm text-gray-500 dark:text-gray-400 mt-3">No factions are available.</div>
                 <div class="flex justify-end gap-3 mt-5">
                     <button type="button" class="btn-secondary" @click="closeModal">Cancel</button>
-                    <button type="submit" class="btn-primary" :disabled="saving">
+                    <button type="submit" class="btn-primary" :disabled="saving || loadingFactions || factions.length === 0">
                         {{ saving ? 'Saving...' : 'Save' }}
                     </button>
                 </div>
@@ -112,12 +118,16 @@ import { ref, computed, onMounted } from 'vue'
 
 const { isAdmin } = useAuth()
 const { assets, loading, error, fetchAll, create, update, remove } = useAssets()
+const { getFactions } = useForceLists()
 
 const filterText = ref('')
 const editTarget = ref(null)
 const deleteTarget = ref(null)
 const saving = ref(false)
 const isCreating = ref(false)
+const factions = ref([])
+const loadingFactions = ref(true)
+const factionsError = ref('')
 
 const filteredAssets = computed(() => {
     if (!filterText.value) return assets.value
@@ -131,7 +141,26 @@ const filteredAssets = computed(() => {
 const emptyForm = () => ({ faction: '', name: '', dpCost: 0, description: '' })
 const form = ref(emptyForm())
 
-onMounted(() => fetchAll())
+const availableFormFactions = computed(() => {
+    if (form.value.faction && !factions.value.includes(form.value.faction)) {
+        return [...factions.value, form.value.faction]
+    }
+    return factions.value
+})
+
+onMounted(async () => {
+    await Promise.all([fetchAll(), loadFactions()])
+})
+
+async function loadFactions() {
+    try {
+        factions.value = await getFactions()
+    } catch (e) {
+        factionsError.value = e.response?.data || e.message || 'Failed to load factions'
+    } finally {
+        loadingFactions.value = false
+    }
+}
 
 function startCreate() {
     isCreating.value = true

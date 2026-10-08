@@ -30,54 +30,7 @@ function toggle() {
 .slider {
   width: 42px;
   height: 22px;
-  background: #ccc;
-  border-radius: 999px;
-  position: relative;
-  transition: background 0.3s;
-}
-
-.slider::after {
-  content: '';
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 16px;
-  height: 16px;
-  background: white;
-  border-radius: 50%;
-  transition: transform 0.3s;
-}
-
-input:checked + .slider {
-  background: #4f46e5;
-}
-
-input:checked + .slider::after {
-  transform: translateX(20px);
-}
-
-.label {
-  font-size: 0.75rem;
-  color: currentColor;
-}
-</style>
-
-<style scoped>
-.theme-switch {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-}
-
-.theme-switch input {
-  display: none;
-}
-
-.slider {
-  width: 42px;
-  height: 22px;
-  background: #ccc;
+  background: var(--theme-surface-alt, #ccc);
   border-radius: 999px;
   position: relative;
   transition: background 0.3s;
@@ -90,13 +43,13 @@ input:checked + .slider::after {
   height: 18px;
   top: 2px;
   left: 2px;
-  background: white;
+  background: var(--theme-surface, white);
   border-radius: 50%;
   transition: transform 0.3s;
 }
 
 input:checked + .slider {
-  background: #4f46e5;
+  background: var(--theme-primary, #4f46e5);
 }
 
 input:checked + .slider::before {
